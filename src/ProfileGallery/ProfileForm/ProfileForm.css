@@ -1,0 +1,15 @@
+.ProfileFormAll{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile_content_all{
+    background-color: rgba(217,217,217, 0.4);
+    width: 95vw;
+    border-radius: 20px;
+    padding-top: 100px;
+    margin-top: -70px;
+    padding-bottom: 20px;
+}
