@@ -21,17 +21,17 @@ const Create = () => {
 
             <label>
                 <span>Univeristy Description</span>
-                <input type="text" />
+                <input type="text" id='uni_desc'/>
             </label>
 
             <label>
                 <span>Major(s)</span>
-                <input type="text" />
+                <input type="text" id='major'/>
             </label>
 
             <label>
                 <span>Minor(s)</span>
-                <input type="text" />
+                <input type="text" id='minor'/>
             </label>
 
             <label className="textarea">
