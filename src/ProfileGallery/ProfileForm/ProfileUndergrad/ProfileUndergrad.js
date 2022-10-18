@@ -1,47 +1,61 @@
-const Create = () => {
+const Create = ({handleChange,values}) => {
+
+    const {
+        undergrad_name,
+        under_GPA,
+        under_Major,
+        under_Minor,
+        grad_Name,
+        grad_GPA,
+        grad_Major,
+        grad_Area,
+        program_Name,
+        description,
+        ethnicity,
+        gender,
+        first_gen,
+        citizenship,
+        uni_applied,
+        program_name,
+        funding,
+        app_result,
+        app_decision
+    } = values;
     
     return(
         <section className="profile_grad profile_section">
 
-            
-
             <label>
                 <span>University name</span>
-                <select>
+                <select
+                onChange = {handleChange('undergrad_name')}
+                defaultValue = {values.undergrad_name}>
                     <option value={1}>Emory Univeristy</option>
                 </select>
             </label>
 
             <label>
                 <span>GPA</span>
-                <select>
+                <select
+                onChange = {handleChange('under_GPA')}
+                defaultValue = {values.under_GPA}>
                     <option value={1}>4.0</option>
                 </select>
             </label>
 
-            <label>
-                <span>Univeristy Description</span>
-                <input type="text" id='uni_desc'/>
-            </label>
 
             <label>
                 <span>Major(s)</span>
-                <input type="text" id='major'/>
+                <input type="text" id='major'
+                onChange = {handleChange('under_Major')}
+                defaultValue = {values.under_Major}/>
             </label>
 
             <label>
                 <span>Minor(s)</span>
-                <input type="text" id='minor'/>
-            </label>
-
-            <label className="textarea">
-                <span>Activities</span>
-                <textarea type="text" />
-            </label>
-
-            <label className="textarea">
-                <span>Volunteer Experience</span>
-                <textarea type="text"/>
+                <input type="text" id='minor'
+                onChange = {handleChange('under_Minor')}
+                defaultValue = {values.under_Minor}/>
             </label>
         </section>
     ); 

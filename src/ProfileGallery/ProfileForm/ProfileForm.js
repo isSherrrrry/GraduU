@@ -1,80 +1,183 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import ProfileHeader from './ProfileHeader'
 import './ProfileForm.css'
 
 import ProfileUndergradAll from './ProfileUndergrad/ProfileUndergradAll'
 import ProfileGradAll from './ProfileGrad/ProfileGradAll'
-import ProfileWorkAll from './ProfileWork/ProfileWorkAll'
 import ProfileUploadAll from './ProfileUpload/ProfileUploadAll'
-import ProfileAward from './ProfileAward/ProfileAwardAll'
 import ProfileDemo from './ProfileDemo/ProfileDemoAll'
 import ProfileRec from './ProfileRec/ProfileRecAll'
 import ProfileResults from './ProfileResults/ProfileResultAll'
-import ProfileResearch from './ProfileResearch/ProfileResearchAll'
 
+export default class Create extends Component  {
 
-const Create = () =>  {
+    state = {
+        step :1,
+        undergrad_name: '',
+        under_GPA: '',
+        under_Major: '',
+        under_Minor: '',
+        grad_Name: '',
+        grad_GPA: '',
+        grad_Major: '',
+        grad_Area: '',
+        program_Name: '',
+        description: '',
+        ethnicity: '',
+        gender: '',
+        first_gen: '',
+        citizenship:'',
+        uni_applied:'',
+        program_name:'',
+        funding:'',
+        app_result:'',
+        app_decision:''
+    }
+    
+    prevStep = () =>{
+        const {step} = this.state;
+        this.setState({step: step-1})
+    }
 
-    const [page, setPage] = useState(0);
+    nextStep = () =>{
+        const {step} = this.state;
+        this.setState({step: step+1}) 
+    }
 
-    const componentList = [
-        <ProfileUndergradAll 
-        page={page}
-        setPage={setPage}
-        />,
+    handleChange = input => e =>{
+        this.setState({[input]:e.target.value});
+    }
 
-        <ProfileGradAll 
-        page={page}
-        setPage={setPage}
-        />,
+    
+    render(){
 
-        <ProfileWorkAll 
-        page={page}
-        setPage={setPage}
-        />,
+        const {step} = this.state;
+        const {
+            undergrad_name,
+            under_GPA,
+            under_Major,
+            under_Minor,
+            grad_Name,
+            grad_GPA,
+            grad_Major,
+            grad_Area,
+            program_Name,
+            description,
+            ethnicity,
+            gender,
+            first_gen,
+            citizenship,
+            uni_applied,
+            program_name,
+            funding,
+            app_result,
+            app_decision
+        } = this.state;
+    
+        const values = {
+            undergrad_name,
+            under_GPA,
+            under_Major,
+            under_Minor,
+            grad_Name,
+            grad_GPA,
+            grad_Major,
+            grad_Area,
+            program_Name,
+            description,
+            ethnicity,
+            gender,
+            first_gen,
+            citizenship,
+            uni_applied,
+            program_name,
+            funding,
+            app_result,
+            app_decision
+        }
 
-        <ProfileResearch
-        page={page}
-        setPage={setPage}
-        />,
+        switch(step){
+            case 1:
+                return(
+                    <section className="ProfileFormAll">
+                        <ProfileHeader/>
+                        <ProfileUndergradAll 
+                        nextStep={this.nextStep}
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
 
-        <ProfileAward
-        page={page}
-        setPage={setPage}
-        />,
+            case 2:
+                return(
+                    <section className="ProfileFormAll">
+                        <ProfileHeader/>
+                        <ProfileGradAll
+                        prevStep = {this.prevStep} 
+                        nextStep={this.nextStep}
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
 
-        <ProfileRec
-        page={page}
-        setPage={setPage}
-        />,
+                
+            case 3:
+                return(
+                    <section className="ProfileFormAll">
+                        <ProfileHeader/>
+                        <ProfileRec
+                        prevStep = {this.prevStep} 
+                        nextStep={this.nextStep}
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
 
-        <ProfileDemo
-        page={page}
-        setPage={setPage}
-        />,
+            case 4:
+                return(
+                    <section className="ProfileFormAll">
+                        <ProfileHeader/>
+                        <ProfileDemo 
+                        prevStep = {this.prevStep} 
+                        nextStep={this.nextStep}
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
+            
+            case 5:
+                return(
+                    <section className="ProfileFormAll">
+                        <ProfileHeader/>
+                        <ProfileResults 
+                        prevStep = {this.prevStep} 
+                        nextStep={this.nextStep}
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
+            case 6:
+                return(
+                    <section className="ProfileUploadAll">
+                        <ProfileHeader/>
+                        <ProfileUploadAll 
+                        prevStep = {this.prevStep} 
+                        handleChange = {this.handleChange}
+                        values = {values}
+                        />
+                    </section>
+                )
+            default:
+        }
+    }
 
-        <ProfileResults
-        page={page}
-        setPage={setPage}
-        />,
-
-
-        <ProfileUploadAll
-        page={page}
-        setPage={setPage}
-        />
-    ]
-
-    return(
-        <section className="ProfileFormAll">
-            <ProfileHeader/>
-            <section className="profile_content_all">{componentList[page]}</section>
-        </section>
-    )
+    
 }
-
-export default Create;
-
 
 
 
