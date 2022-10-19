@@ -46,14 +46,14 @@ const Create = ({handleChange,values}) => {
 
             <label>
                 <span>Major(s)</span>
-                <input type="text" id='major'
+                <input type="text"
                 onChange = {handleChange('under_Major')}
                 defaultValue = {values.under_Major}/>
             </label>
 
             <label>
                 <span>Minor(s)</span>
-                <input type="text" id='minor'
+                <input type="text"
                 onChange = {handleChange('under_Minor')}
                 defaultValue = {values.under_Minor}/>
             </label>

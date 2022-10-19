@@ -1,7 +1,11 @@
-from flask import request
+from flask import request, render_template, redirect
 from flask import current_app as app
 
-@app.route("/submit")
-def read_input():
-    major = request.form.get('major')
-    return major
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        data = request.get_json()
+        print(data)
+        return "val"
+    elif request.method == 'GET':
+        return "temp text"

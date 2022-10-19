@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 const Create = ({ page, setPage }) => {
@@ -13,7 +14,7 @@ const Create = ({ page, setPage }) => {
 
 }
 
-function Default({page, setPage}) {
+function Default({ page, setPage }) {
     const navigate = useNavigate();
     return (
         <section className="profile_grad_all profile_section_all" >
@@ -26,13 +27,27 @@ function Default({page, setPage}) {
 
             <button onClick={() => { setPage(page - 1); }}>Previous</button><br />
 
-            <button onClick={() => { navigate('/submit'); }}>Submit</button>
+            <button onClick={() => { navigate('/submit'); send(); }}>Submit</button>
         </section >
     );
 
 }
 function Submit() {
     return <h2>Thanks for the submission!</h2>;
+}
+
+function send() {
+    fetch("http://127.0.0.1:5000",
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({ university: 'emory', gpa: '1.5' })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) })
 }
 
 export default Create;
