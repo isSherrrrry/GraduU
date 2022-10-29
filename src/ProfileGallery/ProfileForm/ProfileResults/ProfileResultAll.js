@@ -74,7 +74,10 @@ const Create = ({nextStep,prevStep,handleChange,values}) => {
                 <span>Funding</span>
                 <select onChange = {handleChange('funding')}
                 defaultValue = {values.funding}>
-                    <option value={1}>Fully Funded</option>
+                    <option>Select Funding</option>
+                    <option value={1}>No Funding</option>
+                    <option value={2}>Partial Funding</option>
+                    <option value={3}>Full Funding</option>
                 </select>
             </label>
 
@@ -82,7 +85,10 @@ const Create = ({nextStep,prevStep,handleChange,values}) => {
                 <span>Application Result</span>
                 <select onChange = {handleChange('app_result')}
                 defaultValue = {values.app_result}>
+                    <option>Select Result</option>
                     <option value={1}>Accepted</option>
+                    <option value={2}>Rejected</option>
+                    <option value={3}>Waitlisted</option>
                 </select>
             </label>
 
@@ -90,7 +96,9 @@ const Create = ({nextStep,prevStep,handleChange,values}) => {
                 <span>Decision</span>
                 <select onChange = {handleChange('app_decision')}
                 defaultValue = {values.app_decision}>
-                    <option value={1}>Not going</option>
+                    <option>Select Decision</option>
+                    <option value={1}>Accepted</option>
+                    <option value={2}>Declined</option>
                 </select>
             </label>
         </section>
