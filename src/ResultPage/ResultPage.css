@@ -1,0 +1,19 @@
+.result_whole{
+    display: flex;
+}
+.result_whole .left{
+    position: fixed;
+    width: 22vw;
+    background-color: rgb(240, 240, 240);
+    margin-left: 50px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+    text-align: left;
+}
+.result_whole .right{
+    width: 74vw;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-left: 34vw;
+}

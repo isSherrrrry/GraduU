@@ -1,0 +1,24 @@
+.navbar_whole{
+    width: 100vw;
+}
+.upper{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    background-color: rgba(46,180,236, 0.1);
+}
+.upper img{
+    width: 150px;
+}
+.upper p{
+    font-size: 15px;
+}
+.bottom{
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 15px;
+    font-style: italic;
+}
+.bottom span{
+    margin-left: 30px;
+}
