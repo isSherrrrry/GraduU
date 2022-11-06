@@ -21,7 +21,17 @@ export function ProfileFormAll(){
     var data = new FormData(event.target);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
-  }
+    fetch("http://127.0.0.1:5000/submit",
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(formObject)
+            })
+            .then((res) => { return res.json() })
+            .then((result) => {console.log(result)});
+    }
 
   return(
 
