@@ -29,8 +29,6 @@ export function ProfileFormAll(){
                 method: "POST",
                 body: JSON.stringify(formObject)
             })
-            .then((res) => { return res.json() })
-            .then((result) => {console.log(result)});
     }
 
   return(
@@ -38,7 +36,7 @@ export function ProfileFormAll(){
     <section className="profile_form_all">
     
     <NarBar />
-    <form onSubmit={formSubmit} class="ui form">
+    <form onSubmit={formSubmit} className="ui form">
       <ProfileHeader/>
 
       {/* Undergrad */}
