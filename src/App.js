@@ -5,13 +5,14 @@ import React, { Component, useState } from "react";
 import {ProfileFormAll} from './ProfileForm/ProfileFormFinal'
 import ProfileGalleryMain from './ProfileGalleryMain'
 import {SearchResult} from './SearchResult/SearchResult'
+import ResultPage from './ResultPage/ResultPage'
 
 
 function App() {
 
   return (
     <div className="App">
-      <SearchResult />
+      <ResultPage />
     </div>
   );
 }

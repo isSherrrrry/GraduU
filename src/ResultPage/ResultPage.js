@@ -3,13 +3,9 @@ import data from "../test"
 import classNames from 'classnames';
 
 import './ResultPage.css'
+import './ResultSection.css'
 import NavBar from '../NavBar/NavBar'
-import Demo from './Demographic/Demo'
-import Graduate from './EducationSection/Graduate'
-import Undergrad from './EducationSection/Undergrad'
-import Recommend from './Recommend/Recommendation'
-import Result from './ResultSections/ApplicationResults'
-import GenInfo from './GenInfo/GenInfo'
+
 
 
 function accept(input){
