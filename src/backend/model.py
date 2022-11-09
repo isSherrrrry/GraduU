@@ -6,17 +6,18 @@ Base = declarative_base()
 
 class goesto(Base):
     __tablename__ = "goes_to_table"
-    school_id = Column(ForeignKey("school.name"), primary_key=True)
-    profile_id = Column(ForeignKey("profile.id"), primary_key=True)
+    goesto_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    school = Column(String())
+    username = Column(ForeignKey("profile.username"))
     year = Column(Integer())
     major=Column(String())
     minor=Column(String())
     gpa=Column(Integer())
     degree=Column(String())
     profile = relationship('Profile')
-    def __init__(self, school_id, profile_id, year, major, minor, gpa, degree):
-        self.school_id=school_id
-        self.profile_id=profile_id
+    def __init__(self, school, username, year, major, minor, gpa, degree):
+        self.school = school
+        self.username=username
         self.year=year
         self.major=major
         self.minor=minor
@@ -25,18 +26,19 @@ class goesto(Base):
 
 class appliedto(Base):
     __tablename__ = "applied_to_table"
-    school_id = Column(ForeignKey("school.name"), primary_key=True)
-    profile_id = Column(ForeignKey("profile.id"), primary_key=True)
+    applied_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
+    username = Column(ForeignKey("profile.username"))
     year = Column(Integer())
+    university=Column(String())
     school=Column(String())
     program=Column(String())
     result=Column(String())
     funding=Column(String())
     decision=Column(String())
     profile=relationship('Profile')
-    def __init__(self, school_id, profile_id, year,school, program, result, funding, decision):
-        self.school_id=school_id
-        self.profile_id=profile_id
+    def __init__(self, university, username, year, school, program, result, funding, decision):
+        self.username=username
+        self.university = university
         self.year=year
         self.school=school
         self.program=program
@@ -44,32 +46,10 @@ class appliedto(Base):
         self.funding=funding
         self.decision=decision
 
-class School(Base):
-    __tablename__ = 'school'
-    name = Column(String(), primary_key=True)
-    state = Column(String())
-    city = Column(String())
-    info = Column(JSONB)
-    def __init__(self, name, state, city, info):
-        self.name=name
-        self.state=state
-        self.city=city
-        self.info=info
-
-class user_demo(Base):
-    __tablename__='user'
-    uid= Column(String(), primary_key=True)
-    pw= Column(String())
-    name=Column(String())
-    def __init__(self, uid, pw, name):
-        self.uid=uid
-        self.pw=pw
-        self.name=name
-
 class Profile(Base):
     __tablename__ = 'profile'
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    uid= Column(ForeignKey("user.uid"))
+    username= Column(String(), primary_key=True)
+    password= Column(String())
     ethnicity = Column(String())
     gender = Column(String())
     first_gen = Column(String())
@@ -79,10 +59,9 @@ class Profile(Base):
     cv= Column(String())
     goes_to=relationship('goesto')
     applied_to=relationship('appliedto')
-
-    def __init__(self, uid, ethnicity, gender, first_gen,country_of_ori,recom, sop,cv):
-        
-        self.uid = uid
+    def __init__(self, username, password, ethnicity, gender, first_gen,country_of_ori,recom, sop,cv):
+        self.username = username
+        self.password = password
         self.ethnicity = ethnicity
         self.gender = gender
         self.first_gen = first_gen
