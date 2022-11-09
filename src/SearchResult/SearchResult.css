@@ -1,0 +1,52 @@
+.searchresult{
+    width: 100vw;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBar_1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBar_1 input{
+    width: 75vw;
+    height: 30px;
+    padding: 20px;
+    border-radius: 40px;
+    font-size: 20px;
+    color:rgba(0,0,0,0.6);
+    font-style: italic;
+}
+.searchBar_1 img{
+    width: 30px;
+    margin-left: -60px;
+}
+
+.searchterm{
+    width: 75vw;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 800;
+}
+.searchresult_all{
+    width: 75vw;
+    margin-top: 10px;
+}
+.searchresult_each{
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 35px;
+    text-align: left;
+    font-size: 15px;
+}
+.search_tag{
+    background-color: antiquewhite;
+}

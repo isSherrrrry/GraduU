@@ -20,7 +20,7 @@
     color: transparent;
 }
 .searchBar *{
-    width: 800px;
+    width: 80vw;
     height: 30px;
     padding: 15px;
     border-radius: 40px;

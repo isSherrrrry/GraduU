@@ -12,8 +12,8 @@ const Create = () => {
                 </section>
 
                 <div className='searchBar'><input type="text" value = "Get to know aboput your fellow applicants!" /></div>
-                {/* <p>Want to submit your past application? Start HERE</p>
-                <p>Submit Profile</p> */}
+                <p>Want to submit your past application? Start HERE</p>
+                <p>Submit Profile</p>
             </section>
         </section>
     ); 

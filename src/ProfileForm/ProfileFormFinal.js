@@ -6,8 +6,6 @@ import './FormSection.css'
 import NarBar from '../NavBar/NavBar'
 
 
-
-
 export function ProfileFormAll(){
 
   const navigate = useNavigate();
