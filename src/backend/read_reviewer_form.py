@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask import current_app as app
 from backend.model import goesto, appliedto, Profile
 from flask_sqlalchemy import SQLAlchemy
@@ -10,13 +10,23 @@ engine = create_engine(DATABASE_URI, echo=True)
 
 @app.route("/")
 def index():
-    
-    return 'temp'
+    with Session(engine) as session:
+        goesto_schools = session.query(goesto).filter_by(username="Jenny Appleseed")
+        data_applied = {}
+        goesto_index = 1
+        for school in goesto_schools:
+            data_applied['under_uni_name_' + str(goesto_index)] = school.getSchool()
+            data_applied['under_gpa_' + str(goesto_index)] = school.getGPA()
+            data_applied['under_major_' + str(goesto_index)] = school.getMajor()
+            data_applied['under_minor_' + str(goesto_index)] = school.getMinor()
+            goesto_index += 1
+        print(data_applied)
+    return 't'
 
 @app.route("/submit", methods=['GET', 'POST'])
 def update_database():
     with Session(engine) as session:
-        test_username = "John Appleseed"
+        test_username = "Jenny Appleseed"
         data = request.get_json()
         demo_eth=data['demo_eth']
         demo_gender=data['demo_gender']
@@ -177,5 +187,52 @@ def update_database():
 @app.route("/profile/<username>", methods=['GET'])
 def generate_profile(username):
     with Session(engine) as session:
-        user_profile = session.execute(select(Profile).filter_by(name=username))
-    return ''
+        user_profile = session.query(Profile).filter_by(username=username)
+        applied_schools = session.query(appliedto).filter_by(username=username)
+        goesto_schools = session.query(goesto).filter_by(username=username)
+        data = {
+            ##
+            # The following fetches the data underneath the "Demographics," "Recommenders," and "SOP/CV" headers.
+            # The labels refer to which field is being fetched. Note that "citizenship" refers to country of origin.
+            ##
+            'ethnicity': user_profile[0].getEthnicity(),
+            'gender': user_profile[0].getGender(),
+            'firstgen': user_profile[0].getFirstGen(),
+            'citizenship': user_profile[0].getCOI(),
+            'recommender': user_profile[0].getRecommenders(),
+            'sop': user_profile[0].getSOP(),
+            'cv': user_profile[0].getCV()
+        }
+
+        goesto_index = 1
+        for school in goesto_schools:
+            ##
+            # The following fetches the data underneath the "Education" header.
+            # The field name refers to the university name. The field degree refers to the type of degree earned.
+            # The other fields are self explanatory.
+            ##
+            data['uni_name_' + str(goesto_index)] = school.getSchool()
+            data['uni_gpa_' + str(goesto_index)] = school.getGPA()
+            data['uni_major_' + str(goesto_index)] = school.getMajor()
+            data['uni_minor_' + str(goesto_index)] = school.getMinor()
+            data['uni_degree_' + str(goesto_index)] = school.getDegree()
+            goesto_index += 1
+       
+        applied_index = 1
+        for application in applied_schools:
+            ##
+            # The following fetches the data underneath the "Application Results" header.
+            # The field university refers to the university to which the applicant applied.
+            # The field school refers to the sub-school. "Result" refers to whether or not their application was accepted.
+            # Decision refers to whether or not they chose to attend that school.
+            # Finally, funding reflects their funding status.
+            ##
+            data['application_university_' + str(applied_index)] = application.getUniversity()
+            data['application_school_' + str(applied_index)] = application.getSchool()
+            data['application_program_' + str(applied_index)] = application.getProgram()
+            data['application_result_' + str(applied_index)] = application.getResult()
+            data['application_funding_' + str(applied_index)] = application.getFunding()
+            data['application_decision_' + str(applied_index)] = application.getDecision()
+            applied_index += 1
+
+    return jsonify(data)
