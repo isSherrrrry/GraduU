@@ -1,8 +1,8 @@
-from flask import request, jsonify
+from flask import request, jsonify, url_for, redirect
 from flask import current_app as app
 from backend.model import goesto, appliedto, Profile
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 DATABASE_URI =  'postgresql://postgres:admin@34.71.222.229:5432/profile_gallery' 
@@ -10,23 +10,24 @@ engine = create_engine(DATABASE_URI, echo=True)
 
 @app.route("/")
 def index():
-    with Session(engine) as session:
-        goesto_schools = session.query(goesto).filter_by(username="Jenny Appleseed")
-        data_applied = {}
-        goesto_index = 1
-        for school in goesto_schools:
-            data_applied['under_uni_name_' + str(goesto_index)] = school.getSchool()
-            data_applied['under_gpa_' + str(goesto_index)] = school.getGPA()
-            data_applied['under_major_' + str(goesto_index)] = school.getMajor()
-            data_applied['under_minor_' + str(goesto_index)] = school.getMinor()
-            goesto_index += 1
-        print(data_applied)
-    return 't'
+    
+    # with Session(engine) as session:
+    #     goesto_schools = session.query(goesto).filter_by(username="Jenny Appleseed")
+    #     data_applied = {}
+    #     goesto_index = 1
+    #     for school in goesto_schools:
+    #         data_applied['under_uni_name_' + str(goesto_index)] = school.getSchool()
+    #         data_applied['under_gpa_' + str(goesto_index)] = school.getGPA()
+    #         data_applied['under_major_' + str(goesto_index)] = school.getMajor()
+    #         data_applied['under_minor_' + str(goesto_index)] = school.getMinor()
+    #         goesto_index += 1
+    #     print(data_applied)
+    return redirect(url_for('generate_profile', username='JennyAppleseed'))
 
 @app.route("/submit", methods=['GET', 'POST'])
 def update_database():
     with Session(engine) as session:
-        test_username = "Jenny Appleseed"
+        test_username = "JennyAppleseed"
         data = request.get_json()
         demo_eth=data['demo_eth']
         demo_gender=data['demo_gender']
@@ -195,6 +196,7 @@ def generate_profile(username):
             # The following fetches the data underneath the "Demographics," "Recommenders," and "SOP/CV" headers.
             # The labels refer to which field is being fetched. Note that "citizenship" refers to country of origin.
             ##
+            'username': user_profile[0].getUsername(),
             'ethnicity': user_profile[0].getEthnicity(),
             'gender': user_profile[0].getGender(),
             'firstgen': user_profile[0].getFirstGen(),
@@ -235,4 +237,40 @@ def generate_profile(username):
             data['application_decision_' + str(applied_index)] = application.getDecision()
             applied_index += 1
 
+    data['final_choice'] = getFinalChoice(data)
+    print(data)
     return jsonify(data)
+
+@app.route("/search/<university>", methods=['GET'])
+def search(university):
+    data = {}
+    results = 0
+    with Session(engine) as session:
+        applied_schools = session.query(appliedto).filter_by(university=university)
+
+        applied_index = 0
+        for appliant in applied_schools:
+            data['application_university_' + str(applied_index)] = appliant.getUniversity()
+            data['application_school_' + str(applied_index)] = appliant.getSchool()
+            data['application_program_' + str(applied_index)] = appliant.getProgram()
+            applied_index += 1
+            results += 1
+    data['result_count'] = results
+    return jsonify(data)
+
+
+
+def getFinalChoice(data):
+    index = 1
+    finalChoice = ''
+    while index < 13:
+        query = data.get('application_decision_' + str(index))
+        print(query)
+        if query == "Accepted":
+            finalChoice = data['application_university_' + str(index)]
+            break
+        elif query is None:
+            break
+        else:
+            index += 1
+    return finalChoice

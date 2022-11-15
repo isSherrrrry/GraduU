@@ -43,7 +43,7 @@ export function ProfileFormAll(){
         <label>
             <span>University name</span>
             <select name="edu_uni_name_1" className="ui selection dropdown">
-                <option value={1} className="option">Emory Univeristy</option>
+                <option value={"Emory University"} className="option">Emory Univeristy</option>
             </select>
         </label>
 
@@ -102,7 +102,7 @@ export function ProfileFormAll(){
         <label>
             <span>University name</span>
             <select name="edu_uni_name_2" className="ui selection dropdown">
-                <option value={1} className="option">Emory Univeristy</option>
+                <option value={"Emory University"} className="option">Emory Univeristy</option>
             </select>
         </label>
 
@@ -299,7 +299,7 @@ export function ProfileFormAll(){
         <label>
             <span>University Applied</span>
             <select name="res_uni_1">
-                <option value={1}>Emory Univeristy</option>
+                <option value={"Emory University"}>Emory Univeristy</option>
             </select>
         </label>
 
@@ -348,7 +348,7 @@ export function ProfileFormAll(){
         <label>
             <span>University Applied</span>
             <select name="res_uni_2">
-                <option value={1}>Emory Univeristy</option>
+                <option value={"Emory University"}>Emory Univeristy</option>
             </select>
         </label>
 
