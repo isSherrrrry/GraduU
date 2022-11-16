@@ -18,7 +18,7 @@ function App() {
         <Route path="/search" element={<SearchResult/>} />
         <Route path="/form" element={<ProfileFormAll/>} />
         <Route path="/resultPage" element={<ResultPage />} />
-        <Route path="/ v" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         {/* <Route path='*' element={<ErrorPage />} */}
       </Routes>
     </Router>
