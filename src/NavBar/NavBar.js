@@ -9,7 +9,7 @@ const Create = () => {
         <section className='navbar_whole'>
             <section className='upper'>
                 <img src={require('./logo.png')}/>
-                <p>Log in / Sign Up</p>
+                <p onClick={()=> navigate('/login')}>Log in / Sign Up</p>
             </section>
             <section className='bottom'>
                 <span onClick={()=> navigate('/')}>Search Profile</span>
