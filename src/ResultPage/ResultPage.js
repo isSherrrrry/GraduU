@@ -132,7 +132,6 @@ export function ResultPage() {
 
   return (
     <>
-    <NavBar/>
 
     <section className="result_whole">
         <section className="left">
