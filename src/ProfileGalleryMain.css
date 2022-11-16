@@ -3,10 +3,11 @@
 .profile_all_with{
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 .profile_gallery_main{
-    margin-top: 40px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,9 +31,6 @@
     color: transparent;
     text-align: center;
 }
-.searchBar{
-    margin-top: 40px;
-}
 .searchBar *{
     width: 80vw;
     height: 30px;
@@ -41,14 +39,70 @@
     font-size: 20px;
     color:rgba(0,0,0,0.6);
     font-style: italic;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 2px solid rgba(0,0,0,0.7);
 }
 .want{
-    font-size: 23px;
+    font-size: 26px;
+    font-style: italic;
+    margin-top: 100px;
 }
 .main_submit{
-    width: 200px;
-    border: 1px solid red;
+    width: 300px;
     text-align: center;
     padding: 20px;
     border-radius: 20px;
+    background-color: rgba(148,172,210,1);
+    font-size: 25px;
+    font-weight: 1000;
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+}
+.main_submit:hover{
+    cursor: pointer;
+}
+.searchBarAll{
+    width: 85vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchMethod{
+    overflow: auto;
+    width: 80vw;
+    border: none;
+    text-align: center;
+    margin-top: 100px;
+}
+.searchMethod::selection{
+    border: none;
+    box-shadow: none;
+}
+*:focus {
+    outline: 0;
+    background: none;
+}
+
+.searchMethod option{
+    display:inline;
+    font-size: 20px;
+    font-weight: 800;
+    width: 0 !important;
+    
+}
+.searchMethod option:focus{
+    color: white;
+}
+.searchMethod option~option{
+    margin-left: 100px;
+}
+.submitButton{
+    width: 30px;
+    margin-left: -3vw;
+    margin-top: 3px;   
+}
+.submitButton img{
+    width: 40px;
+    
 }

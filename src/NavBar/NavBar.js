@@ -1,16 +1,19 @@
 import './NavBar.css'
+import { Route, useNavigate } from 'react-router-dom';
+
 const Create = () => {
+
+    const navigate = useNavigate();
     
     return(
         <section className='navbar_whole'>
             <section className='upper'>
                 <img src={require('./logo.png')}/>
-                <p>Log in / Sign Up</p>
+                <p onClick={()=> navigate('/login')}>Log in / Sign Up</p>
             </section>
             <section className='bottom'>
-                <span><u>Profile Gallery</u></span>
-                <span>Lab Search</span>
-                <span>Professor Search</span>
+                <span onClick={()=> navigate('/')}>Search Profile</span>
+                <span onClick={()=> navigate('/form')}>Submit Profile</span>
             </section>
         </section>
     ); 

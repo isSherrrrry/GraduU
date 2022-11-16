@@ -33,7 +33,6 @@ export function ProfileFormAll(){
 
     <section className="profile_form_all">
     
-    <NarBar />
     <form onSubmit={formSubmit} className="ui form">
       <ProfileHeader/>
 

@@ -1,0 +1,26 @@
+[
+	{
+		"id": 1,
+		"user": "eric",
+		"prev_uni": "University of Chicago",
+		"prev_major": "East Asian Study",
+		"curr_uni": "American College",
+		"curr_major": "Data Science",
+		"race": "White",
+		"gender": "gender fluid",
+		"sop": "",
+		"cv": "CV Avaliable"
+	},
+	{
+		"id": 2,
+		"user": "sherry",
+		"prev_uni": "Georgia State",
+		"prev_major": "Data Science",
+		"curr_uni": "Harvard",
+		"curr_major": "East Asian Study",
+		"race": "Asian",
+		"gender": "Male",
+		"sop": "Statement of Purpose Avaliable",
+		"cv": ""
+	}
+]
