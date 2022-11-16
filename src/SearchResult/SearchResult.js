@@ -6,6 +6,17 @@ import { Route, useNavigate } from 'react-router-dom';
 
 export function SearchResult(){
     const navigate = useNavigate();
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+      fetch('test.json')
+        .then((res) => res.json())
+        .then((res) => {
+          setPosts(res);
+          console.log(posts);
+          console.log("HERE!");
+        })
+    }, [])
 
     return(
         <section className="searchresult">
@@ -16,54 +27,37 @@ export function SearchResult(){
                     <option value={"by_major"}>Search By Major</option>
                 </select>
                 <div className='searchBarAll_1'>
-                    <div className='searchBar_1'><input 
-                    type="text" 
+                    <div className='searchBar_1'><input
+                    type="text"
                     /></div>
                     <button type='submit' onClick={()=> navigate('/search')} className="submitButton_1"><img src={searchIcon}/></button>
                 </div>
-            </form> 
+            </form>
 
             <section className="searchterm">
                 Search results for <u>Computer Secuirty</u>
             </section>
 
             <section className="searchresult_all" onClick={()=> navigate('/resultPage')}>
-
+              {posts.map(post => (
                 <section className="searchresult_each">
-                    <p className="search_username">ericxue64</p>
+                    <p className="search_username">{post.user}</p>
                     <p className="search_education">
                         <span>from</span>
-                        <span className="search_from_edu search_tag">Emory University</span>
-                        <span className="search_from_field search_tag">CS</span>
+                        {post.prev_uni && <span className="search_from_edu search_tag">{post.prev_uni}</span>}
+                        {post.prev_major && <span className="search_from_field search_tag">{post.prev_major}</span>}
                         <span>to</span>
-                        <span className="search_to_edu search_tag">MIT</span>
-                        <span className="search_to_field search_tag">HCI</span>
+                        {post.curr_uni && <span className="search_to_edu search_tag">{post.curr_uni}</span>}
+                        {post.curr_major && <span className="search_to_field search_tag">{post.curr_major}</span>}
                     </p>
                     <p>
-                        <span className="search_ethnicity search_tag">Asian</span>
-                        <span className="search_gender search_tag">Male</span>
-                        <span className="search_sop search_tag">Statement of Purpose Avaliable</span>
-                        <span className="search_cv search_tag">CV Avaliable</span>
+                        {post.race && <span className="search_ethnicity search_tag">{post.race}</span>}
+                        {post.gender && <span className="search_gender search_tag">{post.gender}</span>}
+                        {post.sop && <span className="search_sop search_tag">{post.sop}</span>}
+                        {post.cv && <span className="search_cv search_tag">{post.cv}</span>}
                     </p>
                 </section>
-
-                <section className="searchresult_each">
-                    <p className="search_username">ericxue64</p>
-                    <p className="search_education">
-                        <span>from</span>
-                        <span className="search_from_edu search_tag">Emory University</span>
-                        <span>to</span>
-                        <span className="search_to_edu search_tag">MIT</span>
-                        <span className="search_field search_tag">HCI</span>
-                    </p>
-                    <p>
-                        <span className="search_ethnicity search_tag">Asian</span>
-                        <span className="search_gender search_tag">Male</span>
-                        <span className="search_sop search_tag">Statement of Purpose Avaliable</span>
-                        <span className="search_cv search_tag">CV Avaliable</span>
-                    </p>
-                </section>
-
+              ))}
             </section>
 
         </section>
