@@ -40,13 +40,30 @@ const Create = () => {
 
                 <label>
                     <span>Pronouns</span>
+                    <input type="text" name="pronoun"/>
+                </label>
+
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email_"/>
+                </label>
+
+                <label>
+                    <span>LinkedIn Profile</span>
+                    <input type="url" name="first_name"/>
+                </label>
+
+                <label>
+                    <span>Headline</span>
                     <input type="text" name="first_name"/>
                 </label>
 
                 <label>
-                    <span>Open </span>
-                    <input type="text" name="first_name"/>
+                    <span>About</span>
+                    <textarea type="text" name="first_name"/>
                 </label>
+
+
 
                 <button type='submit' onClick={()=> navigate('/')}>Log in</button>
             </form>
