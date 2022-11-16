@@ -82,3 +82,51 @@
 .search_cv{
     background-color: rgb(219, 229, 241);
 }
+
+
+.searchBarAll_1{
+    width: 85vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchMethod_1{
+    overflow: auto;
+    width: 80vw;
+    border: none;
+    text-align: center;
+    margin-top: 100px;
+}
+.searchMethod_1::selection{
+    border: none;
+    box-shadow: none;
+}
+*:focus {
+    outline: 0;
+    background: none;
+}
+
+.searchMethod_1 option{
+    display:inline;
+    font-size: 20px;
+    font-weight: 800;
+    width: 0 !important;
+    
+}
+.searchMethod_1 option:focus{
+    color: white;
+}
+.searchMethod_1 option~option{
+    margin-left: 100px;
+}
+.submitButton_1{
+    width: 30px;
+    margin-left: -3vw;
+    margin-top: 3px;   
+}
+.submitButton_1 img{
+    width: 30px;
+}
+.searchresult_all:hover{
+    cursor: pointer;
+}

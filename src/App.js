@@ -12,6 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<ProfileGalleryMain/>} />
         <Route path="/search" element={<SearchResult/>} />
+        <Route path="/form" element={<ProfileFormAll/>} />
+        <Route path="/resultPage" element={<ResultPage />} />
+        {/* <Route path='*' element={<ErrorPage />} */}
       </Routes>
     </Router>
   );

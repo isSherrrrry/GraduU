@@ -1,25 +1,33 @@
 import React, { Component, useState, useEffect } from "react";
 import searchIcon from './searchIcon.png'
 import './SearchResult.css'
+import { Route, useNavigate } from 'react-router-dom';
+
 
 export function SearchResult(){
-
+    const navigate = useNavigate();
 
     return(
         <section className="searchresult">
 
-            <section className="searchbar_all">
-                <div className='searchBar_1'>
-                    <input type="text" placeholder = "HCI" /> 
-                    <img src={searchIcon}/>
+            <form className='searchForm_1'>
+                <select name='search_method' className="searchMethod_1" size={2}>
+                    <option value={"by_uni"}>Search By Univeristy</option>
+                    <option value={"by_major"}>Search By Major</option>
+                </select>
+                <div className='searchBarAll_1'>
+                    <div className='searchBar_1'><input 
+                    type="text" 
+                    /></div>
+                    <button type='submit' onClick={()=> navigate('/search')} className="submitButton_1"><img src={searchIcon}/></button>
                 </div>
-            </section>
+            </form> 
 
             <section className="searchterm">
                 Search results for <u>Computer Secuirty</u>
             </section>
 
-            <section className="searchresult_all">
+            <section className="searchresult_all" onClick={()=> navigate('/resultPage')}>
 
                 <section className="searchresult_each">
                     <p className="search_username">ericxue64</p>
