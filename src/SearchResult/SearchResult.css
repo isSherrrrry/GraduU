@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: -25px;
 }
 
 .searchBar_1 input{
@@ -49,4 +50,35 @@
 }
 .search_tag{
     background-color: antiquewhite;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 8px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.search_from_edu{
+    background-color: rgb(244,209,8);
+}
+.search_from_field{
+    background-color: rgb(225, 195, 249);
+}
+.search_to_edu{
+    background-color: rgb(244, 208, 209);
+}
+.search_to_field{
+    background-color: rgb(249, 243, 185);
+}
+.search_ethnicity{
+    background-color: rgb(156, 178, 233);
+}
+.search_gender{
+    background-color:rgb(231, 146, 147) ;
+}
+.search_sop{
+    background-color: rgb(215, 240, 234);
+}
+.search_cv{
+    background-color: rgb(219, 229, 241);
 }

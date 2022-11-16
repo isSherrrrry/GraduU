@@ -4,14 +4,13 @@ import './SearchResult.css'
 
 export function SearchResult(){
 
-    const [searchTerm, setSearchterm] = useState('Computer Security');
 
     return(
         <section className="searchresult">
 
             <section className="searchbar_all">
                 <div className='searchBar_1'>
-                    <input type="text" onFocus={()=> setSearchterm('')} value={searchTerm}/> 
+                    <input type="text" placeholder = "HCI" /> 
                     <img src={searchIcon}/>
                 </div>
             </section>
@@ -27,9 +26,10 @@ export function SearchResult(){
                     <p className="search_education">
                         <span>from</span>
                         <span className="search_from_edu search_tag">Emory University</span>
+                        <span className="search_from_field search_tag">CS</span>
                         <span>to</span>
                         <span className="search_to_edu search_tag">MIT</span>
-                        <span className="search_field search_tag">HCI</span>
+                        <span className="search_to_field search_tag">HCI</span>
                     </p>
                     <p>
                         <span className="search_ethnicity search_tag">Asian</span>
