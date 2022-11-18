@@ -22,7 +22,19 @@ def index():
     #         data_applied['under_minor_' + str(goesto_index)] = school.getMinor()
     #         goesto_index += 1
     #     print(data_applied)
-    return redirect(url_for('generate_profile', username='JennyAppleseed'))
+    # return redirect(url_for('generate_profile', username='JennyAppleseed'))
+    json = {}
+    a = {'name': 'Henry', 'password': 'urmom'}
+    b = {'name': 'Bella', 'password': 'urdad'}
+    c = {'name': 'Adrian', 'password': 'urcat'}
+    json['result_1'] = a
+    json['result_2'] = b
+    json['result_3'] = c
+    return jsonify(json)
+
+##
+# Routing methods that return Promises to frontend.
+##
 
 @app.route("/submit", methods=['GET', 'POST'])
 def update_database():
@@ -187,11 +199,74 @@ def update_database():
 
 @app.route("/profile/<username>", methods=['GET'])
 def generate_profile(username):
+    data = {}
+    data.update(getDemographics(username))
+    data.update(get_goes_to(username))
+    data.update(get_applied_to(username))
+    data['final_choice'] = getFinalChoice(data)
+    return jsonify(data)
+
+@app.route("/search/<university>", methods=['GET'])
+def search(university):
+    data = {}
+    results = 0
+    with Session(engine) as session:
+        applied_schools = session.query(appliedto).filter_by(university=university)
+        for applicant in applied_schools:
+            username = applicant.getUsername()
+
+            application_data = get_applied_to(username)
+            finalChoice = getFinalChoice(application_data)
+
+            education_data = get_goes_to(username)
+            origin_school = education_data.get('uni_name_1')
+            major = education_data.get('uni_major_1')
+
+            demographics = getDemographics(username)
+            ethnicity = demographics.get('ethnicity')
+            gender = demographics.get('gender')
+            sop = 0 if demographics.get('sop') (not None) else 1
+            cv = 0 if demographics.get('cv') (not None) else 1
+
+            entry = {
+                'final_choice': finalChoice,
+                'origin_school': origin_school,
+                'major': major,
+                'ethnicity': ethnicity,
+                'gender': gender,
+                'sop': sop,
+                'cv': cv
+            }
+
+            data['result_' + str(results)] = entry
+            results += 1
+
+    data['result_count'] = results
+    return jsonify(data)
+
+##
+# Non-Routing methods that help with the construction of the Promises to be returned to the frontend.
+##
+
+def getFinalChoice(data):
+    index = 1
+    finalChoice = ''
+    while index < 13:
+        query = data.get('application_decision_' + str(index))
+        if query == "Accepted":
+            finalChoice = data['application_university_' + str(index)]
+            break
+        elif query is None:
+            break
+        else:
+            index += 1
+    return finalChoice
+
+def getDemographics(username):
+    demographics = {}
     with Session(engine) as session:
         user_profile = session.query(Profile).filter_by(username=username)
-        applied_schools = session.query(appliedto).filter_by(username=username)
-        goesto_schools = session.query(goesto).filter_by(username=username)
-        data = {
+        demographics = {
             ##
             # The following fetches the data underneath the "Demographics," "Recommenders," and "SOP/CV" headers.
             # The labels refer to which field is being fetched. Note that "citizenship" refers to country of origin.
@@ -205,6 +280,12 @@ def generate_profile(username):
             'sop': user_profile[0].getSOP(),
             'cv': user_profile[0].getCV()
         }
+    return demographics
+
+def get_goes_to(username):
+    goes_to = {}
+    with Session(engine) as session:
+        goesto_schools = session.query(goesto).filter_by(username=username)
 
         goesto_index = 1
         for school in goesto_schools:
@@ -213,13 +294,20 @@ def generate_profile(username):
             # The field name refers to the university name. The field degree refers to the type of degree earned.
             # The other fields are self explanatory.
             ##
-            data['uni_name_' + str(goesto_index)] = school.getSchool()
-            data['uni_gpa_' + str(goesto_index)] = school.getGPA()
-            data['uni_major_' + str(goesto_index)] = school.getMajor()
-            data['uni_minor_' + str(goesto_index)] = school.getMinor()
-            data['uni_degree_' + str(goesto_index)] = school.getDegree()
+            goes_to['uni_name_' + str(goesto_index)] = school.getSchool()
+            goes_to['uni_gpa_' + str(goesto_index)] = school.getGPA()
+            goes_to['uni_major_' + str(goesto_index)] = school.getMajor()
+            goes_to['uni_minor_' + str(goesto_index)] = school.getMinor()
+            goes_to['uni_degree_' + str(goesto_index)] = school.getDegree()
             goesto_index += 1
-       
+
+    return goes_to
+
+def get_applied_to(username):
+    applied_to = {}
+
+    with Session(engine) as session:
+        applied_schools = session.query(appliedto).filter_by(username=username)
         applied_index = 1
         for application in applied_schools:
             ##
@@ -229,48 +317,12 @@ def generate_profile(username):
             # Decision refers to whether or not they chose to attend that school.
             # Finally, funding reflects their funding status.
             ##
-            data['application_university_' + str(applied_index)] = application.getUniversity()
-            data['application_school_' + str(applied_index)] = application.getSchool()
-            data['application_program_' + str(applied_index)] = application.getProgram()
-            data['application_result_' + str(applied_index)] = application.getResult()
-            data['application_funding_' + str(applied_index)] = application.getFunding()
-            data['application_decision_' + str(applied_index)] = application.getDecision()
+            applied_to['application_university_' + str(applied_index)] = application.getUniversity()
+            applied_to['application_school_' + str(applied_index)] = application.getSchool()
+            applied_to['application_program_' + str(applied_index)] = application.getProgram()
+            applied_to['application_result_' + str(applied_index)] = application.getResult()
+            applied_to['application_funding_' + str(applied_index)] = application.getFunding()
+            applied_to['application_decision_' + str(applied_index)] = application.getDecision()
             applied_index += 1
 
-    data['final_choice'] = getFinalChoice(data)
-    print(data)
-    return jsonify(data)
-
-@app.route("/search/<university>", methods=['GET'])
-def search(university):
-    data = {}
-    results = 0
-    with Session(engine) as session:
-        applied_schools = session.query(appliedto).filter_by(university=university)
-
-        applied_index = 0
-        for appliant in applied_schools:
-            data['application_university_' + str(applied_index)] = appliant.getUniversity()
-            data['application_school_' + str(applied_index)] = appliant.getSchool()
-            data['application_program_' + str(applied_index)] = appliant.getProgram()
-            applied_index += 1
-            results += 1
-    data['result_count'] = results
-    return jsonify(data)
-
-
-
-def getFinalChoice(data):
-    index = 1
-    finalChoice = ''
-    while index < 13:
-        query = data.get('application_decision_' + str(index))
-        print(query)
-        if query == "Accepted":
-            finalChoice = data['application_university_' + str(index)]
-            break
-        elif query is None:
-            break
-        else:
-            index += 1
-    return finalChoice
+    return applied_to
