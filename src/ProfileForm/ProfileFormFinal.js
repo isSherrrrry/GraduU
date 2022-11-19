@@ -1206,14 +1206,10 @@ export function ProfileFormAll(){
         </label>
       </section >
 
-      <button type="submit" id = "submitForm" onClick={() => { navigate('/submit'); }}>Submit</button>
+      <button type="submit" id = "submitForm" onClick={() => { navigate('/thankyou'); }}>Submit</button>
     </form>
     </section>
   );
-}
-
-function Submit() {
-  return <h2>Thanks for the submission!</h2>;
 }
 
 export default ProfileFormAll

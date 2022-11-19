@@ -7,6 +7,7 @@ import {SearchResult} from './SearchResult/SearchResult'
 import ResultPage from './ResultPage/ResultPage'
 import NavBar from './NavBar/NavBar'
 import Login from './LogIn/LogInAll'
+import ThankYou from './ProfileForm/ThanksSubmit'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/form" element={<ProfileFormAll/>} />
         <Route path="/resultPage" element={<ResultPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/thankyou" element={<ThankYou />} />
         {/* <Route path='*' element={<ErrorPage />} */}
       </Routes>
     </Router>
