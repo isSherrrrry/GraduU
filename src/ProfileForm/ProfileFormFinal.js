@@ -1206,7 +1206,7 @@ export function ProfileFormAll(){
         </label>
       </section >
 
-      <button type="submit" id = "submitForm" onClick={() => { navigate('/thankyou'); }}>Submit</button>
+      <button type="submit" id = "submitForm" onClick={() => { formSubmit(); }}>Submit</button>
     </form>
     </section>
   );

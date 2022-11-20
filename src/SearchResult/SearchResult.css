@@ -58,6 +58,10 @@
     margin-right: 3px;
 }
 
+.search_username{
+    font-weight: bold;
+}
+
 .search_from_edu{
     background-color: rgb(244,209,8);
 }

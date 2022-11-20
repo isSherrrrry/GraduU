@@ -56,7 +56,9 @@ class appliedto(Base):
         self.result=result
         self.funding=funding
         self.decision=decision
-    
+
+    def getUsername(self):
+        return self.username
     def getUniversity(self):
         return self.university
     def getSchool(self):
