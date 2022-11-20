@@ -1,12 +1,15 @@
 import React, { Component, useState, useEffect } from "react";
 import searchIcon from './searchIcon.png'
 import './SearchResult.css'
-import { Route, useNavigate } from 'react-router-dom';
+import { Route, useNavigate, useLocation } from 'react-router-dom';
 
 
 export function SearchResult(){
     const navigate = useNavigate();
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
+
+    const {state} = useLocation();
+    const { id } = state;
 
     useEffect(() => {
       fetch('test.json')
