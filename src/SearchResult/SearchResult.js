@@ -6,47 +6,86 @@ import { Route, useNavigate, useLocation } from 'react-router-dom';
 
 export function SearchResult() {
     const navigate = useNavigate();
-    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [searchOption, setSearchOption] = useState('by_uni');
 
+    //Constants that handle rendering of the SearchResults.
     const { state } = useLocation();
-    const { id } = state;
+    const postsList = state.posts;
+    const query = state.query;
+    const len = state.length;
+    var posts = [];
 
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/search/' + id)
-            .then((res) => res.json())
-            .then((res) => {
-                var hold = [];
-                var length = res['length'];
-                for (var i = 1; i < length; i++) {
-                    var query = 'id_' + i;
-                    hold.push(res[query]);
-                }
-                setPosts(hold);
-            })
-    }, [id])
+    for (var i = 1; i < len; i++) {
+        var element = 'id_' + i;
+        posts.push(postsList[element]);
+    }
+
+    //Selects search type.
+    const toggleSearchType = (event) => {
+        if (event.target.value === 'by_major') {
+            setSearchOption('by_major');
+        }
+        if (event.target.value === 'by_uni') {
+            setSearchOption('by_uni');
+        }
+    }
+
+    const searchQuery = (event) => {
+        event.preventDefault();
+        setLoading(true);
+        if (searchOption === 'by_uni') {
+            let query = event.target.searchTerm.value;
+            fetch("http://127.0.0.1:5000/search/" + query)
+                .then((res) => res.json())
+                .then((res) => {
+                    var newState = {
+                        'posts': res,
+                        'query': query,
+                        'length': res.length
+                    }
+                    navigate('/search', { state: newState })
+                    setLoading(false);
+                });
+        }
+        else {
+            console.log('not yet implemented, sorry!');
+        }
+    }
+
+    const resultClick = (key) => {
+        let username = postsList['id_' + key].name;
+        navigate('/resultPage', { state: { 'username': username } });
+    }
 
     return (
         <section className="searchresult">
-            <form className='searchForm_1'>
-                <select name='search_method' className="searchMethod_1" size={2}>
+            <form onSubmit={searchQuery} className='searchForm_1'>
+                <select name='search_method' onChange={toggleSearchType} className="searchMethod_1" size={2}>
                     <option value={"by_uni"}>Search By Univeristy</option>
                     <option value={"by_major"}>Search By Major</option>
                 </select>
                 <div className='searchBarAll_1'>
                     <div className='searchBar_1'><input
                         type="text"
+                        name="searchTerm"
                     /></div>
-                    <button type='submit' onClick={() => navigate('/search')} className="submitButton_1"><img src={searchIcon} /></button>
+                    <button type='submit' className="submitButton_1"><img src={searchIcon} /></button>
                 </div>
             </form>
+            {loading === false ? (
+                <section className="searchterm">
+                    Search results for <u>{query}</u>
+                </section>
 
-            <section className="searchterm">
-                Search results for <u>{id}</u>
-            </section>
-
-            <section className="searchresult_all" onClick={() => navigate('/resultPage')}>
+            ) : (
+                <section className="searchterm">
+                    Search results are currently loading...
+                </section>
+            )}
+            <section className="searchresult_all">
                 {posts.map(post => (
-                    <section className="searchresult_each">
+                    <section className="searchresult_each" onClick={(event) => resultClick(post.id)} key={post.id}>
                         <p className="search_username">{post.name}</p>
                         <p className="search_education">
                             <span>from</span>

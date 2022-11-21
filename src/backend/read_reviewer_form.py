@@ -197,6 +197,7 @@ def update_database():
         session.commit()
     return ''
 
+##Builds a profile page for an inputted user.
 @app.route("/profile/<username>", methods=['GET'])
 def generate_profile(username):
     data = {}
@@ -206,47 +207,62 @@ def generate_profile(username):
     data['final_choice'] = getFinalChoice(data)
     return jsonify(data)
 
+
+#####
+# Search Functions
+#####
+
+#Redirect for searching via a University
+@app.route("/search/by_uni", methods=['POST'])
+def get_query_university():
+    data=request.get_json()
+    return ''
+
+##Pulls search results given an input university.
 @app.route("/search/<university>", methods=['GET'])
 def search(university):
     data = {}
+    searched = set()
     result = 1
     with Session(engine) as session:
         applied_schools = session.query(appliedto).filter_by(university=university)
         for applicant in applied_schools:
             username = applicant.getUsername()
+            if username not in searched:
+                application_data = get_applied_to(username)
+                finalChoice = getFinalChoice(application_data)
 
-            application_data = get_applied_to(username)
-            finalChoice = getFinalChoice(application_data)
+                education_data = get_goes_to(username)
+                origin_school = education_data.get('uni_name_1')
+                major = education_data.get('uni_major_1')
 
-            education_data = get_goes_to(username)
-            origin_school = education_data.get('uni_name_1')
-            major = education_data.get('uni_major_1')
+                demographics = getDemographics(username)
+                ethnicity = demographics.get('ethnicity')
+                gender = demographics.get('gender')
+                sop_aval = demographics.get('sop')
+                cv_aval = demographics.get('cv')
+                sop = 'SOP not Avaliable' if sop_aval is None else 'SOP Avaliable'
+                cv = 'CV not Avaliable' if cv_aval is None else 'CV Avaliable'
 
-            demographics = getDemographics(username)
-            ethnicity = demographics.get('ethnicity')
-            gender = demographics.get('gender')
-            sop_aval = demographics.get('sop')
-            cv_aval = demographics.get('cv')
-            sop = 'SOP not Avaliable' if sop_aval is None else 'SOP Avaliable'
-            cv = 'CV not Avaliable' if cv_aval is None else 'SOP Avaliable'
+                entry = {
+                    'id': result,
+                    'name': username,
+                    'curr_uni': finalChoice,
+                    'curr_major': 'CS',
+                    'prev_uni': origin_school,
+                    'prev_major': major,
+                    'race': ethnicity,
+                    'gender': gender,
+                    'sop': sop,
+                    'cv': cv
+                }
 
-            entry = {
-                'id': result,
-                'name': username,
-                'curr_uni': finalChoice,
-                'curr_major': 'CS',
-                'prev_uni': origin_school,
-                'prev_major': major,
-                'race': ethnicity,
-                'gender': gender,
-                'sop': sop,
-                'cv': cv
-            }
-
-            data['id_' + str(result)] = entry
-            result += 1
+                data['id_' + str(result)] = entry
+                result += 1
+                searched.add(username)
     data['length'] = result
     return jsonify(data)
+
 
 ##
 # Non-Routing methods that help with the construction of the Promises to be returned to the frontend.

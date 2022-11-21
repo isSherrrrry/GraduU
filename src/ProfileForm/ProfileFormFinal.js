@@ -17,6 +17,7 @@ export function ProfileFormAll(){
   const formSubmit = (event) => {
     event.preventDefault();
     var data = new FormData(event.target);
+    console.log(event.target);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
     fetch("http://127.0.0.1:5000/submit",
@@ -27,6 +28,7 @@ export function ProfileFormAll(){
                 method: "POST",
                 body: JSON.stringify(formObject)
             })
+            .then(navigate('/submit'));
     }
 
   return(
@@ -1206,7 +1208,7 @@ export function ProfileFormAll(){
         </label>
       </section >
 
-      <button type="submit" id = "submitForm" onClick={() => { formSubmit(); }}>Submit</button>
+      <button type="submit" id = "submitForm">Submit</button>
     </form>
     </section>
   );

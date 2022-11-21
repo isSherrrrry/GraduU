@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 import classNames from 'classnames';
 
@@ -30,18 +31,16 @@ function waitlist(input){
 }
 
 
-
-
 export function ResultPage() {
+  const { state } = useLocation();
+  const user = state.username;
   const [data, setdata] = useState([])
 
-  useEffect((data) => {
-    fetch('http://127.0.0.1:5000/profile/JennyAppleseed')
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/profile/' + user)
       .then((res) => res.json())
       .then((res) => {
         setdata(res);
-        console.log(data);
-        console.log("HERE!");
       })
   }, [])
 
