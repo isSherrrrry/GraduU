@@ -18,7 +18,6 @@ const Create = () => {
         setTerm(event.target.value);
     };
 
-
     const changeText = e => {
         if (e.target.value === 'by_major') {
             setPromptText('Search by the major you want to apply for!');

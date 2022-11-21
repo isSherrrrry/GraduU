@@ -6,7 +6,6 @@
 }
 
 .logsign{
-    width: 30vw;
     height: 70vh;
     display: flex;
     flex-direction: column;
@@ -14,11 +13,6 @@
     overflow: hidden;
     margin-top: 30px;
 }
-
-.logsign label{
-    width: 300px;
-}
-
 
 .logsign_submit{
     width: 160px;
@@ -55,7 +49,7 @@
     padding-right: 20px;
 }
 .logsign form{
-    width: 30vw;
+    width: 40vw;
 }
 
 .logsign_choice{

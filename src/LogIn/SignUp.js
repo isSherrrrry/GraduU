@@ -9,7 +9,7 @@ const Create = () => {
     const navigate = useNavigate();
     
     return(
-        <section className='logsign'>
+        <section className='logsign signup'>
             <form id='signup' className='ui form'>
                 <label>
                     <span>Username*</span>

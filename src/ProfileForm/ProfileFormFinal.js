@@ -13,6 +13,17 @@ export function ProfileFormAll(){
 
   const [eduCount, setEduCount] = useState(0);
   const [resultCount, setResultCount] = useState(0);
+  const [appResult1, setAppResult1] = useState('');
+  const [status1, setStatus1] = useState(false);
+
+const handleAppResult1 = event => {
+    if(event.target.value === 'Accepted'){
+        setStatus1(true);
+    }
+};
+
+
+
 
   const formSubmit = (event) => {
     event.preventDefault();
@@ -34,10 +45,9 @@ export function ProfileFormAll(){
   return(
 
     <section className="profile_form_all">
-    
-    <form onSubmit={formSubmit} className="ui form">
-      <ProfileHeader/>
-
+         <ProfileHeader/>
+    <form onSubmit={formSubmit} className="ui form profile_form_final">
+     
       {/* Undergrad */}
       <h3>Education</h3>
       <section className="profile_grad profile_section">
@@ -278,9 +288,11 @@ export function ProfileFormAll(){
         </label>
       </section>)
       } 
-      <button type = "button" onClick={()=>setEduCount(eduCount+1)} className="change_button change_button_add"><span className="another_icon">+</span>Add Another Education <i>(Max. 4)</i></button>
-      <button type = "button" onClick={()=>setEduCount(eduCount-1)} className="change_button change_button_delete"><span className="another_icon">-</span>Delete an Education</button>
-
+      <section className="add_buttons">
+        <button type = "button" onClick={()=>setEduCount(eduCount+1)} className="change_button change_button_add"><span className="another_icon">+</span>Add Another Education <i>(Max. 4)</i></button>
+        <button type = "button" onClick={()=>setEduCount(eduCount-1)} className="change_button change_button_delete"><span className="another_icon">-</span>Delete an Education</button>
+      </section>
+     
       {/* Rec */}
       <h3>Recommenders</h3>
 
@@ -326,7 +338,7 @@ export function ProfileFormAll(){
 
         <label>
             <span>Application Result</span>
-            <select name="res_app_1">
+            <select name="res_app_1" onChange={handleAppResult1}>
               <option>Select Result</option>
               <option value={"Accepted"}>Accepted</option>
               <option value={"Rejected"}>Rejected</option>
@@ -334,14 +346,16 @@ export function ProfileFormAll(){
             </select>
         </label>
 
-        <label>
-            <span>Decision</span>
-            <select name="res_dec_1">
-                <option>Select Decision</option>
-                <option value={"Accepted"}>Accepted</option>
-                <option value={"Declined"}>Declined</option>
-            </select>
-        </label>
+        {
+            status1 && <label>
+                <span>Decision</span>
+                <select name="res_dec_1">
+                    <option>Select Decision</option>
+                    <option value={"Accepted"}>Accepted</option>
+                    <option value={"Declined"}>Declined</option>
+                </select>
+            </label>
+        }
       </section>
 
       {
@@ -894,9 +908,10 @@ export function ProfileFormAll(){
       </section>
       }
 
+      <sectio className="add_button">
       <button type = "button" onClick={()=>setResultCount(resultCount+1)} className="change_button change_button_add"><span className="another_icon">+</span>Add Another Application Result <i>(Max. 12)</i></button>
       <button type = "button" onClick={()=>setResultCount(resultCount-1)} className="change_button change_button_delete"><span className="another_icon">-</span>Delete an Application Result</button>
-
+      </sectio>
 
       {/* Demographics  */}
 
@@ -1208,7 +1223,9 @@ export function ProfileFormAll(){
         </label>
       </section >
 
+      <section className="submit_button">
       <button type="submit" id = "submitForm">Submit</button>
+      </section>
     </form>
     </section>
   );
