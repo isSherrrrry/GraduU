@@ -9,6 +9,14 @@ from werkzeug.utils import secure_filename
 DATABASE_URI =  'postgresql://postgres:admin@34.71.222.229:5432/profile_gallery' 
 engine = create_engine(DATABASE_URI, echo=True)
 
+UPLOAD_FOLDER = r'C:\Users\Tiantian\Desktop'
+ALLOWED_EXTENSIONS = {'pdf'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route("/")
 def index():
     
