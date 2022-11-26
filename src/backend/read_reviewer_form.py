@@ -56,19 +56,21 @@ def update_database():
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
-        if sop and allowed_file(sop.filename):
+        if cv and allowed_file(sop.filename):
             cvfilename = secure_filename(test_username+'_cv.pdf')
             cv.save(os.path.join(app.config['UPLOAD_FOLDER'], cvfilename))
+        if 'sop' not in request.files:
+            sopfilename = 'no sop uploaded'
+        if 'cv' not in request.files:
+            cvfilename = 'no cv uploaded'
         data = request.form
         demo_eth=data['demo_eth']
         print(demo_eth)
         demo_gender=data['demo_gender']
         demo_fistgen=data['demo_fistgen']
         demo_citizenship=data['demo_citizenship']
-        sop='temp'
-        cv='temp'
         recommender=data['rec']
-        prof=Profile(test_username, 'pw', demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sop, cv)
+        prof=Profile(test_username, 'pw', demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
         session.add(prof)
         session.flush()
         session.refresh(prof)
