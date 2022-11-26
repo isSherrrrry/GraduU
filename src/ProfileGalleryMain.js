@@ -77,7 +77,7 @@ const Create = () => {
                             </div>
                         </form>
                         <p className='want'>Want to submit your past application? Start <b>HERE</b></p>
-                        <p className='main_submit'>Submit Profile</p>
+                        <p className='form_button'><span onClick={()=> navigate('/form')} className='main_submit'>Submit Profile</span></p>
                     </section>
                 </section>
             ) : (

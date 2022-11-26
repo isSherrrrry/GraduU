@@ -9,18 +9,34 @@
 }
 .upper img{
     width: 150px;
+    cursor: pointer;
 }
 .upper p{
     font-size: 15px;
 }
 .bottom{
+    width: 100vw;
+    display: flex;
     text-align: center;
-    font-weight: 600;
+    font-weight: 300;
     font-size: 20px;
     margin-top: 15px;
     font-style: italic;
+    justify-content: center;
 }
 .bottom span{
-    margin-left: 30px;
+    width: 160px;
+    cursor: pointer;
+    color: rgba(0,0,0,0.6);
+    border-bottom: none;
+}
+.bottom span~span{
+    margin-left: 3vw;
+}
+.bottom span:hover{
+    position: relative;
+    color:black;
+    border-bottom: 1px solid black;
+    transition-duration: 0.4s;
     cursor: pointer;
 }
