@@ -81,8 +81,8 @@ def update_database():
                 edu_gpa=data['edu_gpa_'+str(i)]
                 edu_major=data['edu_major_'+str(i)]
                 edu_minor=data['edu_minor_'+str(i)]
-                ####NEED YEAR UPDATE HERE TODO TODO TODO####
-                goesto_row=goesto(edu_uni_name, test_username, 2020, edu_major, edu_minor, edu_gpa, edu_degree)
+                edu_year=data['edu_year_'+str(i)]
+                goesto_row=goesto(edu_uni_name, test_username, edu_year, edu_major, edu_minor, edu_gpa, edu_degree)
                 session.add(goesto_row)
         for j in range(1,13):
             if 'res_uni_'+str(j) in data.keys():
@@ -92,6 +92,7 @@ def update_database():
                 res_funding_1=data['res_funding_'+str(j)]
                 res_app_1=data['res_app_'+str(j)]
                 res_dec_1=data['res_dec_'+str(j)]
+                ####NEED YEAR UPDATE HERE TODO TODO TODO####
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
