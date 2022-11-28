@@ -136,14 +136,14 @@ export function ResultPage() {
         <section className="left">
         <section className='geninfo'>
             <section className='text_info'>
-                <p id='info_id'>{data.username}</p>
-                <p id='info_pronoun'>He/Him/His</p>
-                <p id='info_desc'>Data manager at Queen Savvy Lab, Nell Hodgson Woodruff School of Nursing at Emory University</p>
+                <p id='info_id'>{data.first_name + " " + data.last_name}</p>
+                <p id='info_pronoun'>{data.pronouns}</p>
+                <p id='info_desc'>{data.about}</p>
             </section>
             <section className='contacts'>
                 <h4>Contacts</h4>
-                <p>Email: <a href = "mailto: eric.xue@emory.edu">eric.xue@emory.edu</a></p>
-                <p>LinkedIn: <span><a href= "https://www.linkedin.com/in/yijunliu23/">Go to LinkedIn</a></span></p>
+                <p>Email: <a href = {"mailto:" + data.email}>{data.email}</a></p>
+                <p>LinkedIn: <span><a href= {data.linkedin}>Go to LinkedIn!</a></span></p>
             </section>
             <section className='downloads'>
                 <h4>Documents</h4>

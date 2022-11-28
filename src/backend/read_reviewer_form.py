@@ -40,7 +40,7 @@ def index():
     json['result_1'] = a
     json['result_2'] = b
     json['result_3'] = c
-    return jsonify(json)
+    return redirect('http://170.140.105.11:3000/thankyou')
 
 ##
 # Handle submissions.
@@ -108,12 +108,14 @@ def login():
 
     return jsonify(validity)
 
-@app.route("/submit", methods=['GET', 'POST'])
+@app.route("/submit", methods=['POST'])
 def update_database():
     with Session(engine) as session:
-        test_username = "testing3"
+        test_username = "agushin"
         sop=request.files['sop']
+        sopfilename=''
         cv=request.files['cv']
+        cvfilename=''
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
@@ -126,10 +128,10 @@ def update_database():
         demo_fistgen=data['demo_fistgen']
         demo_citizenship=data['demo_citizenship']
         recommender=data['rec']
-        prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sop, cv)
+        prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
         session.add(prof)
-        session.flush()
-        session.refresh(prof)
+        # session.flush()
+        # session.refresh(prof)
         for i in range(1,5):
             if 'edu_uni_name_'+str(i) in data.keys():
                 edu_uni_name=data['edu_uni_name_'+str(i)]
@@ -147,11 +149,15 @@ def update_database():
                 res_prog_1=data['res_prog_'+str(j)]
                 res_funding_1=data['res_funding_'+str(j)]
                 res_app_1=data['res_app_'+str(j)]
-                res_dec_1=data['res_dec_'+str(j)]
+                res_dec_1 = ''
+                if res_app_1 == "Accepted":
+                    res_dec_1 = data['res_dec_'+str(j)]
+                else:
+                    res_dec_1 = "Declined"
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
-    return ''
+    return redirect('http://170.140.105.11:3000/thankyou')
 
 
 ##Builds a profile page for an inputted user.
@@ -161,6 +167,7 @@ def generate_profile(username):
     data.update(getDemographics(username))
     data.update(get_goes_to(username))
     data.update(get_applied_to(username))
+    data.update(getProfile(username))
     data['final_choice'] = getFinalChoice(data)
     return jsonify(data)
 
@@ -185,10 +192,9 @@ def search(university):
         applied_schools = session.query(appliedto).filter_by(university=university)
         for applicant in applied_schools:
             username = applicant.getUsername()
+            university = applicant.getUniversity()
+            school = applicant.getSchool()
             if username not in searched:
-                application_data = get_applied_to(username)
-                finalChoice = getFinalChoice(application_data)
-
                 education_data = get_goes_to(username)
                 origin_school = education_data.get('uni_name_1')
                 major = education_data.get('uni_major_1')
@@ -204,8 +210,8 @@ def search(university):
                 entry = {
                     'id': result,
                     'name': username,
-                    'curr_uni': finalChoice,
-                    'curr_major': 'CS',
+                    'curr_uni': university,
+                    'curr_major': school,
                     'prev_uni': origin_school,
                     'prev_major': major,
                     'race': ethnicity,
@@ -303,3 +309,19 @@ def get_applied_to(username):
             applied_index += 1
 
     return applied_to
+
+def getProfile(username):
+    data = {}
+    
+    with Session(engine) as session:
+        profileQ = session.query(Login).filter_by(username=username)
+        profile = profileQ[0]
+        data['first_name'] = profile.getFirstName()
+        data['pref_name'] = profile.getPrefName()
+        data['last_name'] = profile.getLastName()
+        data['pronouns'] = profile.getPronouns()
+        data['email'] = profile.getEmail()
+        data['linkedin'] = profile.getLinkedIn()
+        data['headline'] = profile.getHeadline()
+        data['about'] = profile.getAbout()
+    return data

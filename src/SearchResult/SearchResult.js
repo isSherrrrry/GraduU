@@ -85,13 +85,10 @@ export function SearchResult() {
             )}
             <section className="searchresult_all">
                 {posts.map(post => (
-                    <section className="searchresult_each" onClick={(event) => resultClick(post.id)} key={post.id}>
+                    <section className="searchresult_each" onClick={() => resultClick(post.id)} key={post.id}>
                         <p className="search_username">{post.name}</p>
                         <p className="search_education">
-                            <span>from</span>
-                            {post.prev_uni && <span className="search_from_edu search_tag">{post.prev_uni}</span>}
-                            {post.prev_major && <span className="search_from_field search_tag">{post.prev_major}</span>}
-                            <span>to</span>
+                            <span>Applied to:</span>
                             {post.curr_uni && <span className="search_to_edu search_tag">{post.curr_uni}</span>}
                             {post.curr_major && <span className="search_to_field search_tag">{post.curr_major}</span>}
                         </p>

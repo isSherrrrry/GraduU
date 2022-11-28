@@ -20,6 +20,9 @@ const handleAppResult1 = event => {
     if(event.target.value === 'Accepted'){
         setStatus1(true);
     }
+    else{
+        setStatus1(false);
+    }
 };
 
 
@@ -37,7 +40,7 @@ const handleAppResult1 = event => {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify(formObject)
+                body: data
             })
             .then(navigate('/submit'));
     }
@@ -46,7 +49,7 @@ const handleAppResult1 = event => {
 
     <section className="profile_form_all">
          <ProfileHeader/>
-    <form onSubmit={formSubmit} className="ui form profile_form_final">
+    <form action="http://127.0.0.1:5000/submit" method="POST" encType="multipart/form-data" className="ui form profile_form_final">
 
       {/* Undergrad */}
       <h3>Education</h3>
@@ -64,7 +67,7 @@ const handleAppResult1 = event => {
             <option>Select Degree Type</option>
             <option value={"Associate Degree"}>Associate Degree</option>
             <option value={"Bachelor's Degree"}>Bachelor's Degree</option>
-            <option value={"Master's Degree"}>Master’s Degree</option>
+            <option value={"Master's Degree"}>Master's Degree</option>
             <option value={"Doctoral Degree"}>Doctoral Degree</option>
             <option value={"Other"}>Other</option>
             </select>
@@ -908,10 +911,10 @@ const handleAppResult1 = event => {
       </section>
       }
 
-      <sectio className="add_button">
+      <section className="add_button">
       <button type = "button" onClick={()=>setResultCount(resultCount+1)} className="change_button change_button_add"><span className="another_icon">+</span>Add Another Application Result <i>(Max. 12)</i></button>
       <button type = "button" onClick={()=>setResultCount(resultCount-1)} className="change_button change_button_delete"><span className="another_icon">-</span>Delete an Application Result</button>
-      </sectio>
+      </section>
 
       {/* Demographics  */}
 
