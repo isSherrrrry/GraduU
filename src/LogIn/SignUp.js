@@ -1,16 +1,43 @@
+import React from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import './LogInAll.css'
 
 
-
 const Create = () => {
-
     const navigate = useNavigate();
     
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        var data = new FormData(event.target);
+        let formObject = Object.fromEntries(data.entries());
+        fetch("http://127.0.0.1:5000/signup",
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(formObject)
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            const validPW = res.validPW;
+            const validUser = res.validUser;
+            if (validPW === false) {
+                alert('The password and re-entered password fields must match');
+            }
+            else if(validUser === false) {
+                alert('This username has already been taken. Please select another.');
+            }
+            else {
+                navigate('/submit');
+            }
+        });
+    }
+
     return(
-        <section className='logsign signup'>
-            <form id='signup' className='ui form'>
+        <section className='logsign'>
+            <form id='signup' onSubmit={handleSubmit} className='ui form'>
                 <label>
                     <span>Username*</span>
                     <div className="ui input"><input type="text" name="username" required/></div>
@@ -33,7 +60,7 @@ const Create = () => {
 
                 <label>
                     <span>Preferred Name</span>
-                    <div className="ui input"><input type="text" name="preferred_name"/></div>
+                    <div className="ui input"><input type="text" name="pref_name"/></div>
                 </label>
 
                 <label>
@@ -43,17 +70,17 @@ const Create = () => {
 
                 <label>
                     <span>Pronouns</span>
-                    <div className="ui input"><input type="text" name="pronoun"/></div>
+                    <div className="ui input"><input type="text" name="pronouns"/></div>
                 </label>
 
                 <label>
                     <span>Email</span>
-                    <div className="ui input"><input type="email" name="email_add"/></div>
+                    <div className="ui input"><input type="email" name="email"/></div>
                 </label>
 
                 <label>
                     <span>LinkedIn Profile</span>
-                    <div className="ui input"><input type="url" name="linkedin_link"/></div>
+                    <div className="ui input"><input type="url" name="linkedin"/></div>
                 </label>
 
                 <label>
@@ -68,7 +95,7 @@ const Create = () => {
 
 
 
-                <button type='submit' onClick={()=> navigate('/')} className="logsign_submit">Sign Up</button>
+                <button type='submit' className="logsign_submit">Sign Up</button>
             </form>
         </section>
     ); 

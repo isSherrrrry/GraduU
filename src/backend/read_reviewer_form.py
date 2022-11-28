@@ -1,6 +1,7 @@
-from flask import request, jsonify, url_for, redirect
+from flask import request, jsonify, redirect
 from flask import current_app as app
-from backend.model import goesto, appliedto, Profile
+import os
+from backend.model import goesto, appliedto, Demographics, Login
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -9,7 +10,7 @@ from werkzeug.utils import secure_filename
 DATABASE_URI =  'postgresql://postgres:admin@34.71.222.229:5432/profile_gallery' 
 engine = create_engine(DATABASE_URI, echo=True)
 
-UPLOAD_FOLDER = r'C:\Users\Tiantian\Desktop'
+UPLOAD_FOLDER = '/Users/agushin/Desktop/Uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -42,35 +43,90 @@ def index():
     return jsonify(json)
 
 ##
-# Routing methods that return Promises to frontend.
+# Handle submissions.
 ##
+
+@app.route('/signup', methods=['POST'])
+def register():
+    data = request.get_json()
+    password = data['password']
+    verify = data['re_password']
+
+    validity = {
+        'validPW': True,
+        'validUser': True
+    }
+
+    #Matches passwords
+    if password != verify:
+        validity['validPW'] = False
+        return jsonify(validity)
+
+    with Session(engine) as session:
+        username = data['username']
+        used = len(session.query(Login).filter_by(username=username).all())
+        if used > 0:
+            validity['validUser'] = False
+            return jsonify(validity)
+
+        first_name = data['first_name']
+        pref_name = data['pref_name']
+        last_name = data['last_name']
+        pronouns = data['pronouns']
+        email = data['email']
+        linkedin = data['linkedin']
+        headline = data['headline']
+        about = data['about']
+
+        login = Login(username, password, first_name, pref_name, last_name, pronouns, email, linkedin, headline, about)
+        session.add(login)
+        session.commit()
+    return jsonify(validity)
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    validity = {
+        'user_exists': True,
+        'valid_password': True,
+        'username': data['username']
+    }
+
+    user = data['username']
+    pw = data['password']
+
+    with Session(engine) as session:
+        query = session.query(Login).filter_by(username=user)
+        if len(query.all()) == 0:
+            validity['user_exists'] = False
+            return jsonify(validity)
+        
+        true_pw = query[0].getPassword()
+        if pw != true_pw:
+            validity['valid_password'] = False
+            return jsonify(validity)
+
+    return jsonify(validity)
+
 @app.route("/submit", methods=['GET', 'POST'])
 def update_database():
     with Session(engine) as session:
         test_username = "testing3"
-        print(request.files)
-        if 'sop' not in request.files:
-            print('No file uploaded')
         sop=request.files['sop']
         cv=request.files['cv']
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
-        if cv and allowed_file(sop.filename):
+        if sop and allowed_file(sop.filename):
             cvfilename = secure_filename(test_username+'_cv.pdf')
             cv.save(os.path.join(app.config['UPLOAD_FOLDER'], cvfilename))
-        if 'sop' not in request.files:
-            sopfilename = 'no sop uploaded'
-        if 'cv' not in request.files:
-            cvfilename = 'no cv uploaded'
         data = request.form
         demo_eth=data['demo_eth']
-        print(demo_eth)
         demo_gender=data['demo_gender']
         demo_fistgen=data['demo_fistgen']
         demo_citizenship=data['demo_citizenship']
         recommender=data['rec']
-        prof=Profile(test_username, 'pw', demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
+        prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sop, cv)
         session.add(prof)
         session.flush()
         session.refresh(prof)
@@ -81,8 +137,8 @@ def update_database():
                 edu_gpa=data['edu_gpa_'+str(i)]
                 edu_major=data['edu_major_'+str(i)]
                 edu_minor=data['edu_minor_'+str(i)]
-                edu_year=data['edu_year_'+str(i)]
-                goesto_row=goesto(edu_uni_name, test_username, edu_year, edu_major, edu_minor, edu_gpa, edu_degree)
+                ####NEED YEAR UPDATE HERE TODO TODO TODO####
+                goesto_row=goesto(edu_uni_name, test_username, 2020, edu_major, edu_minor, edu_gpa, edu_degree)
                 session.add(goesto_row)
         for j in range(1,13):
             if 'res_uni_'+str(j) in data.keys():
@@ -92,11 +148,10 @@ def update_database():
                 res_funding_1=data['res_funding_'+str(j)]
                 res_app_1=data['res_app_'+str(j)]
                 res_dec_1=data['res_dec_'+str(j)]
-                ####NEED YEAR UPDATE HERE TODO TODO TODO####
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
-    return redirect('http://10.44.189.230:3000/thankyou')
+    return ''
 
 
 ##Builds a profile page for an inputted user.
@@ -187,20 +242,20 @@ def getFinalChoice(data):
 def getDemographics(username):
     demographics = {}
     with Session(engine) as session:
-        user_profile = session.query(Profile).filter_by(username=username)
+        user_demo = session.query(Demographics).filter_by(username=username)
         demographics = {
             ##
             # The following fetches the data underneath the "Demographics," "Recommenders," and "SOP/CV" headers.
             # The labels refer to which field is being fetched. Note that "citizenship" refers to country of origin.
             ##
-            'username': user_profile[0].getUsername(),
-            'ethnicity': user_profile[0].getEthnicity(),
-            'gender': user_profile[0].getGender(),
-            'firstgen': user_profile[0].getFirstGen(),
-            'citizenship': user_profile[0].getCOI(),
-            'recommender': user_profile[0].getRecommenders(),
-            'sop': user_profile[0].getSOP(),
-            'cv': user_profile[0].getCV()
+            'username': user_demo[0].getUsername(),
+            'ethnicity': user_demo[0].getEthnicity(),
+            'gender': user_demo[0].getGender(),
+            'firstgen': user_demo[0].getFirstGen(),
+            'citizenship': user_demo[0].getCOI(),
+            'recommender': user_demo[0].getRecommenders(),
+            'sop': user_demo[0].getSOP(),
+            'cv': user_demo[0].getCV()
         }
     return demographics
 
