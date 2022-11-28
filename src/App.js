@@ -9,6 +9,7 @@ import NavBar from './NavBar/NavBar'
 import Login from './LogIn/LogInAll'
 import ThankYou from './ProfileForm/ThanksSubmit'
 import ProfilePage from './ProfilePage/ProfilePage'
+import ProfileEdit  from './ProfileEdit/ProfileEdit'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/thankyou" element={<ThankYou />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/form-edited" element={<ProfileEdit />} />
         {/* <Route path='*' element={<ErrorPage />} */}
       </Routes>
     </Router>

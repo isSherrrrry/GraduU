@@ -47,7 +47,7 @@ const handleAppResult1 = event => {
     <section className="profile_form_all">
          <ProfileHeader/>
     <form onSubmit={formSubmit} className="ui form profile_form_final">
-     
+
       {/* Undergrad */}
       <h3>Education</h3>
       <section className="profile_grad profile_section">
@@ -227,7 +227,7 @@ const handleAppResult1 = event => {
             <div className="ui input"><input type="text" name='edu_minor_3'/></div>
         </label>
       </section>)
-      } 
+      }
       {
         eduCount >= 3 && (<section className="profile_grad profile_section">
         <label>
@@ -287,12 +287,12 @@ const handleAppResult1 = event => {
             <div className="ui input"><input type="text" name='edu_minor_4'/></div>
         </label>
       </section>)
-      } 
+      }
       <section className="add_buttons">
         <button type = "button" onClick={()=>setEduCount(eduCount+1)} className="change_button change_button_add"><span className="another_icon">+</span>Add Another Education <i>(Max. 4)</i></button>
         <button type = "button" onClick={()=>setEduCount(eduCount-1)} className="change_button change_button_delete"><span className="another_icon">-</span>Delete an Education</button>
       </section>
-     
+
       {/* Rec */}
       <h3>Recommenders</h3>
 
@@ -1210,13 +1210,13 @@ const handleAppResult1 = event => {
       </section>
 
       {/* Upload Files  */}
-      
+
       <h3>Upload Statement of Purpose & CV</h3>
 
       <section className="profile_section" id="profile_upload" >
         <p>Please erase all your personal information</p><br/>
-        <label><span>Upload Your Statement of Purpose</span><input type='file' name="sop" /></label><br />
-        <label><span>Upload Your Curriculum vitae</span><input type='file' name="cv" /></label><br />
+        <label><span>Upload Your Statement of Purpose (.pdf)</span><input type='file' accept=".pdf" name="sop" /></label><br />
+        <label><span>Upload Your Curriculum vitae (.pdf)</span><input type='file' accept=".pdf" name="cv" /></label><br />
         <label id="hidden">
             <input type="checkbox" />
             <span>I have hidden all the information that I believe is sensitive</span>

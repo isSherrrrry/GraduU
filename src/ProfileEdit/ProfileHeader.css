@@ -1,0 +1,25 @@
+.profile_header{
+    width: 100vw;
+    text-align: center;
+    background-color: white;
+    margin-top: 60px;
+}
+
+.profile_header h3{
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.profile_header h4{
+    font-size: 25px;
+    
+}
+.profile_from_all{
+    line-height: 14px;
+    font-size: 14px;
+    padding: 30px;
+}
+
+.profile_form_privacy_alert{
+    color: brown;
+}
