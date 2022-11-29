@@ -36,7 +36,7 @@ export function SearchResult() {
         setLoading(true);
         if (searchOption === 'by_uni') {
             let query = event.target.searchTerm.value;
-            fetch("http://127.0.0.1:5000/search/" + query)
+            fetch("http://127.0.0.1:5000/search_uni/" + query)
                 .then((res) => res.json())
                 .then((res) => {
                     var newState = {
@@ -49,7 +49,18 @@ export function SearchResult() {
                 });
         }
         else {
-            console.log('not yet implemented, sorry!');
+            let query = event.target.searchTerm.value;
+            fetch("http://127.0.0.1:5000/search_major/" + query)
+                .then((res) => res.json())
+                .then((res) => {
+                    var newState = {
+                        'posts': res,
+                        'query': query,
+                        'length': res.length
+                    }
+                    navigate('/search', { state: newState })
+                    setLoading(false);
+                });
         }
     }
 
@@ -90,7 +101,8 @@ export function SearchResult() {
                         <p className="search_education">
                             <span>Applied to:</span>
                             {post.curr_uni && <span className="search_to_edu search_tag">{post.curr_uni}</span>}
-                            {post.curr_major && <span className="search_to_field search_tag">{post.curr_major}</span>}
+                            {post.curr_school && <span className="search_to_field search_tag">{post.curr_school}</span>}
+                            {post.curr_program && <span className="search_to_prog search_tag">{post.curr_program}</span>}
                         </p>
                         <p>
                             {post.race && <span className="search_ethnicity search_tag">{post.race}</span>}

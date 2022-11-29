@@ -35,7 +35,7 @@ const Create = () => {
         setLoading(true);
         if (option === 'by_uni') {
             let query = event.target.searchTerm.value;
-            fetch("http://127.0.0.1:5000/search/" + query)
+            fetch("http://127.0.0.1:5000/search_uni/" + query)
                 .then((res) => res.json())
                 .then((res) => {
                     var newState = {
@@ -48,7 +48,18 @@ const Create = () => {
                 });
         }
         else {
-            console.log('not yet implemented, sorry!');
+            let query = event.target.searchTerm.value;
+            fetch("http://127.0.0.1:5000/search_major/" + query)
+                .then((res) => res.json())
+                .then((res) => {
+                    var newState = {
+                        'posts': res,
+                        'query': query,
+                        'length': res.length
+                    }
+                    navigate('/search', { state: newState })
+                    setLoading(false);
+                });
         }
     }
 

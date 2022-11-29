@@ -171,62 +171,92 @@ def generate_profile(username):
 # Search Functions
 #####
 
-#Redirect for searching via a University
-@app.route("/search/by_uni", methods=['POST'])
-def get_query_university():
-    data=request.get_json()
-    return ''
-
 ##Pulls search results given an input university.
-@app.route("/search/<university>", methods=['GET'])
-def search(university):
+@app.route("/search_uni/<university>", methods=['GET'])
+def uni_search(university):
     data = {}
-    searched = set()
     result = 1
+    uniSplit = university.split(" ")
+    similarity = uniSplit[0] + "%"
     with Session(engine) as session:
-        applied_schools = session.query(appliedto).filter_by(university=university)
+        applied_schools = session.query(appliedto).filter(appliedto.university.ilike(similarity))
         for applicant in applied_schools:
             username = applicant.getUsername()
             university = applicant.getUniversity()
             school = applicant.getSchool()
-            if username not in searched:
-                education_data = get_goes_to(username)
-                origin_school = education_data.get('uni_name_1')
-                major = education_data.get('uni_major_1')
+            program = applicant.getProgram()
 
-                demographics = getDemographics(username)
-                ethnicity = demographics.get('ethnicity')
-                gender = demographics.get('gender')
-                sop_aval = demographics.get('sop')
-                cv_aval = demographics.get('cv')
-                print("STATUS" + sop_aval)
-                sop = 'SOP not Avaliable' if sop_aval is '' else 'SOP Avaliable'
-                cv = 'CV not Avaliable' if cv_aval is '' else 'CV Avaliable'
+            demographics = getDemographics(username)
+            ethnicity = demographics.get('ethnicity')
+            gender = demographics.get('gender')
+            sop_aval = demographics.get('sop')
+            cv_aval = demographics.get('cv')
+            sop = 'SOP not Avaliable' if sop_aval == '' else 'SOP Avaliable'
+            cv = 'CV not Avaliable' if cv_aval == '' else 'CV Avaliable'
 
-                entry = {
-                    'id': result,
-                    'name': username,
-                    'curr_uni': university,
-                    'curr_major': school,
-                    'prev_uni': origin_school,
-                    'prev_major': major,
-                    'race': ethnicity,
-                    'gender': gender,
-                    'sop': sop,
-                    'cv': cv
-                }
+            entry = {
+                'id': result,
+                'name': username,
+                'curr_uni': university,
+                'curr_school': school,
+                'curr_program': program,
+                'race': ethnicity,
+                'gender': gender,
+                'sop': sop,
+                'cv': cv
+            }
 
-                data['id_' + str(result)] = entry
-                result += 1
-                searched.add(username)
+            data['id_' + str(result)] = entry
+            result += 1    
     data['length'] = result
     return jsonify(data)
 
+#Pulls search results given an inputted major/field of study
+@app.route("/search_major/<major>", methods=['GET'])
+def major_search(major):
+    data = {}
+    result = 1
+    majorSplit = major.split(" ")
+    #Accounts for two word or otherwise weird majors.
+    similarity = majorSplit[0] + "%"
+
+    with Session(engine) as session:
+        applications = session.query(appliedto).filter(appliedto.program.ilike(similarity))
+        for applicant in applications:
+            username = applicant.getUsername()
+            university = applicant.getUniversity()
+            school = applicant.getSchool()
+            program = applicant.getProgram()
+
+            demographics = getDemographics(username)
+            ethnicity = demographics.get('ethnicity')
+            gender = demographics.get('gender')
+            sop_aval = demographics.get('sop')
+            cv_aval = demographics.get('cv')
+            sop = 'SOP not Avaliable' if sop_aval == '' else 'SOP Avaliable'
+            cv = 'CV not Avaliable' if cv_aval == '' else 'CV Avaliable'
+
+            entry = {
+                'id': result,
+                'name': username,
+                'curr_uni': university,
+                'curr_school': school,
+                'curr_program': program,
+                'race': ethnicity,
+                'gender': gender,
+                'sop': sop,
+                'cv': cv
+            }
+            data['id_' + str(result)] = entry
+            result += 1    
+    data['length'] = result
+    return jsonify(data)
 
 ##
 # Non-Routing methods that help with the construction of the Promises to be returned to the frontend.
 ##
 
+#Calculates the school the user ended up attending.
 def getFinalChoice(data):
     index = 1
     finalChoice = ''
@@ -241,6 +271,7 @@ def getFinalChoice(data):
             index += 1
     return finalChoice
 
+#Gets demographic data
 def getDemographics(username):
     demographics = {}
     with Session(engine) as session:
@@ -261,6 +292,7 @@ def getDemographics(username):
         }
     return demographics
 
+#Gets school data
 def get_goes_to(username):
     goes_to = {}
     with Session(engine) as session:
@@ -282,6 +314,7 @@ def get_goes_to(username):
 
     return goes_to
 
+#Gets application data
 def get_applied_to(username):
     applied_to = {}
 
@@ -306,6 +339,7 @@ def get_applied_to(username):
 
     return applied_to
 
+#Gets profile data
 def getProfile(username):
     data = {}
     
@@ -326,10 +360,12 @@ def getProfile(username):
 # Functions handling file upload/download
 ##
 
+#Returns a path to the appropriate file
 @app.route('/download/<path:pdf>')
 def send_pdf(pdf):
     return send_from_directory(app.config['UPLOAD_FOLDER'], pdf)
 
+#Determines if a file is allowed
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
