@@ -7,10 +7,12 @@
 }
 .profile_form_final{
     display: flex;
+    width: 100vw;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
     justify-content: center;
 }
+
 
 h3{
     margin-top: 80px;
@@ -139,5 +141,15 @@ button{
 .submit_button{
     width: 100vw;
     text-align: center;
+}
+.uni_search{
+    position: absolute;
+    background-color: white;
+    z-index: 1000000;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
+    padding: 10px;
+}
+.uni_search_hid{
+    display: none;
 }
 
