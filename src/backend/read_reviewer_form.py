@@ -1,4 +1,4 @@
-from flask import request, jsonify, redirect
+from flask import request, jsonify, redirect, send_from_directory, url_for
 from flask import current_app as app
 import os
 from backend.model import goesto, appliedto, Demographics, Login
@@ -14,9 +14,6 @@ UPLOAD_FOLDER = '/Users/agushin/Desktop/Uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/")
 def index():
@@ -40,7 +37,7 @@ def index():
     json['result_1'] = a
     json['result_2'] = b
     json['result_3'] = c
-    return redirect('http://170.140.105.11:3000/thankyou')
+    return redirect("http://localhost:3000/thankyou")
 
 ##
 # Handle submissions.
@@ -108,14 +105,12 @@ def login():
 
     return jsonify(validity)
 
-@app.route("/submit", methods=['POST'])
-def update_database():
+@app.route("/submit/<username>", methods=['POST'])
+def update_database(username):
     with Session(engine) as session:
-        test_username = "agushin"
+        test_username = username
         sop=request.files['sop']
-        sopfilename=''
         cv=request.files['cv']
-        cvfilename=''
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
@@ -157,7 +152,7 @@ def update_database():
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
-    return redirect('http://170.140.105.11:3000/thankyou')
+    return redirect("http://localhost:3000/thankyou")
 
 
 ##Builds a profile page for an inputted user.
@@ -204,8 +199,9 @@ def search(university):
                 gender = demographics.get('gender')
                 sop_aval = demographics.get('sop')
                 cv_aval = demographics.get('cv')
-                sop = 'SOP not Avaliable' if sop_aval is None else 'SOP Avaliable'
-                cv = 'CV not Avaliable' if cv_aval is None else 'CV Avaliable'
+                print("STATUS" + sop_aval)
+                sop = 'SOP not Avaliable' if sop_aval is '' else 'SOP Avaliable'
+                cv = 'CV not Avaliable' if cv_aval is '' else 'CV Avaliable'
 
                 entry = {
                     'id': result,
@@ -325,3 +321,15 @@ def getProfile(username):
         data['headline'] = profile.getHeadline()
         data['about'] = profile.getAbout()
     return data
+
+##
+# Functions handling file upload/download
+##
+
+@app.route('/download/<path:pdf>')
+def send_pdf(pdf):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], pdf)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

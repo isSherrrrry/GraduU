@@ -36,6 +36,18 @@ export function ResultPage() {
   const user = state.username;
   const [data, setdata] = useState([])
 
+  const downloadCV = () => {
+    const usr = data.username;
+    fetch("http://127.0.0.1:5000/download/" + usr + "_cv.pdf")
+    .then(window.open('http://127.0.0.1:5000/download/' + usr + "_cv.pdf", "_blank"));
+  }
+
+  const downloadSOP = () => {
+    const usr = data.username;
+    fetch("http://127.0.0.1:5000/download/" + usr + "_sop.pdf")
+    .then(window.open('http://127.0.0.1:5000/download/' + usr + "_sop.pdf", "_blank"));
+  }
+
   useEffect(() => {
     fetch('http://127.0.0.1:5000/profile/' + user)
       .then((res) => res.json())
@@ -143,12 +155,12 @@ export function ResultPage() {
             <section className='contacts'>
                 <h4>Contacts</h4>
                 <p>Email: <a href = {"mailto:" + data.email}>{data.email}</a></p>
-                <p>LinkedIn: <span><a href= {data.linkedin}>Go to LinkedIn!</a></span></p>
+                <p>LinkedIn: <span><a href= {data.linkedin} target='_blank' rel="noreferrer">Go to LinkedIn!</a></span></p>
             </section>
             <section className='downloads'>
                 <h4>Documents</h4>
-                <p>CV ↓</p>
-                <p>Statement of Purpose ↓</p>
+                {data.cv !== '' ? (<p onClick={downloadCV}>CV ↓</p>) : (<p>CV not Avaliable</p>)}
+                {data.sop !== '' ? (<p onClick={downloadSOP}>Statement of Purpose ↓</p>) : (<p>Statement of Purpose not Avaliable</p>)}
             </section>
         </section>
         </section>

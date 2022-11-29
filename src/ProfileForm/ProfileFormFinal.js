@@ -25,31 +25,11 @@ const handleAppResult1 = event => {
     }
 };
 
-
-
-
-  const formSubmit = (event) => {
-    event.preventDefault();
-    var data = new FormData(event.target);
-    console.log(event.target);
-    let formObject = Object.fromEntries(data.entries());
-    console.log(formObject);
-    fetch("http://127.0.0.1:5000/submit",
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: data
-            })
-            .then(navigate('/submit'));
-    }
-
   return(
 
     <section className="profile_form_all">
          <ProfileHeader/>
-    <form action="http://127.0.0.1:5000/submit" method="POST" encType="multipart/form-data" className="ui form profile_form_final">
+    <form action="http://127.0.0.1:5000/submit/mrmitch" method="POST" encType="multipart/form-data" className="ui form profile_form_final">
 
       {/* Undergrad */}
       <h3>Education</h3>
