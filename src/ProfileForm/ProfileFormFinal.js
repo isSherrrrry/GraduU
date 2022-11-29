@@ -24,9 +24,10 @@ export function ProfileFormAll() {
     }
 };
 
+const [style, setStyle] = useState("uni_search_hid");
+
   const [currentEntry, setCurrentEntry] = useState('');
   const [names, setNames] = useState([]);
-  const [style, setStyle] = useState("uni_search_hid");
 
   const handleKeyPress = event => {
     var query = event.target.value;
@@ -75,6 +76,63 @@ export function ProfileFormAll() {
     for (var i = 0; i < names.length; i++) {
       search_names.push(<div className='search_result' key={names[i]} onClick={handleElementClick}><p>{names[i]}</p></div>);
    }
+
+
+
+   // START
+
+   const [currentEntry2, setCurrentEntry2] = useState('');
+  const [names2, setNames2] = useState([]);
+
+  const handleKeyPress2 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+      setNames2([]);
+      return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+      .then((res) => res.json())
+      .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+          if (universities.includes(result[i].name)) {
+            continue;
+          }
+          else {
+            universities.push(result[i].name);
+          }
+        }
+        setCurrentEntry2(currentEntry2);
+        setNames2(universities);
+      });
+  }
+
+  //Updates the input in response to user queries
+  const updateValue2 = event => {
+    setCurrentEntry2(event.target.value);
+    setNames2(names2);
+    setStyle("uni_search");
+  }
+
+  //Processes clicking on one of the searched features
+  const handleElementClick2 = event => {
+      var val = event.target.innerHTML;
+      setCurrentEntry2(val);
+      setNames2([]);
+      setStyle("uni_search_hid");
+  }
+
+  var search_names2 = [];
+    for (var i = 0; i < names2.length; i++) {
+      search_names2.push(<div className='search_result' key={names2[i]} onClick={handleElementClick2}><p>{names2[i]}</p></div>);
+   }
+
+   //END
 
   return(
 
@@ -146,9 +204,9 @@ export function ProfileFormAll() {
             eduCount >= 1 && (<section className="profile_grad profile_section">
             <label>
                 <span>University name</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_2" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_2" value={currentEntry2} placeholder='Enter a University'
+                onKeyUp={handleKeyPress2} onChange={updateValue2}></input>
+                <div className={style}>{search_names2}</div>
             </label>
 
             <label>
