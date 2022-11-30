@@ -231,6 +231,16 @@ def generate_profile(username):
     data['final_choice'] = getFinalChoice(data)
     return jsonify(data)
 
+##Builds an edit page for an inputted user.
+@app.route("/edit_profile/<username>", methods=['GET'])
+def generate_edit_profile(username):
+    data = {}
+    data.update(getDemographics(username))
+    data.update(get_goes_to(username, True))
+    data.update(get_applied_to(username, True))
+
+    return jsonify(data)
+
 ##Gets all user profile information (doesn't include school information).
 @app.route('/user_profile/<username>', methods=['GET'])
 def generate_user_profile(username):
@@ -242,7 +252,7 @@ def generate_user_profile(username):
     data = {
         'university': finalChoice,
         'sop': sop_cv[0].getSOP(),
-        'cv': sop_cv[0].getCV()
+        'cv': sop_cv[0].getCV(),
     }
     data.update(profileData)
 
@@ -374,7 +384,7 @@ def getDemographics(username):
     return demographics
 
 #Gets school data
-def get_goes_to(username):
+def get_goes_to(username, returnCount=False):
     goes_to = {}
     with Session(engine) as session:
         goesto_schools = session.query(goesto).filter_by(username=username)
@@ -392,11 +402,12 @@ def get_goes_to(username):
             goes_to['uni_minor_' + str(goesto_index)] = school.getMinor()
             goes_to['uni_degree_' + str(goesto_index)] = school.getDegree()
             goesto_index += 1
-
+        if returnCount is True:
+            goes_to['education_count'] = goesto_index
     return goes_to
 
 #Gets application data
-def get_applied_to(username):
+def get_applied_to(username, returnCount=False):
     applied_to = {}
 
     with Session(engine) as session:
@@ -417,6 +428,8 @@ def get_applied_to(username):
             applied_to['application_funding_' + str(applied_index)] = application.getFunding()
             applied_to['application_decision_' + str(applied_index)] = application.getDecision()
             applied_index += 1
+        if returnCount is True:
+            applied_to['education_count'] = applied_index
 
     return applied_to
 
