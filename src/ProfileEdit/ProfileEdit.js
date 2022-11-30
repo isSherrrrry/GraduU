@@ -24,7 +24,6 @@ const handleAppResult1 = event => {
 
 
 
-
   const formSubmit = (event) => {
     event.preventDefault();
     var data = new FormData(event.target);
@@ -1259,8 +1258,8 @@ const handleAppResult1 = event => {
 
       <section className="profile_section" id="profile_upload" >
         <p>Please erase all your personal information</p><br/>
-        <label><span>Upload Your Statement of Purpose (.pdf)</span><input type='file' accept=".pdf" name="sop" /></label><br />
-        <label><span>Upload Your Curriculum vitae (.pdf)</span><input type='file' accept=".pdf" name="cv" /></label><br />
+        <label><span>Re-upload Your Statement of Purpose (.pdf)</span><input type='file' accept=".pdf" name="sop" /></label><br />
+        <label><span>Re-upload Your Curriculum vitae (.pdf)</span><input type='file' accept=".pdf" name="cv" /></label><br />
         <label id="hidden">
             <input type="checkbox" />
             <span>I have hidden all the information that I believe is sensitive</span>
@@ -1268,7 +1267,7 @@ const handleAppResult1 = event => {
       </section >
 
       <section className="submit_button">
-      <button type="submit" id = "submitForm">Submit</button>
+      <button type="submit" id = "submitForm">Re-Submit</button>
       </section>
     </form>
     </section>

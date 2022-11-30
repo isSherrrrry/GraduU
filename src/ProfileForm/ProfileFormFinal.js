@@ -26,113 +26,839 @@ export function ProfileFormAll() {
 
 const [style, setStyle] = useState("uni_search_hid");
 
-  const [currentEntry, setCurrentEntry] = useState('');
-  const [names, setNames] = useState([]);
+// 1-4: Undergraduate Education 5-16: Application Results
+// 1
+const [currentEntry, setCurrentEntry] = useState('');
+const [names, setNames] = useState([]);
 
-  const handleKeyPress = event => {
-    var query = event.target.value;
-    var api_format = "http://universities.hipolabs.com/search?name="
-    api_format = api_format.concat(query, "&country=United+States");
+const handleKeyPress = event => {
+var query = event.target.value;
+var api_format = "http://universities.hipolabs.com/search?name="
+api_format = api_format.concat(query, "&country=United+States");
 
-    if (query === "") {
-      setNames([]);
-      return;
-    }
-    //Gets JSON data from the API.
-    fetch(api_format)
-      .then((res) => res.json())
-      .then((result) => {
-        var len = (result.length > 7 ? 8 : result.length);
-        var universities = [];
-        for (var i = 0; i < len; i++) {
-          if (universities.includes(result[i].name)) {
-            continue;
-          }
-          else {
-            universities.push(result[i].name);
-          }
+if (query === "") {
+    setNames([]);
+    return;
+}
+//Gets JSON data from the API.
+fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+    var len = (result.length > 7 ? 8 : result.length);
+    var universities = [];
+    for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+        continue;
         }
-        setCurrentEntry(currentEntry);
-        setNames(universities);
-      });
-  }
+        else {
+        universities.push(result[i].name);
+        }
+    }
+    setCurrentEntry(currentEntry);
+    setNames(universities);
+    });
+}
 
-  //Updates the input in response to user queries
-  const updateValue = event => {
-    setCurrentEntry(event.target.value);
-    setNames(names);
-    setStyle("uni_search");
-  }
+//Updates the input in response to user queries
+const updateValue = event => {
+setCurrentEntry(event.target.value);
+setNames(names);
+setStyle("uni_search");
+}
 
-  //Processes clicking on one of the searched features
-  const handleElementClick = event => {
-      var val = event.target.innerHTML;
-      setCurrentEntry(val);
-      setNames([]);
-      setStyle("uni_search_hid");
-  }
+//Processes clicking on one of the searched features
+const handleElementClick = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry(val);
+    setNames([]);
+    setStyle("uni_search_hid");
+}
 
-  var search_names = [];
-    for (var i = 0; i < names.length; i++) {
-      search_names.push(<div className='search_result' key={names[i]} onClick={handleElementClick}><p>{names[i]}</p></div>);
-   }
+var search_names = [];
+for (var i = 0; i < names.length; i++) {
+    search_names.push(<div className='search_result' key={names[i]} onClick={handleElementClick}><p>{names[i]}</p></div>);
+}
 
+// 2
+const [currentEntry2, setCurrentEntry2] = useState('');
+const [names2, setNames2] = useState([]);
 
-
-   // START
-
-   const [currentEntry2, setCurrentEntry2] = useState('');
-  const [names2, setNames2] = useState([]);
-
-  const handleKeyPress2 = event => {
+const handleKeyPress2 = event => {
     var query = event.target.value;
     var api_format = "http://universities.hipolabs.com/search?name="
     api_format = api_format.concat(query, "&country=United+States");
 
     if (query === "") {
-      setNames2([]);
-      return;
+    setNames2([]);
+    return;
     }
     //Gets JSON data from the API.
     fetch(api_format)
-      .then((res) => res.json())
-      .then((result) => {
+    .then((res) => res.json())
+    .then((result) => {
         var len = (result.length > 7 ? 8 : result.length);
         var universities = [];
         for (var i = 0; i < len; i++) {
-          if (universities.includes(result[i].name)) {
+        if (universities.includes(result[i].name)) {
             continue;
-          }
-          else {
+        }
+        else {
             universities.push(result[i].name);
-          }
+        }
         }
         setCurrentEntry2(currentEntry2);
         setNames2(universities);
-      });
-  }
+    });
+}
 
-  //Updates the input in response to user queries
-  const updateValue2 = event => {
+//Updates the input in response to user queries
+const updateValue2 = event => {
     setCurrentEntry2(event.target.value);
     setNames2(names2);
     setStyle("uni_search");
-  }
+}
 
-  //Processes clicking on one of the searched features
-  const handleElementClick2 = event => {
-      var val = event.target.innerHTML;
-      setCurrentEntry2(val);
-      setNames2([]);
-      setStyle("uni_search_hid");
-  }
+//Processes clicking on one of the searched features
+const handleElementClick2 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry2(val);
+    setNames2([]);
+    setStyle("uni_search_hid");
+}
 
-  var search_names2 = [];
+var search_names2 = [];
     for (var i = 0; i < names2.length; i++) {
-      search_names2.push(<div className='search_result' key={names2[i]} onClick={handleElementClick2}><p>{names2[i]}</p></div>);
-   }
+    search_names2.push(<div className='search_result' key={names2[i]} onClick={handleElementClick2}><p>{names2[i]}</p></div>);
+}
 
-   //END
+// 3
+const [currentEntry3, setCurrentEntry3] = useState('');
+const [names3, setNames3] = useState([]);
+
+const handleKeyPress3 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames3([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry3(currentEntry3);
+        setNames3(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue3 = event => {
+    setCurrentEntry3(event.target.value);
+    setNames3(names3);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick3 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry3(val);
+    setNames3([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names3 = [];
+    for (var i = 0; i < names3.length; i++) {
+    search_names3.push(<div className='search_result' key={names3[i]} onClick={handleElementClick3}><p>{names3[i]}</p></div>);
+}
+
+// 4
+const [currentEntry4, setCurrentEntry4] = useState('');
+const [names4, setNames4] = useState([]);
+
+const handleKeyPress4 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames4([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry4(currentEntry4);
+        setNames4(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue4 = event => {
+    setCurrentEntry4(event.target.value);
+    setNames4(names4);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick4 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry4(val);
+    setNames4([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names4 = [];
+    for (var i = 0; i < names4.length; i++) {
+    search_names4.push(<div className='search_result' key={names4[i]} onClick={handleElementClick4}><p>{names4[i]}</p></div>);
+}
+
+// 5
+const [currentEntry5, setCurrentEntry5] = useState('');
+const [names5, setNames5] = useState([]);
+
+const handleKeyPress5 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames5([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry5(currentEntry5);
+        setNames5(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue5 = event => {
+    setCurrentEntry5(event.target.value);
+    setNames5(names5);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick5 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry5(val);
+    setNames5([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names5 = [];
+    for (var i = 0; i < names5.length; i++) {
+    search_names5.push(<div className='search_result' key={names5[i]} onClick={handleElementClick5}><p>{names5[i]}</p></div>);
+}
+
+// 6
+const [currentEntry6, setCurrentEntry6] = useState('');
+const [names6, setNames6] = useState([]);
+
+const handleKeyPress6 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames6([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry6(currentEntry6);
+        setNames6(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue6 = event => {
+    setCurrentEntry6(event.target.value);
+    setNames6(names6);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick6 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry6(val);
+    setNames6([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names6 = [];
+    for (var i = 0; i < names6.length; i++) {
+    search_names6.push(<div className='search_result' key={names6[i]} onClick={handleElementClick6}><p>{names6[i]}</p></div>);
+}
+
+// 7
+const [currentEntry7, setCurrentEntry7] = useState('');
+const [names7, setNames7] = useState([]);
+
+const handleKeyPress7 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames7([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry7(currentEntry7);
+        setNames7(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue7 = event => {
+    setCurrentEntry7(event.target.value);
+    setNames7(names7);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick7 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry7(val);
+    setNames7([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names7 = [];
+    for (var i = 0; i < names7.length; i++) {
+    search_names7.push(<div className='search_result' key={names7[i]} onClick={handleElementClick7}><p>{names7[i]}</p></div>);
+}
+
+// 8
+const [currentEntry8, setCurrentEntry8] = useState('');
+const [names8, setNames8] = useState([]);
+
+const handleKeyPress8 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames8([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry8(currentEntry8);
+        setNames8(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue8 = event => {
+    setCurrentEntry8(event.target.value);
+    setNames8(names8);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick8 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry8(val);
+    setNames8([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names8 = [];
+    for (var i = 0; i < names8.length; i++) {
+    search_names8.push(<div className='search_result' key={names8[i]} onClick={handleElementClick8}><p>{names8[i]}</p></div>);
+}
+
+// 9
+const [currentEntry9, setCurrentEntry9] = useState('');
+const [names9, setNames9] = useState([]);
+
+const handleKeyPress9 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames9([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry9(currentEntry9);
+        setNames9(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue9 = event => {
+    setCurrentEntry9(event.target.value);
+    setNames9(names9);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick9 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry9(val);
+    setNames9([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names9 = [];
+    for (var i = 0; i < names9.length; i++) {
+    search_names9.push(<div className='search_result' key={names9[i]} onClick={handleElementClick9}><p>{names9[i]}</p></div>);
+}
+
+// 10
+const [currentEntry10, setCurrentEntry10] = useState('');
+const [names10, setNames10] = useState([]);
+
+const handleKeyPress10 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames10([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry10(currentEntry10);
+        setNames10(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue10 = event => {
+    setCurrentEntry10(event.target.value);
+    setNames10(names10);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick10 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry10(val);
+    setNames10([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names10 = [];
+    for (var i = 0; i < names10.length; i++) {
+    search_names10.push(<div className='search_result' key={names10[i]} onClick={handleElementClick10}><p>{names10[i]}</p></div>);
+}
+
+// 11
+const [currentEntry11, setCurrentEntry11] = useState('');
+const [names11, setNames11] = useState([]);
+
+const handleKeyPress11 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames11([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry11(currentEntry11);
+        setNames11(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue11 = event => {
+    setCurrentEntry11(event.target.value);
+    setNames11(names11);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick11 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry11(val);
+    setNames11([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names11 = [];
+    for (var i = 0; i < names11.length; i++) {
+    search_names11.push(<div className='search_result' key={names11[i]} onClick={handleElementClick11}><p>{names11[i]}</p></div>);
+}
+
+// 12
+const [currentEntry12, setCurrentEntry12] = useState('');
+const [names12, setNames12] = useState([]);
+
+const handleKeyPress12 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames12([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry12(currentEntry12);
+        setNames12(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue12 = event => {
+    setCurrentEntry12(event.target.value);
+    setNames12(names12);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick12 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry12(val);
+    setNames12([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names12 = [];
+    for (var i = 0; i < names12.length; i++) {
+    search_names12.push(<div className='search_result' key={names12[i]} onClick={handleElementClick12}><p>{names12[i]}</p></div>);
+}
+
+// 13
+const [currentEntry13, setCurrentEntry13] = useState('');
+const [names13, setNames13] = useState([]);
+
+const handleKeyPress13 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames13([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry13(currentEntry13);
+        setNames13(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue13 = event => {
+    setCurrentEntry13(event.target.value);
+    setNames13(names13);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick13 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry13(val);
+    setNames13([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names13 = [];
+    for (var i = 0; i < names13.length; i++) {
+    search_names13.push(<div className='search_result' key={names13[i]} onClick={handleElementClick13}><p>{names13[i]}</p></div>);
+}
+
+// 14
+const [currentEntry14, setCurrentEntry14] = useState('');
+const [names14, setNames14] = useState([]);
+
+const handleKeyPress14 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames14([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry14(currentEntry14);
+        setNames14(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue14 = event => {
+    setCurrentEntry14(event.target.value);
+    setNames14(names14);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick14 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry14(val);
+    setNames14([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names14 = [];
+    for (var i = 0; i < names14.length; i++) {
+    search_names14.push(<div className='search_result' key={names14[i]} onClick={handleElementClick14}><p>{names14[i]}</p></div>);
+}
+
+// 15
+const [currentEntry15, setCurrentEntry15] = useState('');
+const [names15, setNames15] = useState([]);
+
+const handleKeyPress15 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames15([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry15(currentEntry15);
+        setNames15(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue15 = event => {
+    setCurrentEntry15(event.target.value);
+    setNames15(names15);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick15 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry15(val);
+    setNames15([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names15 = [];
+    for (var i = 0; i < names15.length; i++) {
+    search_names15.push(<div className='search_result' key={names15[i]} onClick={handleElementClick15}><p>{names15[i]}</p></div>);
+}
+
+// 16
+const [currentEntry16, setCurrentEntry16] = useState('');
+const [names16, setNames16] = useState([]);
+
+const handleKeyPress16 = event => {
+    var query = event.target.value;
+    var api_format = "http://universities.hipolabs.com/search?name="
+    api_format = api_format.concat(query, "&country=United+States");
+
+    if (query === "") {
+    setNames16([]);
+    return;
+    }
+    //Gets JSON data from the API.
+    fetch(api_format)
+    .then((res) => res.json())
+    .then((result) => {
+        var len = (result.length > 7 ? 8 : result.length);
+        var universities = [];
+        for (var i = 0; i < len; i++) {
+        if (universities.includes(result[i].name)) {
+            continue;
+        }
+        else {
+            universities.push(result[i].name);
+        }
+        }
+        setCurrentEntry16(currentEntry16);
+        setNames16(universities);
+    });
+}
+
+//Updates the input in response to user queries
+const updateValue16 = event => {
+    setCurrentEntry16(event.target.value);
+    setNames16(names16);
+    setStyle("uni_search");
+}
+
+//Processes clicking on one of the searched features
+const handleElementClick16 = event => {
+    var val = event.target.innerHTML;
+    setCurrentEntry16(val);
+    setNames16([]);
+    setStyle("uni_search_hid");
+}
+
+var search_names16 = [];
+    for (var i = 0; i < names16.length; i++) {
+    search_names16.push(<div className='search_result' key={names16[i]} onClick={handleElementClick16}><p>{names16[i]}</p></div>);
+}
+
 
   return(
 
@@ -264,9 +990,9 @@ const [style, setStyle] = useState("uni_search_hid");
             eduCount >= 2 && (<section className="profile_grad profile_section">
             <label>
                 <span>University name</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_3" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_3" value={currentEntry3} placeholder='Enter a University'
+                onKeyUp={handleKeyPress3} onChange={updateValue3}></input>
+                <div className={style}>{search_names3}</div>
             </label>
 
             <label>
@@ -324,9 +1050,9 @@ const [style, setStyle] = useState("uni_search_hid");
             eduCount >= 3 && (<section className="profile_grad profile_section">
             <label>
                 <span>University name</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_4" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="edu_uni_name_4" value={currentEntry4} placeholder='Enter a University'
+                onKeyUp={handleKeyPress4} onChange={updateValue4}></input>
+                <div className={style}>{search_names4}</div>
             </label>
 
             <label>
@@ -403,9 +1129,9 @@ const [style, setStyle] = useState("uni_search_hid");
         <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_1" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_1" value={currentEntry5} placeholder='Enter a University'
+                onKeyUp={handleKeyPress5} onChange={updateValue5}></input>
+                <div className={style}>{search_names5}</div>
             </label>
 
             <label>
@@ -454,9 +1180,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 1 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_2" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_2" value={currentEntry6} placeholder='Enter a University'
+                onKeyUp={handleKeyPress6} onChange={updateValue6}></input>
+                <div className={style}>{search_names6}</div>
             </label>
 
             <label>
@@ -504,8 +1230,8 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 2 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_3" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_3" value={currentEntry7} placeholder='Enter a University'
+                onKeyUp={handleKeyPress7} onChange={updateValue7}></input>
                 <div className={style}>{search_names}</div>
             </label>
 
@@ -554,9 +1280,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 3 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_4" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_4" value={currentEntry8} placeholder='Enter a University'
+                onKeyUp={handleKeyPress8} onChange={updateValue8}></input>
+                <div className={style}>{search_names8}</div>
             </label>
 
             <label>
@@ -604,9 +1330,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 4 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_5" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_5" value={currentEntry9} placeholder='Enter a University'
+                onKeyUp={handleKeyPress9} onChange={updateValue9}></input>
+                <div className={style}>{search_names9}</div>
             </label>
 
             <label>
@@ -654,9 +1380,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 5 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_6" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_6" value={currentEntry10} placeholder='Enter a University'
+                onKeyUp={handleKeyPress10} onChange={updateValue10}></input>
+                <div className={style}>{search_names10}</div>
             </label>
 
             <label>
@@ -704,9 +1430,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 6 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_7" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_7" value={currentEntry11} placeholder='Enter a University'
+                onKeyUp={handleKeyPress11} onChange={updateValue11}></input>
+                <div className={style}>{search_names11}</div>
             </label>
 
             <label>
@@ -754,9 +1480,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 7 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_8" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_8" value={currentEntry12} placeholder='Enter a University'
+                onKeyUp={handleKeyPress12} onChange={updateValue12}></input>
+                <div className={style}>{search_names12}</div>
             </label>
 
             <label>
@@ -804,9 +1530,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 8 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_9" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_9" value={currentEntry13} placeholder='Enter a University'
+                onKeyUp={handleKeyPress13} onChange={updateValue13}></input>
+                <div className={style}>{search_names13}</div>
             </label>
 
             <label>
@@ -854,9 +1580,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 9 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_10" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_10" value={currentEntry14} placeholder='Enter a University'
+                onKeyUp={handleKeyPress14} onChange={updateValue14}></input>
+                <div className={style}>{search_names14}</div>
             </label>
 
             <label>
@@ -904,9 +1630,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 10 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_11" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_11" value={currentEntry15} placeholder='Enter a University'
+                onKeyUp={handleKeyPress15} onChange={updateValue15}></input>
+                <div className={style}>{search_names15}</div>
             </label>
 
             <label>
@@ -954,9 +1680,9 @@ const [style, setStyle] = useState("uni_search_hid");
             resultCount >= 11 && <section className="profile_undergrad profile_section">
             <label>
                 <span>University Applied</span>
-                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_12" value={currentEntry} placeholder='Enter a University'
-                onKeyUp={handleKeyPress} onChange={updateValue}></input>
-                <div className={style}>{search_names}</div>
+                <input id="collegeSearch" type="text" className="ui selection dropdown" name="res_uni_12" value={currentEntry16} placeholder='Enter a University'
+                onKeyUp={handleKeyPress16} onChange={updateValue16}></input>
+                <div className={style}>{search_names16}</div>
             </label>
 
             <label>

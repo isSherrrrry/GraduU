@@ -28,13 +28,7 @@ const Create = () => {
             <span>View Profile</span>
             <span>Edit Profile</span>
           </section>
-
-          <section className='completion'>
-              <p>Your profile is 75% completed</p>
-            </section>
         </section>
-
-        
 
         <section className='right'>
           <section className='PorS'>
