@@ -166,6 +166,22 @@ def generate_profile(username):
     data['final_choice'] = getFinalChoice(data)
     return jsonify(data)
 
+##Gets all user profile information (doesn't include school information).
+@app.route('/user_profile/<username>', methods=['GET'])
+def generate_user_profile(username):
+    profileData = getProfile(username)
+    apps = get_applied_to(username)
+    sop_cv = getDemographics(username)
+    finalChoice = getFinalChoice(apps)
+
+    data = {
+        'university': finalChoice,
+        'sop': sop_cv[0].getSOP(),
+        'cv': sop_cv[0].getCV()
+    }
+    data.update(profileData)
+    
+    return jsonify(data)
 
 #####
 # Search Functions

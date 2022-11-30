@@ -24,8 +24,7 @@ export function ProfileFormAll() {
     }
 };
 
-const [style, setStyle] = useState("uni_search_hid");
-
+  const [style, setStyle] = useState("uni_search_hid");
   const [currentEntry, setCurrentEntry] = useState('');
   const [names, setNames] = useState([]);
 
@@ -52,7 +51,6 @@ const [style, setStyle] = useState("uni_search_hid");
             universities.push(result[i].name);
           }
         }
-        setCurrentEntry(currentEntry);
         setNames(universities);
       });
   }
@@ -60,14 +58,13 @@ const [style, setStyle] = useState("uni_search_hid");
   //Updates the input in response to user queries
   const updateValue = event => {
     setCurrentEntry(event.target.value);
-    setNames(names);
     setStyle("uni_search");
   }
 
   //Processes clicking on one of the searched features
   const handleElementClick = event => {
       var val = event.target.innerHTML;
-      setCurrentEntry(val);
+      setCurrentEntry(val.replace("&amp;", "&"));
       setNames([]);
       setStyle("uni_search_hid");
   }
@@ -78,10 +75,7 @@ const [style, setStyle] = useState("uni_search_hid");
    }
 
 
-
-   // START
-
-   const [currentEntry2, setCurrentEntry2] = useState('');
+  const [currentEntry2, setCurrentEntry2] = useState('');
   const [names2, setNames2] = useState([]);
 
   const handleKeyPress2 = event => {
@@ -115,7 +109,6 @@ const [style, setStyle] = useState("uni_search_hid");
   //Updates the input in response to user queries
   const updateValue2 = event => {
     setCurrentEntry2(event.target.value);
-    setNames2(names2);
     setStyle("uni_search");
   }
 

@@ -31,7 +31,7 @@ const handleAppResult1 = event => {
     console.log(event.target);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
-    fetch("http://127.0.0.1:5000/submit",
+    fetch("http://127.0.0.1:5000/submit/username",
             {
                 headers: {
                     'Content-Type': 'application/json'
