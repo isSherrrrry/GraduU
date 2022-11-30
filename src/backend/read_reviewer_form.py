@@ -154,6 +154,71 @@ def update_database(username):
         session.commit()
     return redirect("http://localhost:3000/thankyou")
 
+@app.route("/edit/<username>")
+def edit_database(username):
+    with Session(engine) as session:
+        test_username = username
+        files = session.query(Demographics).filter_by(username=username)
+
+        sop=request.files['sop']
+        cv=request.files['cv']
+
+        if sop is None:
+            sopfilename = files[0].getSOP()
+        if cv is None:
+            cvfilename = files[0].getCV()
+
+        if sop and allowed_file(sop.filename):
+            sopfilename = secure_filename(test_username+'_sop.pdf')
+            sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
+        if sop and allowed_file(sop.filename):
+            cvfilename = secure_filename(test_username+'_cv.pdf')
+            cv.save(os.path.join(app.config['UPLOAD_FOLDER'], cvfilename))
+
+        data = request.form
+        demo_eth=data['demo_eth']
+        demo_gender=data['demo_gender']
+        demo_fistgen=data['demo_fistgen']
+        demo_citizenship=data['demo_citizenship']
+        recommender=data['rec']
+
+        session.query(Demographics).filter_by(username=username).delete()
+        session.query(appliedto).filter_by(username=username).delete()
+        session.query(goesto).filter_by(username=username).delete()
+        session.commit()
+
+        prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
+        session.add(prof)
+        for i in range(1,5):
+            if 'edu_uni_name_'+str(i) in data.keys():
+                edu_uni_name=data['edu_uni_name_'+str(i)]
+                edu_degree=data['edu_degree_'+str(i)]
+                edu_gpa=data['edu_gpa_'+str(i)]
+                edu_major=data['edu_major_'+str(i)]
+                edu_minor=data['edu_minor_'+str(i)]
+                ####NEED YEAR UPDATE HERE TODO TODO TODO####
+                goesto_row=goesto(edu_uni_name, test_username, 2020, edu_major, edu_minor, edu_gpa, edu_degree)
+                session.add(goesto_row)
+        for j in range(1,13):
+            if 'res_uni_'+str(j) in data.keys():
+                res_uni_1=data['res_uni_'+str(j)]
+                res_school_1=data['res_school_'+str(j)]
+                res_prog_1=data['res_prog_'+str(j)]
+                res_funding_1=data['res_funding_'+str(j)]
+                res_app_1=data['res_app_'+str(j)]
+                res_dec_1 = ''
+                if res_app_1 == "Accepted":
+                    res_dec_1 = data['res_dec_'+str(j)]
+                else:
+                    res_dec_1 = "Declined"
+                app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
+                session.add(app_to_row1)
+        session.commit()
+    return redirect("http://localhost:3000/thankyou")
+
+##
+# Handles the construction of profiles.
+##
 
 ##Builds a profile page for an inputted user.
 @app.route("/profile/<username>", methods=['GET'])
@@ -166,6 +231,32 @@ def generate_profile(username):
     data['final_choice'] = getFinalChoice(data)
     return jsonify(data)
 
+##Builds an edit page for an inputted user.
+@app.route("/edit_profile/<username>", methods=['GET'])
+def generate_edit_profile(username):
+    data = {}
+    data.update(getDemographics(username))
+    data.update(get_goes_to(username, True))
+    data.update(get_applied_to(username, True))
+
+    return jsonify(data)
+
+##Gets all user profile information (doesn't include school information).
+@app.route('/user_profile/<username>', methods=['GET'])
+def generate_user_profile(username):
+    profileData = getProfile(username)
+    apps = get_applied_to(username)
+    sop_cv = getDemographics(username)
+    finalChoice = getFinalChoice(apps)
+
+    data = {
+        'university': finalChoice,
+        'sop': sop_cv[0].getSOP(),
+        'cv': sop_cv[0].getCV(),
+    }
+    data.update(profileData)
+
+    return jsonify(data)
 
 #####
 # Search Functions
@@ -293,7 +384,7 @@ def getDemographics(username):
     return demographics
 
 #Gets school data
-def get_goes_to(username):
+def get_goes_to(username, returnCount=False):
     goes_to = {}
     with Session(engine) as session:
         goesto_schools = session.query(goesto).filter_by(username=username)
@@ -311,11 +402,12 @@ def get_goes_to(username):
             goes_to['uni_minor_' + str(goesto_index)] = school.getMinor()
             goes_to['uni_degree_' + str(goesto_index)] = school.getDegree()
             goesto_index += 1
-
+        if returnCount is True:
+            goes_to['education_count'] = goesto_index
     return goes_to
 
 #Gets application data
-def get_applied_to(username):
+def get_applied_to(username, returnCount=False):
     applied_to = {}
 
     with Session(engine) as session:
@@ -336,6 +428,8 @@ def get_applied_to(username):
             applied_to['application_funding_' + str(applied_index)] = application.getFunding()
             applied_to['application_decision_' + str(applied_index)] = application.getDecision()
             applied_index += 1
+        if returnCount is True:
+            applied_to['education_count'] = applied_index
 
     return applied_to
 

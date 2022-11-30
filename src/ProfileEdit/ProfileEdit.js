@@ -30,7 +30,7 @@ const handleAppResult1 = event => {
     console.log(event.target);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
-    fetch("http://127.0.0.1:5000/submit",
+    fetch("http://127.0.0.1:5000/submit/username",
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ const handleAppResult1 = event => {
 
     <section className="profile_form_all">
          <ProfileHeader/>
-    <form onSubmit={formSubmit} className="ui form profile_form_final">
+    <form action="http://127.0.0.1:5000/edit/<username>" method="POST" encType="multipart/form-data" className="ui form profile_form_final">
 
       {/* Undergrad */}
       <h3>Education</h3>
