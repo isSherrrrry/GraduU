@@ -1,8 +1,7 @@
 import './ProfileGalleryMain.css'
 import searchIcon from './SearchResult/searchIcon.png'
 import { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 
 const Create = () => {
@@ -12,7 +11,6 @@ const Create = () => {
 
     const [option, setOption] = useState('by_uni');
     const [promptText, setPromptText] = useState('Search by the university you want to apply for!')
-    const [term, setTerm] = useState('');
 
     const getUsername = localStorage.getItem("username");
 
@@ -85,9 +83,8 @@ const Create = () => {
                                 <div className='searchBar'><input
                                     type="text"
                                     name="searchTerm"
-                                    onChange={handleChange}
                                     placeholder={promptText} /></div>
-                                <button type='submit' className="submitButton"><img src={searchIcon} /></button>
+                                <button type='submit' className="submitButton"><img src={searchIcon} alt=""/></button>
                             </div>
                         </form>
                         <p className='want'>Want to submit your past application? Start <b>HERE</b></p>
@@ -111,7 +108,7 @@ const Create = () => {
                                 type="text"
                                 name="searchTerm"
                             /></div>
-                            <button type='submit' className="submitButton_1"><img src={searchIcon} /></button>
+                            <button type='submit' className="submitButton_1"><img src={searchIcon} alt=""/></button>
                         </div>
                     </form>
                     <section className='searchterm'>

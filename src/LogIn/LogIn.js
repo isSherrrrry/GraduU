@@ -4,6 +4,7 @@ import './LogInAll.css'
 
 import { Route, useNavigate } from 'react-router-dom';
 import {useState} from "react"
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
     const navigate = useNavigate();

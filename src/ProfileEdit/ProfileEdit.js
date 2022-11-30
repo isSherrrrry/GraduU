@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader'
 import 'semantic-ui-css/semantic.min.css'
 import './FormSection.css'
-import NarBar from '../NavBar/NavBar'
 
 export function ProfileFormEdit(){
 
-  const navigate = useNavigate();
 
 
   const [eduCount, setEduCount] = useState(0);
   const [resultCount, setResultCount] = useState(0);
-  const [appResult1, setAppResult1] = useState('');
   const [status1, setStatus1] = useState(false);
   const [data, setdata] = useState([])
 
@@ -22,24 +18,6 @@ const handleAppResult1 = event => {
     }
 };
 
-
-
-  const formSubmit = (event) => {
-    event.preventDefault();
-    var data = new FormData(event.target);
-    console.log(event.target);
-    let formObject = Object.fromEntries(data.entries());
-    console.log(formObject);
-    fetch("http://127.0.0.1:5000/submit/username",
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(formObject)
-            })
-            .then(navigate('/submit'));
-    }
 
     useEffect(() => {
       fetch("")
