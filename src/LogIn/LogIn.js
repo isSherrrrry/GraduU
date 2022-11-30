@@ -3,9 +3,13 @@ import './LogInAll.css'
 
 
 import { Route, useNavigate } from 'react-router-dom';
+import {useState} from "react"
 
 const Create = () => {
     const navigate = useNavigate();
+
+    const [username, setUsername] = useState('');
+
     const handleSubmit = (event) => {
         event.preventDefault();
         var data = new FormData(event.target);
@@ -26,16 +30,21 @@ const Create = () => {
                 alert('Invalid username/password combination.');
             }
             else {
+                localStorage.setItem("username", username);
                 navigate('/submit');
             }
         });
+    }
+
+    const handleChange = e =>{
+        setUsername(e.target.value);
     }
     return(
         <section className='logsign'>
             <form id="login" onSubmit={handleSubmit}>
                 <label>
                     <span>Username</span>
-                    <div className="ui input"><input type="text" name="username" required/></div>
+                    <div className="ui input"><input type="text" value={username} name="username" onChange={handleChange} required/></div>
                 </label>
 
                 <label>

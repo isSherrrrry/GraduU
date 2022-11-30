@@ -14,6 +14,9 @@ const Create = () => {
     const [promptText, setPromptText] = useState('Search by the university you want to apply for!')
     const [term, setTerm] = useState('');
 
+    const getUsername = localStorage.getItem("username");
+
+
     const handleChange = event => {
         setTerm(event.target.value);
     };
@@ -88,7 +91,12 @@ const Create = () => {
                             </div>
                         </form>
                         <p className='want'>Want to submit your past application? Start <b>HERE</b></p>
-                        <p className='form_button'><span onClick={()=> navigate('/form')} className='main_submit'>Submit Profile</span></p>
+                        <p className='form_button'>
+                            {
+                                getUsername? <span onClick={()=> navigate('/form')} className='main_submit'>Submit Profile</span>:
+                                <span onClick={()=> navigate('/nologin')} className='main_submit'>Submit Profile</span>
+                            }
+                        </p>
                     </section>
                 </section>
             ) : (

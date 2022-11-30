@@ -1,9 +1,16 @@
 import './NavBar.css'
 import { Route, useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 const Create = () => {
 
     const navigate = useNavigate();
+
+    const getUsername = localStorage.getItem("username");
+
+    const loggedout = e =>{
+        localStorage.clear();
+    }
     
     return(
         <section className='navbar_whole'>
@@ -12,8 +19,14 @@ const Create = () => {
             </section>
             <section className='bottom'>
                 <span onClick={()=> navigate('/')}>Search Profile</span>
-                <span onClick={()=> navigate('/form')}>Submit Profile</span>
-                <span onClick={()=> navigate('/login')}>Log in / Sign Up</span>
+                {
+                    getUsername? <span onClick={()=> navigate('/form')}>Submit Profile</span>:
+                    <span onClick={()=> navigate('/nologin')}>Submit Profile</span>
+                }
+                {
+                    getUsername? <span className='loggedin'><span onClick={loggedout}>Log Out</span><span className='username_actual'>[{getUsername}]</span></span>:
+                    <span onClick={()=> navigate('/login')}>Log in / Sign Up</span>
+                }
             </section>
         </section>
     ); 

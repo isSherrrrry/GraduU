@@ -40,3 +40,12 @@
     transition-duration: 0.4s;
     cursor: pointer;
 }
+.loggedin:hover, .username_actual:hover{
+    border-bottom: none !important;
+}
+.username_actual{
+    margin-left: 1.2vw !important;
+    color: rgb(5, 101, 143) !important;
+    font-weight: 1000 !important;
+
+}

@@ -10,6 +10,9 @@ import Login from './LogIn/LogInAll'
 import ThankYou from './ProfileForm/ThanksSubmit'
 import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileEdit  from './ProfileEdit/ProfileEdit'
+import ErrorPage from './ErrorPage/ErrorPage'
+import NotLoggedIn from './NotLoggedIn/NotLoggedIn'
+import ThanksSignUp from './ThanskSignUp/ThanksSignUp'
 
 function App() {
 
@@ -25,7 +28,9 @@ function App() {
         <Route path="/thankyou" element={<ThankYou />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/form-edited" element={<ProfileEdit />} />
-        {/* <Route path='*' element={<ErrorPage />} */}
+        <Route path="/nologin" element={<NotLoggedIn />} />
+        <Route path="/thankssignup" element={<ThanksSignUp />} />
+        <Route path='*' element={<ErrorPage />}/>
       </Routes>
     </Router>
   );
