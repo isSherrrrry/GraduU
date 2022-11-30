@@ -1,7 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import searchIcon from './searchIcon.png'
 import './SearchResult.css'
-import { Route, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 export function SearchResult() {
@@ -81,7 +81,7 @@ export function SearchResult() {
                         type="text"
                         name="searchTerm"
                     /></div>
-                    <button type='submit' className="submitButton_1"><img src={searchIcon} /></button>
+                    <button type='submit' className="submitButton_1"><img src={searchIcon} alt=""/></button>
                 </div>
             </form>
             {loading === false ? (

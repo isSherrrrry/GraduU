@@ -1,8 +1,7 @@
-import { Route, useNavigate } from 'react-router-dom';
+
 
 const Create = () => {
 
-    const navigate = useNavigate();
     
     return(
         <section className='profile_all_with'>

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 import './ResultPage.css'
 import './ResultSection.css'
-import NavBar from '../NavBar/NavBar'
 
 
 function accept(input){
@@ -54,7 +53,7 @@ export function ResultPage() {
       .then((res) => {
         setdata(res);
       })
-  }, [])
+  })
 
   var btnGroupClasses1 = classNames(
     {

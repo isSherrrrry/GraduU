@@ -1,5 +1,5 @@
 import './NavBar.css'
-import { Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
 
@@ -8,7 +8,7 @@ const Create = () => {
     return(
         <section className='navbar_whole'>
             <section className='upper'>
-                <span onClick={()=> navigate('/')}><img src={require('./logo.png')}/></span>
+                <span onClick={()=> navigate('/')}><img src={require('./logo.png')} alt=""/></span>
             </section>
             <section className='bottom'>
                 <span onClick={()=> navigate('/')}>Search Profile</span>
