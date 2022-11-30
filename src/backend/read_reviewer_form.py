@@ -111,6 +111,8 @@ def update_database(username):
         test_username = username
         sop=request.files['sop']
         cv=request.files['cv']
+        sopfilename=""
+        cvfilename=""
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))

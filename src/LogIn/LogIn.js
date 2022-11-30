@@ -2,9 +2,8 @@ import 'semantic-ui-css/semantic.min.css'
 import './LogInAll.css'
 
 
-import { Route, useNavigate } from 'react-router-dom';
-import {useState} from "react"
 import { useNavigate } from 'react-router-dom';
+import {useState} from "react"
 
 const Create = () => {
     const navigate = useNavigate();

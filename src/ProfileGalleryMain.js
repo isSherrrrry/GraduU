@@ -15,9 +15,6 @@ const Create = () => {
     const getUsername = localStorage.getItem("username");
 
 
-    const handleChange = event => {
-        setTerm(event.target.value);
-    };
 
     const changeText = e => {
         if (e.target.value === 'by_major') {

@@ -6,7 +6,7 @@ import './FormSection.css'
 
 export function ProfileFormAll() {
 
-
+    const getUserName = localStorage.getItem("username");
     const [eduCount, setEduCount] = useState(0);
     const [resultCount, setResultCount] = useState(0);
     const [status1, setStatus1] = useState(false);
@@ -1002,7 +1002,7 @@ export function ProfileFormAll() {
 
         <section className="profile_form_all">
             <ProfileHeader />
-            <form action="http://127.0.0.1:5000/submit/mrmitch" method="POST" encType="multipart/form-data" className="ui form profile_form_final">
+            <form action={"http://127.0.0.1:5000/submit/" + getUserName} method="POST" encType="multipart/form-data" className="ui form profile_form_final">
 
                 {/* Undergrad */}
                 <h3>Education</h3>

@@ -1,4 +1,4 @@
-import { Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './simple.css'
 
 const Create = () => {

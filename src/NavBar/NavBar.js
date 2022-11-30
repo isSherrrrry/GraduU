@@ -1,6 +1,4 @@
 import './NavBar.css'
-import { Route, useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
