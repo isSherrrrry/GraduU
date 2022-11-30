@@ -54,7 +54,6 @@ fetch(api_format)
         universities.push(result[i].name);
         }
     }
-    setCurrentEntry(currentEntry);
     setNames(universities);
     });
 }
@@ -69,7 +68,7 @@ setStyle("uni_search");
 //Processes clicking on one of the searched features
 const handleElementClick = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry(val);
+    setCurrentEntry(val.replace("&amp;", "&"));
     setNames([]);
     setStyle("uni_search_hid");
 }
@@ -106,7 +105,6 @@ const handleKeyPress2 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry2(currentEntry2);
         setNames2(universities);
     });
 }
@@ -121,7 +119,7 @@ const updateValue2 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick2 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry2(val);
+    setCurrentEntry2(val.replace("&amp;", "&"));
     setNames2([]);
     setStyle("uni_search_hid");
 }
@@ -158,7 +156,6 @@ const handleKeyPress3 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry3(currentEntry3);
         setNames3(universities);
     });
 }
@@ -173,7 +170,7 @@ const updateValue3 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick3 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry3(val);
+    setCurrentEntry3(val.replace("&amp;", "&"));
     setNames3([]);
     setStyle("uni_search_hid");
 }
@@ -210,7 +207,6 @@ const handleKeyPress4 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry4(currentEntry4);
         setNames4(universities);
     });
 }
@@ -225,7 +221,7 @@ const updateValue4 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick4 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry4(val);
+    setCurrentEntry4(val.replace("&amp;", "&"));
     setNames4([]);
     setStyle("uni_search_hid");
 }
@@ -262,7 +258,6 @@ const handleKeyPress5 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry5(currentEntry5);
         setNames5(universities);
     });
 }
@@ -277,7 +272,7 @@ const updateValue5 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick5 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry5(val);
+    setCurrentEntry5(val.replace("&amp;", "&"));
     setNames5([]);
     setStyle("uni_search_hid");
 }
@@ -314,7 +309,6 @@ const handleKeyPress6 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry6(currentEntry6);
         setNames6(universities);
     });
 }
@@ -329,7 +323,7 @@ const updateValue6 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick6 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry6(val);
+    setCurrentEntry6(val.replace("&amp;", "&"));
     setNames6([]);
     setStyle("uni_search_hid");
 }
@@ -366,7 +360,6 @@ const handleKeyPress7 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry7(currentEntry7);
         setNames7(universities);
     });
 }
@@ -381,7 +374,7 @@ const updateValue7 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick7 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry7(val);
+    setCurrentEntry7(val.replace("&amp;", "&"));
     setNames7([]);
     setStyle("uni_search_hid");
 }
@@ -418,7 +411,6 @@ const handleKeyPress8 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry8(currentEntry8);
         setNames8(universities);
     });
 }
@@ -433,7 +425,7 @@ const updateValue8 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick8 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry8(val);
+    setCurrentEntry8(val.replace("&amp;", "&"));
     setNames8([]);
     setStyle("uni_search_hid");
 }
@@ -470,7 +462,6 @@ const handleKeyPress9 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry9(currentEntry9);
         setNames9(universities);
     });
 }
@@ -485,7 +476,7 @@ const updateValue9 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick9 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry9(val);
+    setCurrentEntry9(val.replace("&amp;", "&"));
     setNames9([]);
     setStyle("uni_search_hid");
 }
@@ -522,7 +513,6 @@ const handleKeyPress10 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry10(currentEntry10);
         setNames10(universities);
     });
 }
@@ -537,7 +527,7 @@ const updateValue10 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick10 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry10(val);
+    setCurrentEntry10(val.replace("&amp;", "&"));
     setNames10([]);
     setStyle("uni_search_hid");
 }
@@ -574,7 +564,6 @@ const handleKeyPress11 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry11(currentEntry11);
         setNames11(universities);
     });
 }
@@ -589,7 +578,7 @@ const updateValue11 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick11 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry11(val);
+    setCurrentEntry11(val.replace("&amp;", "&"));
     setNames11([]);
     setStyle("uni_search_hid");
 }
@@ -626,7 +615,6 @@ const handleKeyPress12 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry12(currentEntry12);
         setNames12(universities);
     });
 }
@@ -641,7 +629,7 @@ const updateValue12 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick12 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry12(val);
+    setCurrentEntry12(val.replace("&amp;", "&"));
     setNames12([]);
     setStyle("uni_search_hid");
 }
@@ -678,7 +666,6 @@ const handleKeyPress13 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry13(currentEntry13);
         setNames13(universities);
     });
 }
@@ -693,7 +680,7 @@ const updateValue13 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick13 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry13(val);
+    setCurrentEntry13(val.replace("&amp;", "&"));
     setNames13([]);
     setStyle("uni_search_hid");
 }
@@ -730,7 +717,6 @@ const handleKeyPress14 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry14(currentEntry14);
         setNames14(universities);
     });
 }
@@ -745,7 +731,7 @@ const updateValue14 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick14 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry14(val);
+    setCurrentEntry14(val.replace("&amp;", "&"));
     setNames14([]);
     setStyle("uni_search_hid");
 }
@@ -782,7 +768,6 @@ const handleKeyPress15 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry15(currentEntry15);
         setNames15(universities);
     });
 }
@@ -797,7 +782,7 @@ const updateValue15 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick15 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry15(val);
+    setCurrentEntry15(val.replace("&amp;", "&"));
     setNames15([]);
     setStyle("uni_search_hid");
 }
@@ -834,7 +819,6 @@ const handleKeyPress16 = event => {
             universities.push(result[i].name);
         }
         }
-        setCurrentEntry16(currentEntry16);
         setNames16(universities);
     });
 }
@@ -849,7 +833,7 @@ const updateValue16 = event => {
 //Processes clicking on one of the searched features
 const handleElementClick16 = event => {
     var val = event.target.innerHTML;
-    setCurrentEntry16(val);
+    setCurrentEntry16(val.replace("&amp;", "&"));
     setNames16([]);
     setStyle("uni_search_hid");
 }
