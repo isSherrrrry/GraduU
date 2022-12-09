@@ -12,7 +12,7 @@ import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileEdit  from './ProfileEdit/ProfileEdit'
 import ErrorPage from './ErrorPage/ErrorPage'
 import NotLoggedIn from './NotLoggedIn/NotLoggedIn'
-import ThanksSignUp from './ThanskSignUp/ThanksSignUp'
+import ThanksSignUp from './ThanksSignUp/ThanksSignUp'
 
 function App() {
 
