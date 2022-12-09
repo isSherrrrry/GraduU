@@ -1,0 +1,30 @@
+.simple2{
+    width: 100vw;
+    height: 80vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+}
+.simple p span{
+    font-size: 140px;
+}
+
+.simple button{
+    width: 300px;
+    margin-left: 0vw;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(148,172,210,1);
+    font-size: 20px;
+    font-weight: 1000;
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+}
+.largeSimple{
+    font-size: 40px;
+    font-weight: 500;
+}

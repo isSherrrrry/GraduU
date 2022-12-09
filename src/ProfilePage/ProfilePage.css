@@ -1,0 +1,104 @@
+.profile_whole{
+    display: flex;
+    height: 1500px !important;
+}
+.profile_whole .left{
+    position: fixed;
+    width: 18vw;
+    height: 70vh;
+    background-color: rgb(240, 240, 240);
+    margin-left: 50px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+    text-align: left;
+}
+.profile_whole .documents{
+    margin-top: 30px;
+}
+.profile_whole .documents p{
+    text-decoration: underline;
+}
+.completion p{
+    text-decoration: none  !important;
+    margin-top: 40px;
+}
+.profile_whole .right{
+    width: 74vw;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-left: 25vw;
+    margin-top: 40px;
+    height:100vh;
+}
+.PorS{
+    display: flex;
+    border-bottom: 1px solid black ;
+    font-size: 20px;
+}
+.PorS span~span{
+    margin-left: 20px;
+}
+#saved_prog{
+    border: 1px solid rgba(0,0,0,0.8);
+    border-bottom: none;
+    padding-bottom: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.profile_section{
+    width: 70vw;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-content: flex-start;
+        align-items: flex-start;
+    justify-content: flex-start;
+}
+.profile_section h4, .desc {
+    margin-left: -6vw;
+}
+
+.profile_section h4{
+    width: 70vw;
+    display: block;
+    font-size: 26px;
+}
+.personal_items{
+    text-align: left;
+    margin-left: -6vw;
+}
+.personal_items section{
+    width: 30vw;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.About{
+    box-shadow: -10px 10px 10px #FDE6AB;
+}
+.personal_info{
+    box-shadow: -10px 10px 10px #FFD1D1;
+}
+.footer{
+    margin-top: 50px;
+}
+
+.submitted{
+    margin-top: 30px;
+}
+.submitted span{
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+

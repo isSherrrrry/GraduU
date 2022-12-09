@@ -1,0 +1,155 @@
+.profile_form_all{
+    width: 100vw;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+
+}
+.profile_form_final{
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+h3{
+    margin-top: 80px;
+    font-size: 30px;
+    margin-left: 4vw;
+    font-weight: 800;
+}
+
+.profile_section{
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 70px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 100px;
+    align-items: center;
+    font-size: 16px;
+    justify-content: left;
+}
+
+.profile_section label{
+    width: 330px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-left: 23px;
+}
+
+.profile_section label *{
+    text-align: left;
+    display: block;
+}
+
+button{
+    width: 30vw;
+    text-align: left;
+    margin-left: 13vw;
+    display: inline-block;
+}
+
+button{
+    background: none;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 1000;
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.input{
+    width: 100%;
+}
+
+.textarea{
+    width: 60vw !important;
+}
+
+/* button:nth-last-child(1){
+    background-color: rgba(255,255,255,0.4);
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    border: 1px solid white;
+} */
+
+.change_button{
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    left: -3vw;
+    font-size: 15px;
+    background-color:#CDF0EA;
+    width: 360px;
+    margin-top: 20px;
+    color: rgba(0,0,0,0.8);
+}
+.change_button_add{
+    background-color:#CDF0EA;
+}
+.change_button_delete{
+    background-color: #FF9494;
+}
+
+.change_button span{
+    font-weight: 1000;
+    font-size: 20px;
+    padding-right: 2px;
+}
+.change_button i{
+    opacity: 0.6;
+}
+
+#profile_upload{
+    display: flex;
+    flex-direction: column;
+}
+
+#profile_upload p{
+    color: brown;
+}
+#hidden{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+#hidden * {
+    display: inline;
+    margin-left: 2px;
+}
+
+#submitForm{
+    width: 70vw;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 50px;
+    background-color: #769FCD;
+    border: 3px solid #769FCD;
+    color: white;
+    font-weight: 1000;
+    font-size: 20px;
+    text-shadow: 0px 0px 1px rgba(255,255,255,0.8);
+}
+.submit_button{
+    width: 100vw;
+    text-align: center;
+}
+.uni_search{
+    position: absolute;
+    background-color: white;
+    z-index: 1000000;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
+    padding: 10px;
+}
+.uni_search_hid{
+    display: none;
+}
+
