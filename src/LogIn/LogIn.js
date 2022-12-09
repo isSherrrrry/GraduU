@@ -14,7 +14,7 @@ const Create = () => {
         event.preventDefault();
         var data = new FormData(event.target);
         let formObject = Object.fromEntries(data.entries());
-        fetch("http://127.0.0.1:5000/login",
+        fetch("http://34.172.189.28:3389/login",
         {
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const Create = () => {
             }
             else {
                 localStorage.setItem("username", username);
-                navigate('/submit');
+                navigate('/');
             }
         });
     }
@@ -49,7 +49,7 @@ const Create = () => {
 
                 <label>
                     <span>Password</span>
-                    <div className="ui input"><input type="text" name="password" required/></div>
+                    <div className="ui input"><input type="password" name="password" required/></div>
                 </label>
 
                 <button type='submit' className="logsign_submit">Log in</button>

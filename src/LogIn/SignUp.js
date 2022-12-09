@@ -11,7 +11,7 @@ const Create = () => {
         event.preventDefault();
         var data = new FormData(event.target);
         let formObject = Object.fromEntries(data.entries());
-        fetch("http://127.0.0.1:5000/signup",
+        fetch("http://34.172.189.28:3389/signup",
         {
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const Create = () => {
                 alert('This username has already been taken. Please select another.');
             }
             else {
-                navigate('/submit');
+                navigate('/thankssignup');
             }
         });
     }
@@ -45,12 +45,12 @@ const Create = () => {
 
                 <label>
                     <span>Password*</span>
-                    <div className="ui input"><input type="text" name="password" required/></div>
+                    <div className="ui input"><input type="password" name="password" required/></div>
                 </label>
 
                 <label>
                     <span>Re-type Password*</span>
-                    <div className="ui input"><input type="text" name="re_password" required/></div>
+                    <div className="ui input"><input type="password" name="re_password" required/></div>
                 </label>
 
                 <label>

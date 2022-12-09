@@ -9,7 +9,19 @@ export function ProfileFormAll() {
     const getUserName = localStorage.getItem("username");
     const [eduCount, setEduCount] = useState(0);
     const [resultCount, setResultCount] = useState(0);
+
     const [status1, setStatus1] = useState(false);
+    const [status2, setStatus2] = useState(false);
+    const [status3, setStatus3] = useState(false);
+    const [status4, setStatus4] = useState(false);
+    const [status5, setStatus5] = useState(false);
+    const [status6, setStatus6] = useState(false);
+    const [status7, setStatus7] = useState(false);
+    const [status8, setStatus8] = useState(false);
+    const [status9, setStatus9] = useState(false);
+    const [status10, setStatus10] = useState(false);
+    const [status11, setStatus11] = useState(false);
+    const [status12, setStatus12] = useState(false);
 
     const handleAppResult1 = event => {
         if (event.target.value === 'Accepted') {
@@ -20,7 +32,124 @@ export function ProfileFormAll() {
         }
     };
 
+    const handleAppResult2 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus2(true);
+        }
+        else {
+            setStatus2(false);
+        }
+    };
+
+    const handleAppResult3 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus3(true);
+        }
+        else {
+            setStatus3(false);
+        }
+    };
+
+    const handleAppResult4 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus4(true);
+        }
+        else {
+            setStatus4(false);
+        }
+    };
+
+    const handleAppResult5 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus5(true);
+        }
+        else {
+            setStatus5(false);
+        }
+    };
+
+    const handleAppResult6 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus6(true);
+        }
+        else {
+            setStatus6(false);
+        }
+    };
+
+    const handleAppResult7 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus7(true);
+        }
+        else {
+            setStatus7(false);
+        }
+    };
+
+    const handleAppResult8 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus8(true);
+        }
+        else {
+            setStatus8(false);
+        }
+    };
+
+    const handleAppResult9 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus9(true);
+        }
+        else {
+            setStatus9(false);
+        }
+    };
+
+    const handleAppResult10 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus10(true);
+        }
+        else {
+            setStatus10(false);
+        }
+    };
+
+    const handleAppResult11 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus11(true);
+        }
+        else {
+            setStatus11(false);
+        }
+    };
+
+    const handleAppResult12 = event => {
+        if (event.target.value === 'Accepted') {
+            setStatus12(true);
+        }
+        else {
+            setStatus12(false);
+        }
+    };
+
     const [style, setStyle] = useState("uni_search_hid");
+
+    //Handles Style for the dropdowns for the searches.
+    const [showText, setShowText] = useState("none");
+    const [showText2, setShowText2] = useState("none");
+    const [showText3, setShowText3] = useState("none");
+    const [showText4, setShowText4] = useState("none");
+    const [showText5, setShowText5] = useState("none");
+    const [showText6, setShowText6] = useState("none");
+    const [showText7, setShowText7] = useState("none");
+    const [showText8, setShowText8] = useState("none");
+    const [showText9, setShowText9] = useState("none");
+    const [showText10, setShowText10] = useState("none");
+    const [showText11, setShowText11] = useState("none");
+    const [showText12, setShowText12] = useState("none");
+    const [showText13, setShowText13] = useState("none");
+    const [showText14, setShowText14] = useState("none");
+    const [showText15, setShowText15] = useState("none");
+    const [showText16, setShowText16] = useState("none");
 
     // 1-4: Undergraduate Education 5-16: Application Results
     // 1
@@ -58,6 +187,7 @@ export function ProfileFormAll() {
     const updateValue = event => {
         setCurrentEntry(event.target.value);
         setStyle("uni_search");
+        setShowText("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -65,21 +195,21 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry(val.replace("&amp;", "&"));
-        setNames([]);
+        setNames([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText("none");
     }
 
     const handleBlur = () => {
-        if (names.length > 1) {
-            setCurrentEntry(names[0]);
-            setNames([]);
-        }
+        setCurrentEntry(names[0]);
+        setNames([names[0]]);
         setStyle("uni_search_hid");
+        setShowText("none");
     }
 
     var search_names = [];
     for (var i = 0; i < names.length; i++) {
-        search_names.push(<div className='search_result' key={names[i]} onMouseDown={handleElementClick}><p>{names[i]}</p></div>);
+        search_names.push(<div style={{display: showText}} className="search_result" key={names[i]} onMouseDown={handleElementClick}><p>{names[i]}</p></div>);
     }
 
     // 2
@@ -118,6 +248,7 @@ export function ProfileFormAll() {
         setCurrentEntry2(event.target.value);
         setNames2(names2);
         setStyle("uni_search");
+        setShowText2("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -125,22 +256,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry2(val.replace("&amp;", "&"));
-        setNames2([]);
+        setNames2([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText2("none");
     }
 
     var search_names2 = [];
     for (i = 0; i < names2.length; i++) {
-        search_names2.push(<div className='search_result' key={names2[i]} onMouseDown={handleElementClick2}><p>{names2[i]}</p></div>);
+        search_names2.push(<div style={{display: showText2}} className="search_result" key={names2[i]} onMouseDown={handleElementClick2}><p>{names2[i]}</p></div>);
     }
 
     const handleBlur2 = () => {
 
-        if (names2.length > 1) {
-            setCurrentEntry2(names2[0]);
-            setNames2([]);
-        }
+        setCurrentEntry2(names2[0]);
+        setNames2([names2[0]]);
         setStyle("uni_search_hid");
+        setShowText2("none");
     }
 
     // 3
@@ -178,6 +309,7 @@ export function ProfileFormAll() {
         setCurrentEntry3(event.target.value);
         setNames3(names3);
         setStyle("uni_search");
+        setShowText3("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -185,22 +317,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry3(val.replace("&amp;", "&"));
-        setNames3([]);
+        setNames3([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText3("none");
     }
 
     const handleBlur3 = () => {
 
-        if (names3.length > 1) {
-            setCurrentEntry3(names3[0]);
-            setNames3([]);
-        }
+        setCurrentEntry3(names3[0]);
+        setNames3([names3[0]]);
         setStyle("uni_search_hid");
+        setShowText3("none");
     }
 
     var search_names3 = [];
     for (i = 0; i < names3.length; i++) {
-        search_names3.push(<div className='search_result' key={names3[i]} onMouseDown={handleElementClick3}><p>{names3[i]}</p></div>);
+        search_names3.push(<div style={{display: showText3}} className='search_result' key={names3[i]} onMouseDown={handleElementClick3}><p>{names3[i]}</p></div>);
     }
 
     // 4
@@ -238,6 +370,7 @@ export function ProfileFormAll() {
         setCurrentEntry4(event.target.value);
         setNames4(names4);
         setStyle("uni_search");
+        setShowText4("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -245,22 +378,21 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry4(val.replace("&amp;", "&"));
-        setNames4([]);
+        setNames4([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText4("none");
     }
 
     const handleBlur4 = () => {
-
-        if (names4.length > 1) {
-            setCurrentEntry4(names4[0]);
-            setNames4([]);
-        }
+        setCurrentEntry4(names4[0]);
+        setNames4([names4[0]]);
         setStyle("uni_search_hid");
+        setShowText4("none");
     }
 
     var search_names4 = [];
     for (i = 0; i < names4.length; i++) {
-        search_names4.push(<div className='search_result' key={names4[i]} onMouseDown={handleElementClick4}><p>{names4[i]}</p></div>);
+        search_names4.push(<div style={{display: showText4}} className='search_result' key={names4[i]} onMouseDown={handleElementClick4}><p>{names4[i]}</p></div>);
     }
 
     // 5
@@ -299,7 +431,7 @@ export function ProfileFormAll() {
         setCurrentEntry5(event.target.value);
         setNames5(names5);
         setStyle("uni_search");
-
+        setShowText5("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -307,22 +439,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry5(val.replace("&amp;", "&"));
-        setNames5([]);
+        setNames5([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText5("none");
     }
 
     const handleBlur5 = () => {
 
-        if (names5.length > 1) {
-            setCurrentEntry5(names5[0]);
-            setNames5([]);
-        }
+        setCurrentEntry5(names5[0]);
+        setNames5([names5[0]]);
+        setShowText5("none");
         setStyle("uni_search_hid");
     }
 
     var search_names5 = [];
     for (i = 0; i < names5.length; i++) {
-        search_names5.push(<div className='search_result' key={names5[i]} onMouseDown={handleElementClick5}><p>{names5[i]}</p></div>);
+        search_names5.push(<div style={{display: showText5}} className='search_result' key={names5[i]} onMouseDown={handleElementClick5}><p>{names5[i]}</p></div>);
     }
 
     // 6
@@ -361,6 +493,7 @@ export function ProfileFormAll() {
         setCurrentEntry6(event.target.value);
         setNames6(names6);
         setStyle("uni_search");
+        setShowText6("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -368,22 +501,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry6(val.replace("&amp;", "&"));
-        setNames6([]);
+        setNames6([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText6("none");
     }
 
     const handleBlur6 = () => {
 
-        if (names6.length > 1) {
-            setCurrentEntry6(names6[0]);
-            setNames6([]);
-        }
+        setCurrentEntry6(names6[0]);
+        setNames6([names6[0]]);
         setStyle("uni_search_hid");
+        setShowText6("none");
     }
 
     var search_names6 = [];
     for (i = 0; i < names6.length; i++) {
-        search_names6.push(<div className='search_result' key={names6[i]} onMouseDown={handleElementClick6}><p>{names6[i]}</p></div>);
+        search_names6.push(<div style={{display: showText6}} className='search_result' key={names6[i]} onMouseDown={handleElementClick6}><p>{names6[i]}</p></div>);
     }
 
     // 7
@@ -422,7 +555,7 @@ export function ProfileFormAll() {
         setCurrentEntry7(event.target.value);
         setNames7(names7);
         setStyle("uni_search");
-
+        setShowText7("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -430,22 +563,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry7(val.replace("&amp;", "&"));
-        setNames7([]);
+        setNames7([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText7("none");
     }
 
     const handleBlur7 = () => {
 
-        if (names7.length > 1) {
-            setCurrentEntry7(names7[0]);
-            setNames7([]);
-        }
+        setCurrentEntry7(names7[0]);
+        setNames7([names7[0]]);
         setStyle("uni_search_hid");
+        setShowText7("none");
     }
 
     var search_names7 = [];
     for (i = 0; i < names7.length; i++) {
-        search_names7.push(<div className='search_result' key={names7[i]} onMouseDown={handleElementClick7}><p>{names7[i]}</p></div>);
+        search_names7.push(<div style={{display: showText7}} className='search_result' key={names7[i]} onMouseDown={handleElementClick7}><p>{names7[i]}</p></div>);
     }
 
     // 8
@@ -484,6 +617,7 @@ export function ProfileFormAll() {
         setCurrentEntry8(event.target.value);
         setNames8(names8);
         setStyle("uni_search");
+        setShowText8("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -491,22 +625,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry8(val.replace("&amp;", "&"));
-        setNames8([]);
+        setNames8([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText8("none");
     }
 
     const handleBlur8 = () => {
 
-        if (names8.length > 1) {
-            setCurrentEntry8(names8[0]);
-            setNames8([]);
-        }
+        setCurrentEntry8(names8[0]);
+        setNames8([names8[0]]);
         setStyle("uni_search_hid");
+        setShowText8("none");
     }
 
     var search_names8 = [];
     for (i = 0; i < names8.length; i++) {
-        search_names8.push(<div className='search_result' key={names8[i]} onMouseDown={handleElementClick8}><p>{names8[i]}</p></div>);
+        search_names8.push(<div style={{display: showText8}} className='search_result' key={names8[i]} onMouseDown={handleElementClick8}><p>{names8[i]}</p></div>);
     }
 
     // 9
@@ -545,6 +679,7 @@ export function ProfileFormAll() {
         setCurrentEntry9(event.target.value);
         setNames9(names9);
         setStyle("uni_search");
+        setShowText9("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -552,22 +687,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry9(val.replace("&amp;", "&"));
-        setNames9([]);
+        setNames9([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText9("none");
     }
 
     const handleBlur9 = () => {
 
-        if (names9.length > 1) {
-            setCurrentEntry9(names9[0]);
-            setNames9([]);
-        }
+        setCurrentEntry9(names9[0]);
+        setNames9([names9[0]]);
         setStyle("uni_search_hid");
+        setShowText9("none");
     }
 
     var search_names9 = [];
     for (i = 0; i < names9.length; i++) {
-        search_names9.push(<div className='search_result' key={names9[i]} onMouseDown={handleElementClick9}><p>{names9[i]}</p></div>);
+        search_names9.push(<div style={{display: showText9}} className='search_result' key={names9[i]} onMouseDown={handleElementClick9}><p>{names9[i]}</p></div>);
     }
 
     // 10
@@ -606,6 +741,7 @@ export function ProfileFormAll() {
         setCurrentEntry10(event.target.value);
         setNames10(names10);
         setStyle("uni_search");
+        setShowText10("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -613,22 +749,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry10(val.replace("&amp;", "&"));
-        setNames10([]);
+        setNames10([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText10("none");
     }
 
     const handleBlur10 = () => {
 
-        if (names10.length > 1) {
-            setCurrentEntry10(names10[0]);
-            setNames10([]);
-        }
+        setCurrentEntry10(names10[0]);
+        setNames10([names10[0]]);
         setStyle("uni_search_hid");
+        setShowText10("none");
     }
 
     var search_names10 = [];
     for (i = 0; i < names10.length; i++) {
-        search_names10.push(<div className='search_result' key={names10[i]} onMouseDown={handleElementClick10}><p>{names10[i]}</p></div>);
+        search_names10.push(<div style={{display: showText10}} className='search_result' key={names10[i]} onMouseDown={handleElementClick10}><p>{names10[i]}</p></div>);
     }
 
     // 11
@@ -667,6 +803,7 @@ export function ProfileFormAll() {
         setCurrentEntry11(event.target.value);
         setNames11(names11);
         setStyle("uni_search");
+        setShowText11("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -674,22 +811,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry11(val.replace("&amp;", "&"));
-        setNames11([]);
+        setNames11([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText11("none");
     }
 
     const handleBlur11 = () => {
 
-        if (names11.length > 1) {
-            setCurrentEntry11(names11[0]);
-            setNames11([]);
-        }
+        setCurrentEntry11(names11[0]);
+        setNames11([names11[0]]);
         setStyle("uni_search_hid");
+        setShowText11("none");
     }
 
     var search_names11 = [];
     for (i = 0; i < names11.length; i++) {
-        search_names11.push(<div className='search_result' key={names11[i]} onMouseDown={handleElementClick11}><p>{names11[i]}</p></div>);
+        search_names11.push(<div style={{display: showText11}} className='search_result' key={names11[i]} onMouseDown={handleElementClick11}><p>{names11[i]}</p></div>);
     }
 
     // 12
@@ -728,6 +865,7 @@ export function ProfileFormAll() {
         setCurrentEntry12(event.target.value);
         setNames12(names12);
         setStyle("uni_search");
+        setShowText12("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -735,22 +873,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry12(val.replace("&amp;", "&"));
-        setNames12([]);
+        setNames12([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText12("none");
     }
 
     const handleBlur12 = () => {
 
-        if (names12.length > 1) {
-            setCurrentEntry12(names12[0]);
-            setNames12([]);
-        }
+        setCurrentEntry12(names12[0]);
+        setNames12([names12[0]]);
         setStyle("uni_search_hid");
+        setShowText12("none");
     }
 
     var search_names12 = [];
     for (i = 0; i < names12.length; i++) {
-        search_names12.push(<div className='search_result' key={names12[i]} onMouseDown={handleElementClick12}><p>{names12[i]}</p></div>);
+        search_names12.push(<div style={{display: showText12}} className='search_result' key={names12[i]} onMouseDown={handleElementClick12}><p>{names12[i]}</p></div>);
     }
 
     // 13
@@ -789,6 +927,7 @@ export function ProfileFormAll() {
         setCurrentEntry13(event.target.value);
         setNames13(names13);
         setStyle("uni_search");
+        setShowText13("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -796,22 +935,21 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry13(val.replace("&amp;", "&"));
-        setNames13([]);
+        setNames13([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText13("none");
     }
 
     const handleBlur13 = () => {
-
-        if (names13.length > 1) {
-            setCurrentEntry13(names13[0]);
-            setNames13([]);
-        }
+        setCurrentEntry13(names13[0]);
+        setNames13([names13[0]]);
         setStyle("uni_search_hid");
+        setShowText13("none");
     }
 
     var search_names13 = [];
     for (i = 0; i < names13.length; i++) {
-        search_names13.push(<div className='search_result' key={names13[i]} onMouseDown={handleElementClick13}><p>{names13[i]}</p></div>);
+        search_names13.push(<div style={{display: showText13}} className='search_result' key={names13[i]} onMouseDown={handleElementClick13}><p>{names13[i]}</p></div>);
     }
 
     // 14
@@ -850,6 +988,7 @@ export function ProfileFormAll() {
         setCurrentEntry14(event.target.value);
         setNames14(names14);
         setStyle("uni_search");
+        setShowText14("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -857,22 +996,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry14(val.replace("&amp;", "&"));
-        setNames14([]);
+        setNames14([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText14("none");
     }
 
     const handleBlur14 = () => {
 
-        if (names14.length > 1) {
-            setCurrentEntry14(names14[0]);
-            setNames14([]);
-        }
+        setCurrentEntry14(names14[0]);
+        setNames14([names14[0]]);
         setStyle("uni_search_hid");
+        setShowText14("none");
     }
 
     var search_names14 = [];
     for (i = 0; i < names14.length; i++) {
-        search_names14.push(<div className='search_result' key={names14[i]} onMouseDown={handleElementClick14}><p>{names14[i]}</p></div>);
+        search_names14.push(<div style={{display: showText14}} className='search_result' key={names14[i]} onMouseDown={handleElementClick14}><p>{names14[i]}</p></div>);
     }
 
     // 15
@@ -911,6 +1050,7 @@ export function ProfileFormAll() {
         setCurrentEntry15(event.target.value);
         setNames15(names15);
         setStyle("uni_search");
+        setShowText15("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -918,22 +1058,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry15(val.replace("&amp;", "&"));
-        setNames15([]);
+        setNames15([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText15("none");
     }
 
     const handleBlur15 = () => {
 
-        if (names15.length > 1) {
-            setCurrentEntry15(names15[0]);
-            setNames15([]);
-        }
+        setCurrentEntry15(names15[0]);
+        setNames15([names15[0]]);
         setStyle("uni_search_hid");
+        setShowText15("none");
     }
 
     var search_names15 = [];
     for (i = 0; i < names15.length; i++) {
-        search_names15.push(<div className='search_result' key={names15[i]} onMouseDown={handleElementClick15}><p>{names15[i]}</p></div>);
+        search_names15.push(<div style={{display: showText15}} className='search_result' key={names15[i]} onMouseDown={handleElementClick15}><p>{names15[i]}</p></div>);
     }
 
     // 16
@@ -972,6 +1112,7 @@ export function ProfileFormAll() {
         setCurrentEntry16(event.target.value);
         setNames16(names16);
         setStyle("uni_search");
+        setShowText16("initial");
     }
 
     //Processes clicking on one of the searched features
@@ -979,22 +1120,22 @@ export function ProfileFormAll() {
         event.preventDefault();
         var val = event.target.innerHTML;
         setCurrentEntry16(val.replace("&amp;", "&"));
-        setNames16([]);
+        setNames16([val.replace("&amp;", "&")]);
         setStyle("uni_search_hid");
+        setShowText16("none");
     }
 
     const handleBlur16 = () => {
 
-        if (names16.length > 1) {
-            setCurrentEntry16(names16[0]);
-            setNames16([]);
-        }
+        setCurrentEntry16(names16[0]);
+        setNames16([names16[0]]);
         setStyle("uni_search_hid");
+        setShowText16("none");
     }
 
     var search_names16 = [];
     for (i = 0; i < names16.length; i++) {
-        search_names16.push(<div className='search_result' key={names16[i]} onMouseDown={handleElementClick16}><p>{names16[i]}</p></div>);
+        search_names16.push(<div style={{display: showText16}} className='search_result' key={names16[i]} onMouseDown={handleElementClick16}><p>{names16[i]}</p></div>);
     }
 
 
@@ -1002,7 +1143,7 @@ export function ProfileFormAll() {
 
         <section className="profile_form_all">
             <ProfileHeader />
-            <form action={"http://127.0.0.1:5000/submit/" + getUserName} method="POST" encType="multipart/form-data" className="ui form profile_form_final">
+            <form action={"http://34.172.189.28:3389/submit/" + getUserName} method="POST" encType="multipart/form-data" className="ui form profile_form_final">
 
                 {/* Undergrad */}
                 <h3>Education</h3>
@@ -1017,7 +1158,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Degree Type</span>
                         <select name="edu_degree_1" className="ui selection dropdown">
-                            <option>Select Degree Type</option>
+                            <option value={""} selected>Select Degree Type</option>
                             <option value={"Associate Degree"}>Associate Degree</option>
                             <option value={"Bachelor's Degree"}>Bachelor's Degree</option>
                             <option value={"Master's Degree"}>Master's Degree</option>
@@ -1029,7 +1170,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>GPA</span>
                         <select name="edu_gpa_1" className="ui selection dropdown">
-                            <option>Select GPA</option>
+                            <option value={""} selected>Select GPA</option>
                             <option value={4.0}>4.0</option>
                             <option value={3.9}>3.9</option>
                             <option value={3.8}>3.8</option>
@@ -1076,7 +1217,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Degree Type</span>
                             <select name="edu_degree_2" className="ui selection dropdown">
-                                <option>Select Degree Type</option>
+                                <option value={""}  selected>Select Degree Type</option>
                                 <option value={"Associate Degree"}>Associate Degree</option>
                                 <option value={"Bachelor's Degree"}>Bachelor's Degree</option>
                                 <option value={"Master's Degree"}>Master’s Degree</option>
@@ -1088,7 +1229,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>GPA</span>
                             <select name="edu_gpa_2" className="ui selection dropdown">
-                                <option>Select GPA</option>
+                                <option value={""}  selected>Select GPA</option>
                                 <option value={4.0}>4.0</option>
                                 <option value={3.9}>3.9</option>
                                 <option value={3.8}>3.8</option>
@@ -1136,7 +1277,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Degree Type</span>
                             <select name="edu_degree_3" className="ui selection dropdown">
-                                <option>Select Degree Type</option>
+                                <option value={""}  selected>Select Degree Type</option>
                                 <option value={"Associate Degree"}>Associate Degree</option>
                                 <option value={"Bachelor's Degree"}>Bachelor's Degree</option>
                                 <option value={"Master's Degree"}>Master’s Degree</option>
@@ -1148,7 +1289,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>GPA</span>
                             <select name="edu_gpa_3" className="ui selection dropdown">
-                                <option>Select GPA</option>
+                                <option value={""}  selected>Select GPA</option>
                                 <option value={4.0}>4.0</option>
                                 <option value={3.9}>3.9</option>
                                 <option value={3.8}>3.8</option>
@@ -1196,7 +1337,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Degree Type</span>
                             <select name="edu_degree_4" className="ui selection dropdown">
-                                <option>Select Degree Type</option>
+                                <option value={""}  selected>Select Degree Type</option>
                                 <option value={"Associate Degree"}>Associate Degree</option>
                                 <option value={"Bachelor's Degree"}>Bachelor's Degree</option>
                                 <option value={"Master's Degree"}>Master’s Degree</option>
@@ -1208,7 +1349,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>GPA</span>
                             <select name="edu_gpa_4" className="ui selection dropdown">
-                                <option>Select GPA</option>
+                                <option value={""}  selected>Select GPA</option>
                                 <option value={4.0}>4.0</option>
                                 <option value={3.9}>3.9</option>
                                 <option value={3.8}>3.8</option>
@@ -1285,7 +1426,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Funding</span>
                         <select name="res_funding_1">
-                            <option>Select Funding</option>
+                            <option value={""}  selected>Select Funding</option>
                             <option value={"No Funding"}>No Funding</option>
                             <option value={"Partial Funding"}>Partial Funding</option>
                             <option value={"Full Funding"}>Full Funding</option>
@@ -1295,7 +1436,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Application Result</span>
                         <select name="res_app_1" onChange={handleAppResult1}>
-                            <option>Select Result</option>
+                            <option value={""}  selected>Select Result</option>
                             <option value={"Accepted"}>Accepted</option>
                             <option value={"Rejected"}>Rejected</option>
                             <option value={"Waitlisted"}>Waitlisted</option>
@@ -1306,7 +1447,7 @@ export function ProfileFormAll() {
                         status1 && <label>
                             <span>Decision</span>
                             <select name="res_dec_1">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
@@ -1336,7 +1477,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_2">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1345,22 +1486,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_2">
-                                <option>Select Result</option>
+                            <select name="res_app_2" onChange={handleAppResult2}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status2 && <label>
                             <span>Decision</span>
                             <select name="res_dec_2">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1386,7 +1527,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_3">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1395,22 +1536,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_3">
-                                <option>Select Result</option>
+                            <select name="res_app_3" onChange={handleAppResult3}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status3 && <label>
                             <span>Decision</span>
                             <select name="res_dec_3">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1436,7 +1577,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_4">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1445,22 +1586,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_4">
-                                <option>Select Result</option>
+                            <select name="res_app_4" onChange={handleAppResult4}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status4 && <label>
                             <span>Decision</span>
                             <select name="res_dec_4">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1486,7 +1627,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_5">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1495,22 +1636,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_5">
-                                <option>Select Result</option>
+                            <select name="res_app_5" onChange={handleAppResult5}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status5 && <label>
                             <span>Decision</span>
                             <select name="res_dec_5">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1536,7 +1677,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_6">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1545,22 +1686,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_6">
-                                <option>Select Result</option>
+                            <select name="res_app_6" onChange={handleAppResult6}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status6 && <label>
                             <span>Decision</span>
                             <select name="res_dec_6">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1586,7 +1727,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_7">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1595,22 +1736,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_7">
-                                <option>Select Result</option>
+                            <select name="res_app_7" onChange={handleAppResult7}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status7 && <label>
                             <span>Decision</span>
                             <select name="res_dec_7">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1636,7 +1777,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_8">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1645,22 +1786,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_8">
-                                <option>Select Result</option>
+                            <select name="res_app_8" onChange={handleAppResult8}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status8 && <label>
                             <span>Decision</span>
                             <select name="res_dec_8">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1686,7 +1827,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_9">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1695,22 +1836,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_9">
-                                <option>Select Result</option>
+                            <select name="res_app_9" onChange={handleAppResult9}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status9 && <label>
                             <span>Decision</span>
                             <select name="res_dec_9">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1736,7 +1877,7 @@ export function ProfileFormAll() {
                         <label>
                             <span>Funding</span>
                             <select name="res_funding_10">
-                                <option>Select Funding</option>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1745,22 +1886,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_10">
-                                <option>Select Result</option>
+                            <select name="res_app_10" onChange={handleAppResult10}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status10 && <label>
                             <span>Decision</span>
                             <select name="res_dec_10">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1785,8 +1926,8 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Funding</span>
-                            <select name="res_funding_11">
-                                <option>Select Funding</option>
+                            <select name="res_funding_11" onChange={handleAppResult11}>
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1796,21 +1937,21 @@ export function ProfileFormAll() {
                         <label>
                             <span>Application Result</span>
                             <select name="res_app_11">
-                                <option>Select Result</option>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status11 && <label>
                             <span>Decision</span>
                             <select name="res_dec_11">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1835,8 +1976,8 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Funding</span>
-                            <select name="res_funding_12">
-                                <option>Select Funding</option>
+                            <select name="res_funding_12" >
+                                <option value={""}  selected>Select Funding</option>
                                 <option value={"No Funding"}>No Funding</option>
                                 <option value={"Partial Funding"}>Partial Funding</option>
                                 <option value={"Full Funding"}>Full Funding</option>
@@ -1845,22 +1986,22 @@ export function ProfileFormAll() {
 
                         <label>
                             <span>Application Result</span>
-                            <select name="res_app_12">
-                                <option>Select Result</option>
+                            <select name="res_app_12" onChange={handleAppResult12}>
+                                <option value={""}  selected>Select Result</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Rejected"}>Rejected</option>
                                 <option value={"Waitlisted"}>Waitlisted</option>
                             </select>
                         </label>
 
-                        <label>
+                        {status12 && <label>
                             <span>Decision</span>
                             <select name="res_dec_12">
-                                <option>Select Decision</option>
+                                <option value={""}  selected>Select Decision</option>
                                 <option value={"Accepted"}>Accepted</option>
                                 <option value={"Declined"}>Declined</option>
                             </select>
-                        </label>
+                        </label>}
                     </section>
                 }
 
@@ -1877,7 +2018,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Ethnicity</span>
                         <select name="demo_eth">
-                            <option>Select Ethnicity</option>
+                            <option value={""}  selected>Select Ethnicity</option>
                             <option value={"White"}>White</option>
                             <option value={"Asian"}>Asian</option>
                             <option value={"Black or African American"}>Black or African American</option>
@@ -1890,7 +2031,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Gender</span>
                         <select name="demo_gender">
-                            <option>Select Gender</option>
+                            <option value={""}  selected>Select Gender</option>
                             <option value={"Female"}>Female</option>
                             <option value={"Male"}>Male</option>
                             <option value={"Non-binary"}>Non-binary</option>
@@ -1901,7 +2042,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>First-gen?</span>
                         <select name="demo_fistgen">
-                            <option>Select First-gen</option>
+                            <option value={""}  selected>Select First-gen</option>
                             <option value={"No"}>No</option>
                             <option value={"Yes"}>Yes</option>
                         </select>
@@ -1910,7 +2051,7 @@ export function ProfileFormAll() {
                     <label>
                         <span>Citizenship</span>
                         <select name="demo_citizenship">
-                            <option>Select Country</option>
+                            <option value={""}  selected>Select Country</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Aland Islands">Aland Islands</option>
                             <option value="Albania">Albania</option>
@@ -2173,10 +2314,6 @@ export function ProfileFormAll() {
                     <p>Please erase all your personal information</p><br />
                     <label><span>Upload Your Statement of Purpose (.pdf)</span><input type='file' accept=".pdf" name="sop" /></label><br />
                     <label><span>Upload Your Curriculum vitae (.pdf)</span><input type='file' accept=".pdf" name="cv" /></label><br />
-                    <label id="hidden">
-                        <input type="checkbox" />
-                        <span>I have hidden all the information that I believe is sensitive</span>
-                    </label>
                 </section >
 
                 <section className="submit_button">

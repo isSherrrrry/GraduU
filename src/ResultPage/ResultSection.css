@@ -1,6 +1,6 @@
 .result_section{
     width: 60vw;
-    border: 1px solid #8EB5FD;
+    border: 1px solid rgba(0,0,0,0.1);
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
@@ -71,25 +71,26 @@
 }
 
 #result_status_indi{
+    position: relative;
     margin-top: 20px;
-    text-align: left;
     display: flex;
     flex-direction: row;
 }
 .app_results .status{
-    width: 10vw;
+    width: 15vw;
+    position: relative;
     display: flex;
-    text-align: left;
     margin-left: 10px;
     flex-direction: row;
     align-items: center;
+    align-content: center;
     color: rgba(0,0,0,0.6);
     font-size: 13px;
 }
 .app_results .circle{
+    display:inline-block;
     width: 20px;
     height:20px;
-    display:inline-block;
     border-radius: 100%;
     margin-right: 10px;
 }
@@ -121,10 +122,10 @@
 }
 
 /* COLORS */
-.app_results{
+.app_results, .About{
     box-shadow: -10px 10px 10px #FDE6AB;
 }
-.result_underg{
+.result_underg, .personal_info{
     box-shadow: -10px 10px 10px #FFD1D1;
 }
 .result_grad{
@@ -140,6 +141,7 @@
 .geninfo #info_id{
     font-weight: 800;
     font-size: 22px;
+    cursor: pointer;
 }
 .geninfo #info_pronoun{
     font-style: italic;
@@ -159,4 +161,37 @@
     display: block;
     background-color: rgba(255,255,255,0.8);
     border-radius: 20px;
+    cursor: pointer;
+}
+.result_whole{
+    display: flex;
+    height:105vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+.result_whole .left{
+    position: fixed;
+    width: 20vw;
+    background-color: rgb(240, 240, 240);
+    margin-left: 5vw;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+    text-align: left;
+}
+.result_whole .right{
+    width: 72vw;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-left: 34vw;
+    margin-bottom:10px;
+}
+.submitted{
+    margin-top: 50px;
+}
+.desc{
+    margin-left: 15px;
+}
+.footer{
+    margin-top: 20px;
 }

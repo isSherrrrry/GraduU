@@ -1,5 +1,6 @@
 .profile_whole{
     display: flex;
+    height: 1500px !important;
 }
 .profile_whole .left{
     position: fixed;
@@ -28,6 +29,7 @@
     padding-bottom: 30px;
     margin-left: 25vw;
     margin-top: 40px;
+    height:100vh;
 }
 .PorS{
     display: flex;

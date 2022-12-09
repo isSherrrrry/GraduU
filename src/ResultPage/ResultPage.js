@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import classNames from 'classnames';
 
-import './ResultPage.css'
 import './ResultSection.css'
 
 
@@ -33,27 +32,33 @@ function waitlist(input){
 export function ResultPage() {
   const { state } = useLocation();
   const user = state.username;
-  const [data, setdata] = useState([])
+  const [data, setdata] = useState([]);
+
+  const navigate = useNavigate();
+
+  const profileClick = () =>{
+    navigate('/profile', { state: { 'currUser': user } })
+  }
 
   const downloadCV = () => {
     const usr = data.username;
-    fetch("http://127.0.0.1:5000/download/" + usr + "_cv.pdf")
-    .then(window.open('http://127.0.0.1:5000/download/' + usr + "_cv.pdf", "_blank"));
+    fetch("http://34.172.189.28:3389/download/" + usr + "_cv.pdf")
+    .then(window.open('http://34.172.189.28:3389/download/' + usr + "_cv.pdf", "_blank"));
   }
 
   const downloadSOP = () => {
     const usr = data.username;
-    fetch("http://127.0.0.1:5000/download/" + usr + "_sop.pdf")
-    .then(window.open('http://127.0.0.1:5000/download/' + usr + "_sop.pdf", "_blank"));
+    fetch("http://34.172.189.28:3389/download/" + usr + "_sop.pdf")
+    .then(window.open('http://34.172.189.28:3389/download/' + usr + "_sop.pdf", "_blank"));
   }
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/profile/' + user)
+    fetch('http://34.172.189.28:3389/profile/' + user)
       .then((res) => res.json())
       .then((res) => {
         setdata(res);
       })
-  })
+  }, [user])
 
   var btnGroupClasses1 = classNames(
     {
@@ -147,19 +152,21 @@ export function ResultPage() {
         <section className="left">
         <section className='geninfo'>
             <section className='text_info'>
-                <p id='info_id'>{data.first_name + " " + data.last_name}</p>
+                <p id='info_id' onClick={profileClick}>{data.first_name + " " + data.last_name}</p>
                 <p id='info_pronoun'>{data.pronouns}</p>
                 <p id='info_desc'>{data.about}</p>
             </section>
             <section className='contacts'>
                 <h4>Contacts</h4>
-                <p>Email: <a href = {"mailto:" + data.email}>{data.email}</a></p>
-                <p>LinkedIn: <span><a href= {data.linkedin} target='_blank' rel="noreferrer">Go to LinkedIn!</a></span></p>
+                {data.email ? <p>Email: <a href = {"mailto:" + data.email}>{data.email}</a></p>:
+                <p>Email: None</p>}
+                {data.linkedin ? <p>LinkedIn: <span><a href= {data.linkedin} target='_blank' rel="noreferrer">Go to LinkedIn!</a></span></p>:
+                <p>LinkedIn: None</p>}
             </section>
             <section className='downloads'>
                 <h4>Documents</h4>
-                {data.cv !== '' ? (<p onClick={downloadCV}>CV ↓</p>) : (<p>CV not Avaliable</p>)}
-                {data.sop !== '' ? (<p onClick={downloadSOP}>Statement of Purpose ↓</p>) : (<p>Statement of Purpose not Avaliable</p>)}
+                {data.cv !== '' ? (<p onClick={downloadCV}>CV ↓</p>) : (<p>CV not Available</p>)}
+                {data.sop !== '' ? (<p onClick={downloadSOP}>Statement of Purpose ↓</p>) : (<p>Statement of Purpose not Available</p>)}
             </section>
         </section>
         </section>

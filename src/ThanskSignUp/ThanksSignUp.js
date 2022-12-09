@@ -3,13 +3,14 @@ import './simple.css'
 
 const Create = () => {
 
+    const getUserName = localStorage.getItem("username");
 
     const navigate = useNavigate();
     
     return(
         <section className='simple simple2'>
             <p className='largeSimple'>Thank you for signing up!</p>
-            <p>Log In to submit a profile.</p>
+            <p>Want to submit a profile?</p>
             <button onClick={() => navigate('/login')}>Log In</button>
         </section>
     ); 

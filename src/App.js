@@ -12,7 +12,8 @@ import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileEdit  from './ProfileEdit/ProfileEdit'
 import ErrorPage from './ErrorPage/ErrorPage'
 import NotLoggedIn from './NotLoggedIn/NotLoggedIn'
-import ThanksSignUp from './ThanksSignUp/ThanksSignUp'
+import ThanksSignUp from './ThanskSignUp/ThanksSignUp'
+import Footer from './Footer/Footer'
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
         <Route path="/thankssignup" element={<ThanksSignUp />} />
         <Route path='*' element={<ErrorPage />}/>
       </Routes>
-    </Router>
+      <Footer />
+   </Router>
   );
 }
 

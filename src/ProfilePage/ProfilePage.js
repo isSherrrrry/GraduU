@@ -1,67 +1,97 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import './ProfilePage.css'
+
+
+import '../ResultPage/ResultSection.css'
 
 const Create = () => {
 
+  const getUserName = localStorage.getItem("username");
+  const { state } = useLocation();
+  const user = state.currUser;
+  const isSame = getUserName === user ? true : false;
+  const navigate = useNavigate();
+
+  const [data, setdata] = useState([]);
+
+  useEffect(() => {
+    fetch('http://34.172.189.28:3389/user_profile/' + user)
+      .then((res) => res.json())
+      .then((res) => {
+        setdata(res);
+      })
+  }, [state.currUser])
+
+  const downloadCV = () => {
+    fetch("http://34.172.189.28:3389/download/" + user + "_cv.pdf")
+    .then(window.open('http://34.172.189.28:3389/download/' + user + "_cv.pdf", "_blank"));
+  }
+
+  const downloadSOP = () => {
+    const usr = data.username;
+    fetch("http://34.172.189.28:3389/download/" + user + "_sop.pdf")
+    .then(window.open('http://34.172.189.28:3389/download/' + user + "_sop.pdf", "_blank"));
+  }
+
+  const goToResult = () => {
+    navigate('/resultPage', {state: {'username': user}});
+  }
+
+  const edit = () => {
+    navigate('/form-edited');
+  }
+
+
     return(
-      <section className="profile_whole">
+      <section className="result_whole">
         <section className="left">
           <section className='geninfo'>
-            <h4>ericxue64</h4>
-            <p>Emory University</p>
-            <p>4th year PhD in Computer Security</p>
-            <p>He/Him/His</p>
-          </section>
-          <section className='documents'>
+            <h4 id="info_id">{user}</h4>
+            <p>{data.university}</p>
+            <p>{data.headline}</p>
+            <p>{data.pronouns}</p>
+
+            <section className='downloads'>
             <h4>Download Documents</h4>
-            <section className='CV'>
-              <p>Download CV</p>
-            </section>
-            <section className='SOP'>
-              <p>Download Statement of Purpose</p>
+            {data.cv !== '' ? (<p onClick={downloadCV}>CV</p>) : (<p>CV not Available</p>)}
+            {data.sop !== '' ? (<p onClick={downloadSOP}>Statement of Purpose</p>) : (<p>Statement of Purpose not Available</p>)}
             </section>
           </section>
+          
 
           <section className="submitted">
             <h4>Submitted Profile</h4>
-            <span>View Profile</span>
-            <span>Edit Profile</span>
+            <span onClick={goToResult}>View Profile</span>
+            {isSame && <span onClick={edit}>Edit Profile</span>}
           </section>
         </section>
 
         <section className='right'>
-          <section className='PorS'>
-              <span id="saved_prog">Personal Information</span>
-              <span >Saved Programs</span>
-          </section>
-          <section className='About profile_section'>
-            <h4>About me</h4>
-            <p className="desc">Data manager at Queen Savvy Lab,
-            Nell Hodgson Woodruff School of Nursing at Emory University</p>
+          <section className='About result_section'>
+            <h3>About me</h3>
+            <p className="desc">{data.about}</p>
           </section>
 
-          <section className='personal_info profile_section'>
-            <h4>Personal Information</h4>
-            <section className="personal_items">
-              <section>
-                Contact Email: eric.xue@emory.edu
-              </section>
-              <section>
-                Pronoun: He/Him/His
-              </section>
-              <section>
-                Gender: Male
-              </section>
-              <section>
-                Race/Ethnicity: Asian
-              </section>
-              <section>
-                LinkedIn: Click Here
-              </section>
-              <section>
-                Research Gate: Click Here
-              </section>
+          <section className='personal_info result_section'>
+            <h3>Personal Information</h3>
+            <section className="personal_items result_text">
+              {data.email && <section>
+                Contact Email: {data.email}
+              </section>}
+              {data.pronouns && <section>
+                Pronoun: {data.pronouns}
+              </section>}
+              {data.gender && <section>
+                Gender: {data.gender}
+              </section>}
+              {data.race && <section>
+                Race/Ethnicity: {data.race}
+              </section>}
+              {data.linkedin && <section>
+                LinkedIn: <a href={data.linkedin} target='_blank' rel="noreferrer">Click Here</a>
+              </section>}
+             
             </section>
           </section>
 

@@ -8,26 +8,27 @@
 .profile_form_final{
     display: flex;
     width: 100vw;
+    padding-left: 4vw;
+    padding-right: 4vw;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 
 h3{
+    text-align: center;
     margin-top: 80px;
     font-size: 30px;
-    margin-left: 4vw;
     font-weight: 800;
 }
 
 .profile_section{
     display: flex;
     flex-wrap: wrap;
-    padding-right: 70px;
     padding-bottom: 20px;
     padding-top: 10px;
-    padding-left: 100px;
     align-items: center;
     font-size: 16px;
     justify-content: left;
@@ -83,18 +84,17 @@ button{
     position: relative;
     text-align: center;
     display: inline-block;
-    left: -3vw;
     font-size: 15px;
-    background-color:#CDF0EA;
-    width: 360px;
+    width: 330px;
     margin-top: 20px;
+    background-color: red;
     color: rgba(0,0,0,0.8);
 }
 .change_button_add{
-    background-color:#CDF0EA;
+    background:#CDF0EA !important;
 }
 .change_button_delete{
-    background-color: #FF9494;
+    background: #FF9494 !important;
 }
 
 .change_button span{
@@ -106,11 +106,12 @@ button{
     opacity: 0.6;
 }
 
-#profile_upload{
+#profile_upload {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
-
 #profile_upload p{
     color: brown;
 }

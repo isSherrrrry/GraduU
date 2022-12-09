@@ -2,7 +2,8 @@
 
 .profile_all_with{
     width: 100vw;
-    height: 100vh;
+    background: url(https://www.emory.edu/home/_includes/images/sections/admission/4.4/_0001_0010903-19kh-f242-header.jpg) no-repeat center center fixed;
+    margin-top: -140px;
 }
 
 .profile_gallery_main{
@@ -11,6 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 140px;
+    background-color: rgba(255,255,255,0.93);
 }
 
 .profile_main_title{
@@ -19,6 +22,7 @@
     font-weight: 100;
     color:rgba(0,0,0,0.8);
     text-align: center;
+    margin-top: 100px;
     
 }
 .text{
@@ -93,6 +97,10 @@
     background: none;
 }
 
+.searchMethod{
+    background: none !important;
+}
+
 .searchMethod option{
     display:inline;
     font-size: 20px;
@@ -114,4 +122,94 @@
 .submitButton img{
     width: 35px;
     background-color: white; 
+}
+
+
+.profile_gallery_main_mini{
+    width: 100vw;
+    text-align: center;
+    padding-bottom:50px;
+}
+.profile_main_title_mini{
+    text-align: center;
+    font-size: 18px;
+    margin-top: 40px;
+    line-height: 18px;
+}
+.text_mini{
+    position: relative;
+    font-size: 45px;
+    font-weight: 800;
+    background-image: radial-gradient( #92B4EC, #E2CC88);
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    text-shadow: 0px 0px 4px rgba(0,0,0,0.1);
+    margin-top: -30px;
+}
+.text2_mini{
+    font-style: italic;
+    font-weight: 100;
+    color: rgba(0,0,0,0.6);
+    margin-top: -30px;
+}
+.text3_mini{
+    font-size: 30px;
+    font-weight: 800;
+}
+.searchForm_mini{
+    width: 100vw;
+    text-align: center;
+    margin-top: 100px;
+}
+.searchMethod_mini{
+    font-size: 17px;
+}
+.searchMethodInput_mini{
+    font-size: 15px;
+}
+.searchBarAll_mini{
+    width: 100vw;
+    display: inline-block;
+}
+.searchBar_mini *{
+    width: 90vw;
+    height: 30px;
+    padding: 15px;
+    border-radius: 40px;
+    font-size: 15px;
+    color:rgba(0,0,0,0.6);
+    font-style: italic;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 0.5px solid rgba(0,0,0,0.7);
+    margin-top: 15px;
+}
+.submitButton_mini{
+    position: absolute;
+    margin-top: -56px;
+    width: 40px;
+    right: 8vw;
+}
+.submitButton_mini img{
+    width: 30px;
+    height: 30px;
+}
+
+.want_mini{
+    margin-top: 80px;
+}
+.main_submit_mini{
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 20px;
+    background-color: rgba(148,172,210,1);
+    font-size: 18px;
+    font-weight: 1000;
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    mask-origin: 20px;
 }

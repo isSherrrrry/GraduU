@@ -36,7 +36,7 @@ export function SearchResult() {
         setLoading(true);
         if (searchOption === 'by_uni') {
             let query = event.target.searchTerm.value;
-            fetch("http://127.0.0.1:5000/search_uni/" + query)
+            fetch("http://34.172.189.28:3389/search_uni/" + query)
                 .then((res) => res.json())
                 .then((res) => {
                     var newState = {
@@ -50,7 +50,7 @@ export function SearchResult() {
         }
         else {
             let query = event.target.searchTerm.value;
-            fetch("http://127.0.0.1:5000/search_major/" + query)
+            fetch("http://34.172.189.28:3389/search_major/" + query)
                 .then((res) => res.json())
                 .then((res) => {
                     var newState = {
@@ -73,13 +73,14 @@ export function SearchResult() {
         <section className="searchresult">
             <form onSubmit={searchQuery} className='searchForm_1'>
                 <select name='search_method' onChange={toggleSearchType} className="searchMethod_1" size={2}>
-                    <option value={"by_uni"}>Search By Univeristy</option>
+                    <option value={"by_uni"}>Search By University</option>
                     <option value={"by_major"}>Search By Major</option>
                 </select>
                 <div className='searchBarAll_1'>
                     <div className='searchBar_1'><input
                         type="text"
                         name="searchTerm"
+			autoComplete = "off"
                     /></div>
                     <button type='submit' className="submitButton_1"><img src={searchIcon} alt=""/></button>
                 </div>

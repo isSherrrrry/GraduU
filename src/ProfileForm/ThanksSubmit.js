@@ -2,10 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
 
-    const getUserName = localStorage.getItem("username");
-
     const navigate = useNavigate();
     const resultClick = (key) => {
+	let getUserName = localStorage.getItem("username");
         navigate('/resultPage', { state: { 'username': getUserName } });
     }
     

@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 DATABASE_URI =  'postgresql://postgres:admin@34.71.222.229:5432/profile_gallery' 
 engine = create_engine(DATABASE_URI, echo=True)
 
-UPLOAD_FOLDER = '/Users/agushin/Desktop/Uploads'
+UPLOAD_FOLDER = '/home/ericxue64/Uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -37,7 +37,7 @@ def index():
     json['result_1'] = a
     json['result_2'] = b
     json['result_3'] = c
-    return redirect("http://localhost:3000/thankyou")
+    return redirect("http://localhost:3000/")
 
 ##
 # Handle submissions.
@@ -116,7 +116,7 @@ def update_database(username):
         if sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
-        if sop and allowed_file(sop.filename):
+        if cv and allowed_file(cv.filename):
             cvfilename = secure_filename(test_username+'_cv.pdf')
             cv.save(os.path.join(app.config['UPLOAD_FOLDER'], cvfilename))
         data = request.form
@@ -127,8 +127,6 @@ def update_database(username):
         recommender=data['rec']
         prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
         session.add(prof)
-        # session.flush()
-        # session.refresh(prof)
         for i in range(1,5):
             if 'edu_uni_name_'+str(i) in data.keys():
                 edu_uni_name=data['edu_uni_name_'+str(i)]
@@ -136,7 +134,6 @@ def update_database(username):
                 edu_gpa=data['edu_gpa_'+str(i)]
                 edu_major=data['edu_major_'+str(i)]
                 edu_minor=data['edu_minor_'+str(i)]
-                ####NEED YEAR UPDATE HERE TODO TODO TODO####
                 goesto_row=goesto(edu_uni_name, test_username, 2020, edu_major, edu_minor, edu_gpa, edu_degree)
                 session.add(goesto_row)
         for j in range(1,13):
@@ -154,41 +151,44 @@ def update_database(username):
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
-    return redirect("http://localhost:3000/thankyou")
+    return redirect("http://gradu.life/thankyou")
 
-@app.route("/edit/<username>")
+@app.route("/edit/<username>", methods=['POST'])
 def edit_database(username):
     with Session(engine) as session:
+        
         test_username = username
         files = session.query(Demographics).filter_by(username=username)
-
+        
+        
         sop=request.files['sop']
         cv=request.files['cv']
-
-        if sop is None:
+        sopfilename = ''
+        cvfilename = ''
+        
+        if sop.filename == '':
             sopfilename = files[0].getSOP()
-        if cv is None:
-            cvfilename = files[0].getCV()
-
-        if sop and allowed_file(sop.filename):
+            print(sopfilename)
+        elif sop and allowed_file(sop.filename):
             sopfilename = secure_filename(test_username+'_sop.pdf')
             sop.save(os.path.join(app.config['UPLOAD_FOLDER'], sopfilename))
-        if sop and allowed_file(sop.filename):
+        if cv.filename == '':
+            cvfilename = files[0].getCV()
+        elif cv and allowed_file(cv.filename):
             cvfilename = secure_filename(test_username+'_cv.pdf')
             cv.save(os.path.join(app.config['UPLOAD_FOLDER'], cvfilename))
-
+        
         data = request.form
         demo_eth=data['demo_eth']
         demo_gender=data['demo_gender']
-        demo_fistgen=data['demo_fistgen']
+        demo_fistgen=data['demo_firstgen']
         demo_citizenship=data['demo_citizenship']
         recommender=data['rec']
-
+        
         session.query(Demographics).filter_by(username=username).delete()
         session.query(appliedto).filter_by(username=username).delete()
         session.query(goesto).filter_by(username=username).delete()
         session.commit()
-
         prof=Demographics(test_username, demo_eth, demo_gender, demo_fistgen, demo_citizenship, recommender, sopfilename, cvfilename)
         session.add(prof)
         for i in range(1,5):
@@ -198,7 +198,6 @@ def edit_database(username):
                 edu_gpa=data['edu_gpa_'+str(i)]
                 edu_major=data['edu_major_'+str(i)]
                 edu_minor=data['edu_minor_'+str(i)]
-                ####NEED YEAR UPDATE HERE TODO TODO TODO####
                 goesto_row=goesto(edu_uni_name, test_username, 2020, edu_major, edu_minor, edu_gpa, edu_degree)
                 session.add(goesto_row)
         for j in range(1,13):
@@ -216,7 +215,7 @@ def edit_database(username):
                 app_to_row1=appliedto(res_uni_1, test_username, 2020,res_school_1,res_prog_1, res_app_1, res_funding_1, res_dec_1)
                 session.add(app_to_row1)
         session.commit()
-    return redirect("http://localhost:3000/thankyou")
+    return redirect("http://gradu.life/thankyou")
 
 ##
 # Handles the construction of profiles.
@@ -253,12 +252,24 @@ def generate_user_profile(username):
 
     data = {
         'university': finalChoice,
-        'sop': sop_cv[0].getSOP(),
-        'cv': sop_cv[0].getCV(),
+        'sop': sop_cv['sop'],
+        'cv': sop_cv['cv'],
     }
     data.update(profileData)
 
     return jsonify(data)
+
+##Determines if a user has already submitted a profile.
+@app.route('/has_submitted/<username>')
+def hasSubmitted(username):
+    submission = {}
+    with Session(engine) as session:
+        result = len(session.query(Demographics).filter_by(username=username).all())
+        if result == 0:
+            submission['submitted'] = False
+        else:
+            submission['submitted'] = True
+    return jsonify(submission)
 
 #####
 # Search Functions
@@ -284,8 +295,8 @@ def uni_search(university):
             gender = demographics.get('gender')
             sop_aval = demographics.get('sop')
             cv_aval = demographics.get('cv')
-            sop = 'SOP not Avaliable' if sop_aval == '' else 'SOP Avaliable'
-            cv = 'CV not Avaliable' if cv_aval == '' else 'CV Avaliable'
+            sop = 'SOP not Available' if sop_aval == '' else 'SOP Available'
+            cv = 'CV not Available' if cv_aval == '' else 'CV Available'
 
             entry = {
                 'id': result,
@@ -326,8 +337,8 @@ def major_search(major):
             gender = demographics.get('gender')
             sop_aval = demographics.get('sop')
             cv_aval = demographics.get('cv')
-            sop = 'SOP not Avaliable' if sop_aval == '' else 'SOP Avaliable'
-            cv = 'CV not Avaliable' if cv_aval == '' else 'CV Avaliable'
+            sop = 'SOP not Available' if sop_aval == '' else 'SOP Available'
+            cv = 'CV not Available' if cv_aval == '' else 'CV Available'
 
             entry = {
                 'id': result,
@@ -405,7 +416,7 @@ def get_goes_to(username, returnCount=False):
             goes_to['uni_degree_' + str(goesto_index)] = school.getDegree()
             goesto_index += 1
         if returnCount is True:
-            goes_to['education_count'] = goesto_index
+            goes_to['education_count'] = goesto_index - 1
     return goes_to
 
 #Gets application data
@@ -431,7 +442,7 @@ def get_applied_to(username, returnCount=False):
             applied_to['application_decision_' + str(applied_index)] = application.getDecision()
             applied_index += 1
         if returnCount is True:
-            applied_to['education_count'] = applied_index
+            applied_to['application_count'] = applied_index - 1
 
     return applied_to
 
