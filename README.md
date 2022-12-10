@@ -1,6 +1,6 @@
 # GraduU
 
-**Currently ONLINE at [gradu.life](gradu.life)** 
+**Currently ONLINE at [gradu.life](http://www.gradu.life/)** 
 
 *This project is part of the Emory_CS370_3_Fall_22. The team memebers are: Adrian Gushin, Tiantian Li, Zach Cheng, Chen Xue, and Yijun Liu*
 
@@ -11,7 +11,7 @@ This website aims to alleviate that gap by providing a compiled source of data o
 
 ## Access 
 
-Currently online at [gradu.life](gradu.life)
+Currently online at [gradu.life](http://www.gradu.life/)
 
 
 ## Documentation 
